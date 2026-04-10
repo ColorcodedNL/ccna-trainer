@@ -771,7 +771,7 @@ const SCEN = [
     {id:"vtylogin", cmd:"login local",                                m:/^login\s+local$/i,                               ok:"Authentication via local user database. Required when using SSH.", req:["linevty","username"],mode:"config-line-vty"},
     {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                        ok:"Returned to global configuration mode.",                      req:["linevty"],          mode:"config-line-vty",set:"config"},
     {id:"crypto",   cmd:"crypto key generate rsa",                    m:/^crypto\s+key\s+generate\s+rsa$/i,               ok:"Generating RSA key pair...",                           req:["hostname","domain"],mode:"config",set:"rsa-prompt"},
-    {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                         ok:"1024-bit RSA key generated. SSH version 2 enabled. Note: 512 bits = SSH 1.5/1.99 only.", req:["crypto"],      mode:"rsa-prompt"},
+    {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                         ok:"1024-bit RSA key generated. SSH version 2 enabled. Note: 512 bits = SSH 1.5/1.99 only.", req:["crypto"],      mode:"rsa-prompt",set:"config"},
     {id:"end",      cmd:"end",                                        m:/^end$/i,                                         ok:"Returned to privileged EXEC mode.",                               req:["conf_t"],           mode:"config",       set:"priv"},
     {id:"save",     cmd:"copy running-config startup-config",         m:/^copy\s+run(ning-config)?\s+start(up-config)?$/i,ok:"Configuration saved to NVRAM (startup-config).",              req:["end"],              mode:"priv"},
   ]},
@@ -836,7 +836,7 @@ const SCEN = [
     {id:"vtylogin", cmd:"login local",                                m:/^login\s+local$/i,                             ok:"Login local configured. Required for SSH.",               req:["linevty","username"],mode:"config-line-vty"},
     {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                      ok:"Returned to global configuration mode.",                     req:["linevty"],         mode:"config-line-vty",set:"config"},
     {id:"crypto",   cmd:"crypto key generate rsa",                    m:/^crypto\s+key\s+generate\s+rsa$/i,             ok:"Generating RSA key pair...",                          req:["hostname","domain"],mode:"config",set:"rsa-prompt"},
-    {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                       ok:"1024-bit RSA key generated. SSH version 2 enabled.",                  req:["crypto"],          mode:"rsa-prompt"},
+    {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                       ok:"1024-bit RSA key generated. SSH version 2 enabled.",                  req:["crypto"],          mode:"rsa-prompt",set:"config"},
     {id:"intrange", cmd:"interface range f0/1-4, f0/7-24, g0/1-2",   m:/^int(erface)?\s+range\s+.+$/i,                ok:"Interface range selected. Port numbers vary per topology.",                 req:["conf_t"],          mode:"config",       set:"config-if-range"},
     {id:"rangedesc",cmd:"description Unused - Intentionally Shutdown",m:/^description\s+.+$/i,                        ok:"Description configured on all selected ports.",        req:["intrange"],        mode:"config-if-range"},
     {id:"rangeshut",cmd:"shutdown",                                   m:/^shutdown$/i,                                  ok:"Unused ports shut down. Security best practice.",                   req:["intrange"],        mode:"config-if-range"},
@@ -858,7 +858,7 @@ const SCEN = [
     {id:"vtylogin",cmd:"login local",                         m:/^login\s+local$/i,                   ok:"Login local configured. Required for SSH access.",  req:["linevty","username"],mode:"config-line-vty"},
     {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Returned to global configuration mode.",         req:["linevty"],        mode:"config-line-vty",set:"config"},
     {id:"crypto",  cmd:"crypto key generate rsa",             m:/^crypto\s+key\s+generate\s+rsa$/i,  ok:"Generating RSA key pair...",                  req:["domain"],         mode:"config",set:"rsa-prompt"},
-    {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"1024-bit RSA key generated. SSH version 2 enabled.",      req:["crypto"],         mode:"rsa-prompt"},
+    {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"1024-bit RSA key generated. SSH version 2 enabled.",      req:["crypto"],         mode:"rsa-prompt",set:"config"},
   ]},
 
   {id:3,group:"partial",tag:"HARD",tagColor:"#3a1a0a",tagText:"#ffa657",
@@ -885,12 +885,12 @@ const SCEN = [
    steps:[
     {id:"domain",  cmd:"ip domain-name netsec.com",           m:/^ip\s+domain-name\s+\S+$/i,           ok:"Domain name configured.",            req:[],                  mode:"config"},
     {id:"username",cmd:"username netadmin secret Ci$co12345", m:/^username\s+\S+\s+secret\s+\S+$/i,   ok:"Local user account created.",       req:[],                  mode:"config"},
-    {id:"linevty", cmd:"line vty 0 15",                       m:/^line\s+vty\s+0\s+15$/i,             ok:"Entered VTY lines 0-15. Switches have 16 VTY lines (0-15); routers have 5 (0-4).", req:["conf_t"], mode:"config",      set:"config-line-vty"},
+    {id:"linevty", cmd:"line vty 0 15",                       m:/^line\s+vty\s+0\s+15$/i,             ok:"Entered VTY lines 0-15. Switches have 16 VTY lines (0-15); routers have 5 (0-4).", req:[], mode:"config",      set:"config-line-vty"},
     {id:"vtytrans",cmd:"transport input ssh",                 m:/^transport\s+input\s+(ssh|all)$/i,   ok:"Transport input restricted to SSH.",                        req:["linevty"],          mode:"config-line-vty"},
     {id:"vtylogin",cmd:"login local",                         m:/^login\s+local$/i,                   ok:"Login local configured.",                       req:["linevty","username"],mode:"config-line-vty"},
     {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Returned to global configuration mode.",          req:["linevty"],          mode:"config-line-vty",set:"config"},
     {id:"crypto",  cmd:"crypto key generate rsa",             m:/^crypto\s+key\s+generate\s+rsa$/i,  ok:"Generating RSA key pair...",                   req:["domain"],           mode:"config",set:"rsa-prompt"},
-    {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"SSH version 2 enabled.",                     req:["crypto"],           mode:"rsa-prompt"},
+    {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"SSH version 2 enabled.",                     req:["crypto"],           mode:"rsa-prompt",set:"config"},
   ]},
 
   {id:5,group:"partial",tag:"SVI",tagColor:"#0d2b12",tagText:"#56d364",
@@ -1265,9 +1265,11 @@ function cliHandleInput(val){
       }
     }
     // Show IOS RSA prompt when entering rsa-prompt mode
-    if(step.set==='rsa-prompt'){
+    if(step.set==='rsa-prompt' && !step.repeat){
+      const hostname = promptForMode('config',SCEN[cliCur]).replace('(config)#','').trim();
+      const domain = ((SCEN[cliCur].vars||[]).find(v=>v.k==='Domain')||{v:'netsec.com'}).v;
       cliAppend('blank','');
-      cliAppend('info','The name for the keys will be: '+promptForMode('config',SCEN[cliCur]).replace('(config)#','').trim()+'.'+((SCEN[cliCur].vars||[]).find(v=>v.k==='Domain')||{v:'netsec.com'}).v);
+      cliAppend('info','The name for the keys will be: '+hostname+'.'+domain);
       cliAppend('info','Choose the size of the key modulus in the range of 360 to 2048 for your');
       cliAppend('info','  General Purpose Keys. Choosing a key modulus greater than 512 may take');
       cliAppend('info','  a few minutes.');
