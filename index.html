@@ -66,17 +66,16 @@ body { height: 100vh; display: flex; flex-direction: column; align-items: center
 .ip-feedback-msg.info { color: var(--blue); }
 .ip-feedback-msg.fade { opacity: 0.35; }
 .ip-stuck { margin: 0 14px 14px; }
-.ip-stuck-btn { width: 100%; font-family: var(--sans); font-size: 11px; font-weight: 500; padding: 6px 10px; border-radius: 5px; border: 1px solid var(--border); background: transparent; color: var(--text-dim); cursor: pointer; transition: all 0.15s; text-align: left; display: flex; align-items: center; justify-content: space-between; }
-.ip-stuck-btn:hover { border-color: var(--yellow); color: var(--yellow); }
-.ip-stuck-btn.used { border-color: var(--red); color: var(--red); opacity: 0.7; }
+.ip-stuck-btn { width: 100%; font-family: var(--sans); font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 5px; border: 1px solid #5a4a10; background: #2a2000; color: #d29922; cursor: pointer; transition: all 0.15s; text-align: left; display: flex; align-items: center; justify-content: space-between; }
+.ip-stuck-btn:hover { border-color: var(--yellow); background: #3a2e00; color: #f0b030; }
+.ip-stuck-btn.used { border-color: var(--red); background: var(--red-bg); color: var(--red); opacity: 0.9; }
 .ip-stuck-content { display: none; margin-top: 6px; padding: 8px 10px; background: var(--surface2); border-radius: 5px; border: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: var(--yellow); line-height: 1.5; }
 .ip-stuck-content.show { display: block; }
 .cli-main { display: flex; flex-direction: column; flex: 1; overflow: hidden; min-width: 0; }
 .terminal-chrome { background: var(--surface); border-bottom: 1px solid var(--border); padding: 6px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 
-.terminal-chrome-title { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
 .terminal-chrome-actions { display: flex; gap: 6px; }
-.scenario-info-card { background: #f5f5f0; border-bottom: 2px solid #c8c8c0; padding: 16px 20px 14px; flex-shrink: 0; }
+.scenario-info-card { background: #f5f5f0; border-bottom: 2px solid #c8c8c0; padding: 14px 18px 12px; flex-shrink: 0; overflow-y: auto; max-height: 45vh; }
 .sic-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
 .sh-badge { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; margin-top: 2px; font-family: var(--mono); }
 .sh-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; flex: 1; }
@@ -87,14 +86,7 @@ body { height: 100vh; display: flex; flex-direction: column; align-items: center
 .sh-progress span { color: var(--green); font-weight: 500; }
 .scenario-brief { margin-top: 8px; font-size: 12px; line-height: 1.7; color: var(--text-muted); }
 .scenario-brief p { margin-bottom: 4px; }
-.scenario-brief .sb-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
-.sb-item { display: flex; align-items: baseline; gap: 5px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 3px 9px; font-size: 11px; font-family: var(--mono); }
-.sb-item-note { border-color: #3a3000; background: #1a1600; }
-.sb-item-note .sb-k { color: #6b5a00; }
-.sb-item-note .sb-v { color: var(--yellow); }
-.sb-k { color: var(--text-dim); font-size: 10px; }
-.sb-v { color: var(--accent); font-weight: 500; }
-.addr-table-wrap { margin-top: 10px; overflow-x: auto; }
+.scenario-brief .sb-item-note .sb-item-note .addr-table-wrap { margin-top: 10px; overflow-x: auto; }
 .addr-table { border-collapse: collapse; font-size: 11px; font-family: var(--mono); width: 100%; border: 1px solid #bbb; }
 .addr-table th { background: #e8e8e2; color: #333; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; padding: 5px 10px; text-align: left; border-bottom: 1px solid #bbb; border-right: 1px solid #ccc; white-space: nowrap; }
 .addr-table td { padding: 4px 10px; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; color: #333; white-space: nowrap; }
@@ -128,24 +120,22 @@ body { height: 100vh; display: flex; flex-direction: column; align-items: center
 .btn-hint:hover { border-color: var(--yellow); color: var(--yellow); background: #1a1800; }
 .btn-check:hover { border-color: var(--accent); color: var(--accent); background: #0d1a2a; }
 .btn-sreset:hover { border-color: var(--red); color: var(--red); background: var(--red-bg); }
-.completion { display: none; position: absolute; inset: 0; background: rgba(10,14,20,0.9); align-items: center; justify-content: center; z-index: 10; padding: 16px; }
-.completion.show { display: flex; }
-.completion-card { background: var(--surface); border: 1px solid var(--green); border-radius: 10px; padding: 24px 28px; text-align: center; max-width: 340px; width: 100%; }
-.cc-icon { font-size: 11px; font-family: var(--mono); color: var(--green); font-weight: 500; margin-bottom: 8px; }
-.completion-card h2 { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
-.completion-card p { font-size: 11px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
-.cc-stats { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-bottom: 14px; padding: 7px; background: var(--surface2); border-radius: 5px; line-height: 1.9; text-align: left; }
-.cc-stats span { color: var(--green); }
-.cc-stats .missed { color: var(--red); }
-.cc-btn { font-family: var(--sans); font-size: 11px; font-weight: 500; padding: 6px 14px; border-radius: 5px; border: 1px solid var(--green); background: var(--green-bg); color: var(--green); cursor: pointer; margin: 3px; transition: all 0.1s; }
+.completion { display: none; position: absolute; bottom: 0; left: 0; right: 0; z-index: 10; }
+.completion.show { display: block; }
+.completion-bar { background: #0d2b12; border-top: 2px solid var(--green); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.cb-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.cb-icon { color: var(--green); font-size: 16px; flex-shrink: 0; }
+.cb-title { font-size: 13px; font-weight: 600; color: var(--green); white-space: nowrap; }
+.cb-stats { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+.cb-right { display: flex; gap: 8px; flex-shrink: 0; }
+.cc-btn { font-family: var(--sans); font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 5px; border: 1px solid var(--green); background: var(--green-bg); color: var(--green); cursor: pointer; transition: all 0.1s; }
 .cc-btn:hover { background: var(--green); color: var(--bg); }
 .cc-btn-sec { border-color: var(--border); background: transparent; color: var(--text-muted); }
 .cc-btn-sec:hover { background: var(--surface2); color: var(--text); border-color: var(--border); }
 .addr-main { flex: 1; overflow-y: auto; padding: 16px; min-width: 0; }
 .scenario-info h2 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 .scenario-info p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
-.hint-box { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-.hint-box strong { color: var(--yellow); font-weight: 500; }
+
 .legend { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text-muted); }
 .legend-dot { width: 7px; height: 7px; border-radius: 2px; flex-shrink: 0; }
@@ -210,7 +200,6 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
   .input-field { font-size: 11px; }
   .terminal-output { font-size: 11px; }
 }
-
 
 .hint-collapsible { margin-bottom: 12px; }
 .hint-toggle { background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; font-family: var(--sans); font-size: 11px; color: var(--text-dim); cursor: pointer; transition: all 0.1s; display: flex; align-items: center; gap: 5px; }
@@ -287,13 +276,16 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
           <input class="input-field" id="cli-cmd-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="" />
         </div>
         <div class="completion" id="cli-completion">
-          <div class="completion-card">
-            <div class="cc-icon">[ SCENARIO VOLTOOID ]</div>
-            <h2>Scenario complete</h2>
-            <p id="cli-cc-msg"></p>
-            <div class="cc-stats" id="cli-cc-stats"></div>
-            <button class="cc-btn cc-btn-sec" onclick="cliReset()">retry</button>
-            <button class="cc-btn" onclick="cliNext()">next &rarr;</button>
+          <div class="completion-bar">
+            <div class="cb-left">
+              <span class="cb-icon">✓</span>
+              <span class="cb-title" id="cli-cc-msg"></span>
+              <span class="cb-stats" id="cli-cc-stats"></span>
+            </div>
+            <div class="cb-right">
+              <button class="cc-btn cc-btn-sec" onclick="cliReset()">retry</button>
+              <button class="cc-btn" onclick="cliNext()">next &rarr;</button>
+            </div>
           </div>
         </div>
       </div>
@@ -348,141 +340,182 @@ function switchTab(name){
 }
 
 // ── TAB COMPLETION (per word, like real IOS) ──
-const WORD_COMPLETIONS = {
-  // enable/disable
-  'en':'enable','ena':'enable','enab':'enable','enabl':'enable',
-  'di':'disable','dis':'disable',
-  // configure
-  'conf':'configure','confi':'configure','config':'configure',
-  'term':'terminal','termi':'terminal',
-  // common exec
-  'sh':'show','sho':'show',
-  'cop':'copy','copy':'copy',
-  'wr':'write','wri':'write',
-  'era':'erase',
-  'rel':'reload',
-  'del':'delete',
-  'pin':'ping',
-  'tra':'traceroute',
-  // show subcommands
-  'run':'running-config','runn':'running-config',
-  'star':'startup-config','start':'startup-config',
-  'int':'interfaces','inte':'interfaces',
-  'ver':'version',
-  // global config
-  'host':'hostname','hostn':'hostname','hostna':'hostname',
-  'ban':'banner','bann':'banner',
-  'mot':'motd',
-  'serv':'service','servi':'service','servic':'service',
-  'pass':'password-encryption','passw':'password-encryption',
-  'sec':'secret',
-  'security':'security',
-  'no':'no',
-  'end':'end',
-  'exi':'exit',
-  // interface
-  'inter':'interface','interf':'interface','interfa':'interface','interfac':'interface',
-  'gi':'GigabitEthernet','gig':'GigabitEthernet','giga':'GigabitEthernet','gigab':'GigabitEthernet',
-  'fa':'FastEthernet','fas':'FastEthernet','fast':'FastEthernet',
-  'lo':'loopback',
-  'se':'Serial','ser':'Serial','seri':'Serial',
-  'vl':'vlan','vla':'vlan',
-  'ran':'range','rang':'range',
-  // interface subcommands
-  'desc':'description','descr':'description','descri':'description',
-  'shut':'shutdown','shutd':'shutdown',
-  'addr':'address','addre':'address','addres':'address',
-  'dup':'duplex',
-  'spe':'speed',
-  'mtu':'mtu',
-  'spa':'spanning-tree',
-  'swi':'switchport',
-  // ip subcommands
-  'rout':'route','route':'route',
-  'def':'default-gateway','defa':'default-gateway','defau':'default-gateway',
-  'dom':'domain-name','doma':'domain-name','domai':'domain-name','domain':'domain-name',
-  'dhc':'dhcp','dhcp':'dhcp',
-  'acc':'access-list',
-  'nat':'nat',
-  'rou':'routing',
-  // crypto
-  'cryp':'crypto','crypt':'crypto',
-  'key':'key',
-  'gen':'generate','gene':'generate','gener':'generate',
-  'rsa':'rsa',
-  // line commands
-  'tran':'transport','trans':'transport',
-  'inpu':'input',
-  'ssh':'ssh',
-  'tel':'telnet',
-  'all':'all',
-  'logi':'login','login':'login',
-  'loc':'local','loca':'local',
-  'exec':'exec-timeout',
-  'acc':'access-class',
-  // username
-  'user':'username','usern':'username','userna':'username',
-  'priv':'privilege',
-  // banner
-  'motd':'motd',
-  // security
-  'min':'min-length','min-':'min-length',
-  'passwords':'passwords',
-  // aaa
-  'aaa':'aaa',
-  'new':'new-model',
-  // routing
-  'ospf':'ospf',
-  'eigr':'eigrp',
-  'bgp':'bgp',
-  'rip':'rip',
-  // spanning tree
-  'spanning':'spanning-tree',
-  'portf':'portfast',
-  // vlan
-  'vlan':'vlan',
-  'name':'name',
-  // cdp
-  'cdp':'cdp',
-  // snmp
-  'snmp':'snmp-server',
-  // ntp
-  'ntp':'ntp',
-  // logging
-  'log':'logging',
+// ── MODE-AWARE TAB COMPLETION ──
+// IOS rule: complete only if unique in current mode
+// Format: mode -> { abbrev: full }
+const MODE_COMPLETIONS = {
+  exec: {
+    'en':'enable','ena':'enable','enab':'enable','enabl':'enable',
+    'dis':'disable',
+    'sh':'show','sho':'show',
+    'pin':'ping',
+    'tra':'traceroute',
+    'tel':'telnet',
+    'ssh':'ssh',
+    'log':'logout',
+    'exi':'exit',
+  },
+  priv: {
+    'conf':'configure','confi':'configure','config':'configure',
+    'sh':'show','sho':'show',
+    'cop':'copy','copy':'copy',
+    'wr':'write','wri':'write',
+    'era':'erase',
+    'rel':'reload',
+    'del':'delete',
+    'dir':'dir',
+    'pin':'ping',
+    'tra':'traceroute',
+    'tel':'telnet',
+    'ssh':'ssh',
+    'exi':'exit',
+    'dis':'disable',
+  },
+  config: {
+    'conf':'configure','confi':'configure',
+    'host':'hostname','hostn':'hostname','hostna':'hostname','hostnam':'hostname',
+    'ban':'banner','bann':'banner','banne':'banner',
+    'no':'no',
+    'ena':'enable','enab':'enable',
+    'serv':'service','servi':'service','servic':'service',
+    'sec':'security',
+    'ip':'ip',
+    'int':'interface','inte':'interface','interf':'interface','interfa':'interface','interfac':'interface',
+    'lin':'line',
+    'use':'username','user':'username','usern':'username','userna':'username',
+    'cryp':'crypto','crypt':'crypto',
+    'spa':'spanning-tree',
+    'vla':'vlan',
+    'rou':'router',
+    'aaa':'aaa',
+    'log':'logging',
+    'ntp':'ntp',
+    'end':'end',
+    'exi':'exit',
+    'do':'do',
+  },
+  'config-if': {
+    'ip':'ip',
+    'no':'no',
+    'des':'description','desc':'description','descr':'description',
+    'shu':'shutdown','shut':'shutdown','shutd':'shutdown',
+    'dup':'duplex',
+    'spe':'speed',
+    'spa':'spanning-tree',
+    'swi':'switchport',
+    'ban':'bandwidth',
+    'exi':'exit',
+    'end':'end',
+    'do':'do',
+  },
+  'config-line': {
+    'pas':'password','pass':'password','passw':'password','passwo':'password','passwor':'password',
+    'log':'login',
+    'tra':'transport',
+    'exe':'exec-timeout',
+    'acc':'access-class',
+    'his':'history',
+    'exi':'exit',
+    'end':'end',
+    'no':'no',
+  },
+  'rsa-prompt': {},
 };
+
+// Subcommand completions (after first word)
+const SUBWORD_COMPLETIONS = {
+  'configure': {'ter':'terminal','term':'terminal','termi':'terminal','termin':'terminal','termina':'terminal','terminal':'terminal'},
+  'no': {'ip':'ip','shut':'shutdown','shutd':'shutdown'},
+  'ip': {'add':'address','addre':'address','addres':'address','address':'address','dom':'domain-name','doma':'domain-name','domai':'domain-name','domain':'domain-name','def':'default-gateway','defa':'default-gateway','defau':'default-gateway','rou':'routing','access':'access-list'},
+  'crypto': {'key':'key'},
+  'crypto key': {'gen':'generate','gene':'generate','gener':'generate','generat':'generate','generate':'generate'},
+  'crypto key generate': {'rsa':'rsa'},
+  'service': {'pas':'password-encryption','pass':'password-encryption','passw':'password-encryption'},
+  'security': {'pas':'passwords','pass':'passwords','passw':'passwords'},
+  'security passwords': {'min':'min-length','min-':'min-length'},
+  'transport': {'inp':'input','inpu':'input','input':'input'},
+  'transport input': {'ssh':'ssh','all':'all','tel':'telnet','non':'none'},
+  'login': {'loc':'local','loca':'local','local':'local'},
+  'copy': {'run':'running-config','runn':'running-config'},
+  'copy running-config': {'sta':'startup-config','star':'startup-config','start':'startup-config'},
+  'interface': {'g':'GigabitEthernet','gi':'GigabitEthernet','gig':'GigabitEthernet','giga':'GigabitEthernet','fa':'FastEthernet','vl':'vlan','vla':'vlan','ran':'range','rang':'range'},
+  'line': {'con':'console','cons':'console','vty':'vty'},
+  'show': {'run':'running-config','runn':'running-config','int':'interfaces','ver':'version','ip':'ip','cdp':'cdp'},
+  'banner': {'mot':'motd'},
+  'enable': {'sec':'secret','secr':'secret','secre':'secret','secret':'secret','pas':'password','pass':'password'},
+  'username': {},
+};
+
+function getModeKey(mode){
+  if(!mode) return 'config';
+  if(mode==='exec') return 'exec';
+  if(mode==='priv') return 'priv';
+  if(mode==='rsa-prompt') return 'rsa-prompt';
+  if(mode.startsWith('config-if')||mode.startsWith('config-if')) return 'config-if';
+  if(mode.startsWith('config-line')) return 'config-line';
+  return 'config';
+}
 
 function tryTab(val){
   if(!val.trim()) return null;
-  const parts = val.split(' ');
+  const parts = val.trimEnd().split(' ');
   const lastWord = parts[parts.length-1].toLowerCase();
   if(!lastWord) return null;
-  // Exact match
-  if(WORD_COMPLETIONS[lastWord] && WORD_COMPLETIONS[lastWord] !== lastWord){
-    parts[parts.length-1] = WORD_COMPLETIONS[lastWord];
-    return parts.join(' ');
-  }
-  // Prefix match — find shortest unique completion
-  const matches = Object.entries(WORD_COMPLETIONS).filter(([k])=>k.startsWith(lastWord)&&k!==lastWord);
-  if(matches.length===1){
-    parts[parts.length-1] = matches[0][1];
-    return parts.join(' ');
-  }
-  if(matches.length>1){
-    // Ambiguous — find common prefix of all completions
-    const vals = [...new Set(matches.map(([,v])=>v))];
-    if(vals.length===1){
-      parts[parts.length-1] = vals[0];
-      return parts.join(' ');
+
+  const modeKey = getModeKey(typeof cliMode !== 'undefined' ? cliMode : 'config');
+
+  // Single word: use mode completions
+  if(parts.length===1){
+    const modeMap = MODE_COMPLETIONS[modeKey] || MODE_COMPLETIONS.config;
+    if(modeMap[lastWord] && modeMap[lastWord] !== lastWord){
+      return modeMap[lastWord];
     }
-    // Show ambiguous in terminal
-    const out = document.getElementById('cli-output');
-    if(out){
-      const d=document.createElement('div');
-      d.style.cssText='font-family:var(--mono);font-size:13px;color:#484f58;padding-left:4px';
-      d.textContent='% Ambiguous command: '+[...new Set(matches.map(([k])=>k))].slice(0,6).join('  ');
-      out.appendChild(d);
-      document.getElementById('cli-terminal-wrap').scrollTop=99999;
+    // Find unique prefix match in mode
+    const matches = Object.entries(modeMap).filter(([k])=>k.startsWith(lastWord)&&k!==lastWord);
+    const vals = [...new Set(matches.map(([,v])=>v))];
+    if(vals.length===1) return vals[0];
+    if(vals.length>1){
+      // Ambiguous
+      const out=document.getElementById('cli-output');
+      if(out){
+        const d=document.createElement('div');
+        d.style.cssText='font-family:var(--mono);font-size:13px;color:#484f58;padding-left:4px';
+        d.textContent='% Ambiguous command: '+[...new Set(matches.map(([,v])=>v))].slice(0,6).join('  ');
+        out.appendChild(d);
+        const tw=document.getElementById('cli-terminal-wrap'); if(tw) tw.scrollTop=99999;
+      }
+    }
+    return null;
+  }
+
+  // Multi word: use subcommand completions
+  // Try progressively shorter prefixes
+  for(let i=parts.length-1; i>=1; i--){
+    const prefix = parts.slice(0,i).join(' ').toLowerCase();
+    const subMap = SUBWORD_COMPLETIONS[prefix];
+    if(subMap){
+      const match = subMap[lastWord];
+      if(match && match !== lastWord){
+        const result = parts.slice(0,i).join(' ')+' '+match;
+        return result;
+      }
+      // Prefix match
+      const matches = Object.entries(subMap).filter(([k])=>k.startsWith(lastWord)&&k!==lastWord);
+      const vals = [...new Set(matches.map(([,v])=>v))];
+      if(vals.length===1){
+        return parts.slice(0,i).join(' ')+' '+vals[0];
+      }
+      if(vals.length>1){
+        const out=document.getElementById('cli-output');
+        if(out){
+          const d=document.createElement('div');
+          d.style.cssText='font-family:var(--mono);font-size:13px;color:#484f58;padding-left:4px';
+          d.textContent='% Ambiguous: '+vals.slice(0,6).join('  ');
+          out.appendChild(d);
+          const tw=document.getElementById('cli-terminal-wrap'); if(tw) tw.scrollTop=99999;
+        }
+        return null;
+      }
     }
   }
   return null;
@@ -660,10 +693,6 @@ function getHelp(mode, scId){
 }
 
 // ── CLI SCENARIOS ──
-// Elke stap: {id, cmd, m, ok, requires[], mode, setsMode?}
-// requires = stap-id's die al gedaan moeten zijn
-// mode = vereiste huidige mode
-// setsMode = nieuwe mode na dit commando
 
 const SCEN = [
   {id:0,group:"full",tag:"ROUTER",tagColor:"#1f4b7a",tagText:"#79c0ff",
@@ -684,7 +713,7 @@ const SCEN = [
   <!-- PC-A -->
   <rect x="10" y="35" width="60" height="36" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
   <text x="40" y="50" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-A</text>
-  <text x="40" y="62" text-anchor="middle" font-size="8" fill="#444">.126</text>
+  <text x="40" y="62" text-anchor="middle" font-size="8" fill="#666">last host</text>
   <!-- line PC-A to S1 -->
   <line x1="70" y1="53" x2="120" y2="53" stroke="#888" stroke-width="1.5"/>
   <!-- S1 -->
@@ -723,24 +752,24 @@ const SCEN = [
     {id:"secmin",   cmd:"security passwords min-length 10",           m:/^security\s+passwords\s+min-length\s+\d+$/i,     ok:"Min-length 10 active. Router only — not available on switches. Not visible via ? in PT.",req:["conf_t"],           mode:"config"},
     {id:"linecon",  cmd:"line console 0",                             m:/^line\s+con(sole)?\s+0$/i,                        ok:"Entered console line configuration.",                                  req:["conf_t"],           mode:"config",       set:"config-line-con"},
     {id:"conpw",    cmd:"password C@nsPassw!",                        m:/^password\s+\S+$/i,                               ok:"Console password configured.",                    req:["linecon"],          mode:"config-line-con"},
-    {id:"conlogin", cmd:"login",                                      m:/^login$/i,                                        ok:"Login required on console line.",                      req:["conpw"],            mode:"config-line-con"},
-    {id:"conexit",  cmd:"exit",                                       m:/^exit$/i,                                         ok:"Returned to global configuration mode.",                      req:["conlogin"],         mode:"config-line-con",set:"config"},
+    {id:"conlogin", cmd:"login",                                      m:/^login$/i,                                        ok:"Login required on console line.",                      req:["linecon"],          mode:"config-line-con"},
+    {id:"conexit",  cmd:"exit",                                       m:/^exit$/i,                                         ok:"Returned to global configuration mode.",                      req:["linecon"],         mode:"config-line-con",set:"config"},
     {id:"intg001",  cmd:"interface g0/0/1",                           m:/^int(erface)?\s+g(ig(abitethernet)?)?0\/0\/1$/i,  ok:"Entered interface GigabitEthernet0/0/1.",                              req:["conf_t"],           mode:"config",       set:"config-if-g001"},
     {id:"g001desc", cmd:"description LAN 1",                         m:/^description\s+.+$/i,                             ok:"Interface description configured.",                         req:["intg001"],          mode:"config-if-g001"},
     {id:"g001ip",   cmd:"ip address 192.168.10.1 255.255.255.128",    m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IPv4 address configured on G0/0/1.",   req:["intg001"],          mode:"config-if-g001"},
     {id:"g001shut", cmd:"no shutdown",                                m:/^no\s+shut(down)?$/i,                             ok:"Interface GigabitEthernet0/0/1 is now active.",                                 req:["g001ip"],           mode:"config-if-g001"},
-    {id:"g001exit", cmd:"exit",                                       m:/^exit$/i,                                         ok:"Returned to global configuration mode.",                      req:["g001shut"],         mode:"config-if-g001",set:"config"},
+    {id:"g001exit", cmd:"exit",                                       m:/^exit$/i,                                         ok:"Returned to global configuration mode.",                      req:["intg001"],          mode:"config-if-g001",set:"config"},
     {id:"intg000",  cmd:"interface g0/0/0",                           m:/^int(erface)?\s+g(ig(abitethernet)?)?0\/0\/0$/i,  ok:"Entered interface GigabitEthernet0/0/0.",                              req:["conf_t"],           mode:"config",       set:"config-if-g000"},
     {id:"g000desc", cmd:"description LAN 2",                         m:/^description\s+.+$/i,                             ok:"Interface description configured.",                         req:["intg000"],          mode:"config-if-g000"},
     {id:"g000ip",   cmd:"ip address 192.168.10.129 255.255.255.192",  m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IPv4 address configured on G0/0/0.",   req:["intg000"],          mode:"config-if-g000"},
     {id:"g000shut", cmd:"no shutdown",                                m:/^no\s+shut(down)?$/i,                             ok:"Interface GigabitEthernet0/0/0 is now active.",                                 req:["g000ip"],           mode:"config-if-g000"},
-    {id:"g000exit", cmd:"exit",                                       m:/^exit$/i,                                         ok:"Returned to global configuration mode.",                      req:["g000shut"],         mode:"config-if-g000",set:"config"},
+    {id:"g000exit", cmd:"exit",                                       m:/^exit$/i,                                         ok:"Returned to global configuration mode.",                      req:["intg000"],          mode:"config-if-g000",set:"config"},
     {id:"domain",   cmd:"ip domain-name netsec.com",                  m:/^ip\s+domain-name\s+\S+$/i,                      ok:"Domain name configured. Required before generating RSA keys.",       req:["conf_t"],           mode:"config"},
     {id:"username", cmd:"username netadmin secret Ci$co12345",        m:/^username\s+\S+\s+secret\s+\S+$/i,               ok:"Local user account created.",                   req:["conf_t"],           mode:"config"},
-    {id:"linevty",  cmd:"line vty 0 4",                               m:/^line\s+vty\s+0\s+4$/i,                          ok:"Entered VTY lines 0-4. Routers have 5 VTY lines (0-4).",             req:["username"],         mode:"config",       set:"config-line-vty"},
+    {id:"linevty",  cmd:"line vty 0 4",                               m:/^line\s+vty\s+0\s+4$/i,                          ok:"Entered VTY lines 0-4. Routers have 5 VTY lines (0-4).",             req:["conf_t"],         mode:"config",       set:"config-line-vty"},
     {id:"vtytrans", cmd:"transport input ssh",                        m:/^transport\s+input\s+(ssh|all)$/i,               ok:"VTY transport restricted to SSH only.",                             req:["linevty"],          mode:"config-line-vty"},
     {id:"vtylogin", cmd:"login local",                                m:/^login\s+local$/i,                               ok:"Authentication via local user database. Required when using SSH.", req:["linevty","username"],mode:"config-line-vty"},
-    {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                        ok:"Returned to global configuration mode.",                      req:["vtylogin"],         mode:"config-line-vty",set:"config"},
+    {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                        ok:"Returned to global configuration mode.",                      req:["linevty"],          mode:"config-line-vty",set:"config"},
     {id:"crypto",   cmd:"crypto key generate rsa",                    m:/^crypto\s+key\s+generate\s+rsa$/i,               ok:"Generating RSA key pair...",                           req:["hostname","domain"],mode:"config",set:"rsa-prompt"},
     {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                         ok:"1024-bit RSA key generated. SSH version 2 enabled. Note: 512 bits = SSH 1.5/1.99 only.", req:["crypto"],      mode:"rsa-prompt"},
     {id:"end",      cmd:"end",                                        m:/^end$/i,                                         ok:"Returned to privileged EXEC mode.",                               req:["conf_t"],           mode:"config",       set:"priv"},
@@ -761,36 +790,31 @@ const SCEN = [
      {k:"Secret",v:"Ci$co12345"},{k:"Enable secret",v:"DontTellAnyone"},{k:"Console pw",v:"C@nsPassw!"},
      {k:"Gateway",v:"192.168.10.1"},
    ],
-   topology:`<svg viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg" style="font-family:'IBM Plex Sans',sans-serif">
-  <!-- PC-A -->
+   topology:`<svg viewBox="0 0 420 120" xmlns="http://www.w3.org/2000/svg" style="font-family:'IBM Plex Sans',sans-serif">
   <rect x="10" y="35" width="60" height="36" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
   <text x="40" y="50" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-A</text>
-  <text x="40" y="62" text-anchor="middle" font-size="8" fill="#444">.126</text>
+  <text x="40" y="62" text-anchor="middle" font-size="8" fill="#666">last host</text>
   <!-- line PC-A to S1 -->
   <line x1="70" y1="53" x2="120" y2="53" stroke="#888" stroke-width="1.5"/>
   <!-- S1 -->
   <rect x="120" y="25" width="80" height="56" rx="4" fill="#d5ecd5" stroke="#2a8a2a" stroke-width="2"/>
   <text x="160" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#1a5a1a">S1</text>
-  <text x="160" y="58" text-anchor="middle" font-size="8" fill="#444">VLAN1: .2/25</text>
-  <text x="160" y="70" text-anchor="middle" font-size="7" fill="#666">GW: .1</text>
+  <text x="160" y="58" text-anchor="middle" font-size="8" fill="#444">VLAN 1 SVI</text>
+  <text x="160" y="70" text-anchor="middle" font-size="7" fill="#666">mgmt</text>
   <!-- line S1 to R1 -->
   <line x1="200" y1="53" x2="260" y2="53" stroke="#888" stroke-width="1.5"/>
   <text x="230" y="46" text-anchor="middle" font-size="7" fill="#666">uplink</text>
   <!-- R1 (upstream) -->
   <rect x="260" y="35" width="60" height="36" rx="4" fill="#f5e8d5" stroke="#c88a1a" stroke-width="1.5"/>
   <text x="290" y="50" text-anchor="middle" font-size="9" font-weight="600" fill="#7a4400">R1</text>
-  <text x="290" y="62" text-anchor="middle" font-size="8" fill="#444">.1 GW</text>
+  <text x="290" y="62" text-anchor="middle" font-size="8" fill="#666">gateway</text>
   <!-- unused ports indicator -->
-  <rect x="120" y="88" width="80" height="16" rx="3" fill="#ffe0e0" stroke="#cc8888" stroke-width="1"/>
-  <text x="160" y="100" text-anchor="middle" font-size="8" fill="#883333">unused ports: shutdown</text>
-  <!-- subnet label -->
-  <text x="100" y="108" font-size="8" fill="#666">LAN 1: 192.168.10.0/25</text>
+  <text x="160" y="108" text-anchor="middle" font-size="9" font-weight="500" fill="#555">LAN 1: 192.168.10.0 — 100 hosts</text>
 </svg>`,
-   scenarioText:"Configure switch S1 for deployment. Disable DNS lookup, set hostname, configure VLAN 1 management interface with IP addressing from the table above, set default gateway, apply security hardening, enable SSH access, shut down unused ports, and save the configuration. Interface descriptions must match the exact text from your PT addressing table.",
+   scenarioText:"Configure switch S1 for deployment. Set hostname, configure VLAN 1 management interface with IP addressing from the table above, set default gateway, apply security hardening, enable SSH access, and save the configuration. Note: shut down all unused ports using interface range. Interface descriptions must match the exact text from your PT addressing table.",
    steps:[
     {id:"enable",   cmd:"enable",                                     m:/^enable$/i,                                       ok:"Privileged EXEC mode.",                         req:[],                  mode:"exec",         set:"priv"},
     {id:"conf_t",   cmd:"configure terminal",                         m:/^conf(igure)?(\s+t(erminal)?)?$/i,                ok:"Entered global configuration mode.",                    req:["enable"],          mode:"priv",         set:"config"},
-    {id:"no_dl",    cmd:"no ip domain-lookup",                        m:/^no\s+ip\s+domain-lookup$/i,                     ok:"DNS lookup disabled.",                     req:["conf_t"],          mode:"config"},
     {id:"hostname", cmd:"hostname S1",                                m:/^hostname\s+\S+$/i,                              ok:"Hostname configured.",                           req:["conf_t"],          mode:"config"},
     {id:"banner",   cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,    ok:"MOTD banner configured.",                        req:["conf_t"],          mode:"config"},
     {id:"ensec",    cmd:"enable secret DontTellAnyone",               m:/^enable\s+secret\s+\S+$/i,                       ok:"Enable secret configured.",                      req:["conf_t"],          mode:"config"},
@@ -799,24 +823,24 @@ const SCEN = [
     {id:"vlandesc", cmd:"description LAN 1 Management",               m:/^description\s+.+$/i,                           ok:"Interface description configured.",                        req:["intvlan"],         mode:"config-if-vlan"},
     {id:"vlanip",   cmd:"ip address 192.168.10.2 255.255.255.128",    m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IP address configured on VLAN 1.",    req:["intvlan"],         mode:"config-if-vlan"},
     {id:"vlanshut", cmd:"no shutdown",                                m:/^no\s+shut(down)?$/i,                           ok:"Interface activated. Note: VLAN SVI interfaces are shutdown by default on switches.",req:["vlanip"],          mode:"config-if-vlan"},
-    {id:"vlanexit", cmd:"exit",                                       m:/^exit$/i,                                       ok:"Returned to global configuration mode.",                     req:["vlanshut"],        mode:"config-if-vlan",set:"config"},
+    {id:"vlanexit", cmd:"exit",                                       m:/^exit$/i,                                       ok:"Returned to global configuration mode.",                     req:["intvlan"],         mode:"config-if-vlan",set:"config"},
     {id:"defgw",    cmd:"ip default-gateway 192.168.10.1",            m:/^ip\s+default-gateway\s+\d+\.\d+\.\d+\.\d+$/i, ok:"Default gateway configured. Switches do not route — required for remote management outside the local subnet.",req:["conf_t"],        mode:"config"},
     {id:"linecon",  cmd:"line console 0",                             m:/^line\s+con(sole)?\s+0$/i,                      ok:"Entered console line configuration.",                                 req:["conf_t"],          mode:"config",       set:"config-line-con"},
     {id:"conpw",    cmd:"password C@nsPassw!",                        m:/^password\s+\S+$/i,                             ok:"Console password configured.",                   req:["linecon"],         mode:"config-line-con"},
-    {id:"conlogin", cmd:"login",                                      m:/^login$/i,                                      ok:"Login required on console line.",                     req:["conpw"],           mode:"config-line-con"},
-    {id:"conexit",  cmd:"exit",                                       m:/^exit$/i,                                       ok:"Returned to global configuration mode.",                     req:["conlogin"],        mode:"config-line-con",set:"config"},
+    {id:"conlogin", cmd:"login",                                      m:/^login$/i,                                      ok:"Login required on console line.",                     req:["linecon"],         mode:"config-line-con"},
+    {id:"conexit",  cmd:"exit",                                       m:/^exit$/i,                                       ok:"Returned to global configuration mode.",                     req:["linecon"],        mode:"config-line-con",set:"config"},
     {id:"domain",   cmd:"ip domain-name netsec.com",                  m:/^ip\s+domain-name\s+\S+$/i,                    ok:"Domain name configured.",                        req:["conf_t"],          mode:"config"},
     {id:"username", cmd:"username netadmin secret Ci$co12345",        m:/^username\s+\S+\s+secret\s+\S+$/i,             ok:"Local user account created.",                  req:["conf_t"],          mode:"config"},
-    {id:"linevty",  cmd:"line vty 0 15",                              m:/^line\s+vty\s+0\s+15$/i,                       ok:"Entered VTY lines 0-15. Switches have 16 VTY lines (0-15); routers have 5 (0-4).",     req:["username"],        mode:"config",       set:"config-line-vty"},
+    {id:"linevty",  cmd:"line vty 0 15",                              m:/^line\s+vty\s+0\s+15$/i,                       ok:"Entered VTY lines 0-15. Switches have 16 VTY lines (0-15); routers have 5 (0-4).",     req:["conf_t"],        mode:"config",       set:"config-line-vty"},
     {id:"vtytrans", cmd:"transport input ssh",                        m:/^transport\s+input\s+(ssh|all)$/i,             ok:"VTY transport restricted to SSH only.",                            req:["linevty"],         mode:"config-line-vty"},
     {id:"vtylogin", cmd:"login local",                                m:/^login\s+local$/i,                             ok:"Login local configured. Required for SSH.",               req:["linevty","username"],mode:"config-line-vty"},
-    {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                      ok:"Returned to global configuration mode.",                     req:["vtylogin"],        mode:"config-line-vty",set:"config"},
+    {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                      ok:"Returned to global configuration mode.",                     req:["linevty"],         mode:"config-line-vty",set:"config"},
     {id:"crypto",   cmd:"crypto key generate rsa",                    m:/^crypto\s+key\s+generate\s+rsa$/i,             ok:"Generating RSA key pair...",                          req:["hostname","domain"],mode:"config",set:"rsa-prompt"},
     {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                       ok:"1024-bit RSA key generated. SSH version 2 enabled.",                  req:["crypto"],          mode:"rsa-prompt"},
     {id:"intrange", cmd:"interface range f0/1-4, f0/7-24, g0/1-2",   m:/^int(erface)?\s+range\s+.+$/i,                ok:"Interface range selected. Port numbers vary per topology.",                 req:["conf_t"],          mode:"config",       set:"config-if-range"},
     {id:"rangedesc",cmd:"description Unused - Intentionally Shutdown",m:/^description\s+.+$/i,                        ok:"Description configured on all selected ports.",        req:["intrange"],        mode:"config-if-range"},
     {id:"rangeshut",cmd:"shutdown",                                   m:/^shutdown$/i,                                  ok:"Unused ports shut down. Security best practice.",                   req:["intrange"],        mode:"config-if-range"},
-    {id:"rangeexit",cmd:"exit",                                       m:/^exit$/i,                                      ok:"Returned to global configuration mode.",                     req:["rangeshut"],       mode:"config-if-range",set:"config"},
+    {id:"rangeexit",cmd:"exit",                                       m:/^exit$/i,                                      ok:"Returned to global configuration mode.",                     req:["intrange"],        mode:"config-if-range",set:"config"},
     {id:"end",      cmd:"end",                                        m:/^end$/i,                                       ok:"Returned to privileged EXEC mode.",                              req:["conf_t"],          mode:"config",       set:"priv"},
     {id:"save",     cmd:"copy running-config startup-config",         m:/^copy\s+run(ning-config)?\s+start(up-config)?$/i,ok:"Configuration saved to NVRAM.",                 req:["end"],             mode:"priv"},
   ]},
@@ -829,10 +853,10 @@ const SCEN = [
    steps:[
     {id:"domain",  cmd:"ip domain-name netsec.com",           m:/^ip\s+domain-name\s+\S+$/i,           ok:"Domain name configured.",           req:[],                 mode:"config"},
     {id:"username",cmd:"username netadmin secret Ci$co12345", m:/^username\s+\S+\s+secret\s+\S+$/i,   ok:"Local user account created.",      req:[],                 mode:"config"},
-    {id:"linevty", cmd:"line vty 0 4",                        m:/^line\s+vty\s+0\s+4$/i,              ok:"Entered VTY lines 0-4 (router).",                 req:["username"],       mode:"config",      set:"config-line-vty"},
+    {id:"linevty", cmd:"line vty 0 4",                        m:/^line\s+vty\s+0\s+4$/i,              ok:"Entered VTY lines 0-4 (router).",                 req:[],       mode:"config",      set:"config-line-vty"},
     {id:"vtytrans",cmd:"transport input ssh",                 m:/^transport\s+input\s+(ssh|all)$/i,   ok:"Transport input restricted to SSH.",                       req:["linevty"],        mode:"config-line-vty"},
     {id:"vtylogin",cmd:"login local",                         m:/^login\s+local$/i,                   ok:"Login local configured. Required for SSH access.",  req:["linevty","username"],mode:"config-line-vty"},
-    {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Returned to global configuration mode.",         req:["vtylogin"],       mode:"config-line-vty",set:"config"},
+    {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Returned to global configuration mode.",         req:["linevty"],        mode:"config-line-vty",set:"config"},
     {id:"crypto",  cmd:"crypto key generate rsa",             m:/^crypto\s+key\s+generate\s+rsa$/i,  ok:"Generating RSA key pair...",                  req:["domain"],         mode:"config",set:"rsa-prompt"},
     {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"1024-bit RSA key generated. SSH version 2 enabled.",      req:["crypto"],         mode:"rsa-prompt"},
   ]},
@@ -849,8 +873,8 @@ const SCEN = [
     {id:"banner",  cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,ok:"MOTD banner configured.",    req:[],           mode:"config"},
     {id:"linecon", cmd:"line console 0",                            m:/^line\s+con(sole)?\s+0$/i,              ok:"Entered console line configuration.",                    req:[],           mode:"config",   set:"config-line-con"},
     {id:"conpw",   cmd:"password C@nsPassw!",                       m:/^password\s+\S+$/i,                    ok:"Console password configured.",                req:["linecon"],  mode:"config-line-con"},
-    {id:"conlogin",cmd:"login",                                     m:/^login$/i,                             ok:"Login required.",                   req:["conpw"],    mode:"config-line-con"},
-    {id:"conexit", cmd:"exit",                                      m:/^exit$/i,                              ok:"Returned to global configuration mode.",        req:["conlogin"], mode:"config-line-con",set:"config"},
+    {id:"conlogin",cmd:"login",                                     m:/^login$/i,                             ok:"Login required.",                   req:["linecon"],  mode:"config-line-con"},
+    {id:"conexit", cmd:"exit",                                      m:/^exit$/i,                              ok:"Returned to global configuration mode.",        req:["linecon"], mode:"config-line-con",set:"config"},
   ]},
 
   {id:4,group:"partial",tag:"VTY",tagColor:"#2d1a40",tagText:"#d2a8ff",
@@ -861,10 +885,10 @@ const SCEN = [
    steps:[
     {id:"domain",  cmd:"ip domain-name netsec.com",           m:/^ip\s+domain-name\s+\S+$/i,           ok:"Domain name configured.",            req:[],                  mode:"config"},
     {id:"username",cmd:"username netadmin secret Ci$co12345", m:/^username\s+\S+\s+secret\s+\S+$/i,   ok:"Local user account created.",       req:[],                  mode:"config"},
-    {id:"linevty", cmd:"line vty 0 15",                       m:/^line\s+vty\s+0\s+15$/i,             ok:"Entered VTY lines 0-15. Switches have 16 VTY lines (0-15); routers have 5 (0-4).", req:["username"], mode:"config",      set:"config-line-vty"},
+    {id:"linevty", cmd:"line vty 0 15",                       m:/^line\s+vty\s+0\s+15$/i,             ok:"Entered VTY lines 0-15. Switches have 16 VTY lines (0-15); routers have 5 (0-4).", req:["conf_t"], mode:"config",      set:"config-line-vty"},
     {id:"vtytrans",cmd:"transport input ssh",                 m:/^transport\s+input\s+(ssh|all)$/i,   ok:"Transport input restricted to SSH.",                        req:["linevty"],          mode:"config-line-vty"},
     {id:"vtylogin",cmd:"login local",                         m:/^login\s+local$/i,                   ok:"Login local configured.",                       req:["linevty","username"],mode:"config-line-vty"},
-    {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Returned to global configuration mode.",          req:["vtylogin"],         mode:"config-line-vty",set:"config"},
+    {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Returned to global configuration mode.",          req:["linevty"],          mode:"config-line-vty",set:"config"},
     {id:"crypto",  cmd:"crypto key generate rsa",             m:/^crypto\s+key\s+generate\s+rsa$/i,  ok:"Generating RSA key pair...",                   req:["domain"],           mode:"config",set:"rsa-prompt"},
     {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"SSH version 2 enabled.",                     req:["crypto"],           mode:"rsa-prompt"},
   ]},
@@ -980,6 +1004,11 @@ function cliLoad(idx){
     const td=document.createElement('div'); td.className='topology-wrap';
     td.innerHTML=sc.topology; vg.appendChild(td);
   }
+  // Add "Credentials" label before pills
+  const vgLabel = document.createElement('div');
+  vgLabel.className = 'vars-grid-label';
+  vgLabel.textContent = 'Credentials';
+  vg.appendChild(vgLabel);
   if(sc.addrTable){
     const wrap=document.createElement('div'); wrap.className='addr-table-wrap';
     let html='<table class="addr-table"><thead><tr>';
@@ -1039,11 +1068,10 @@ function cliAppend(type,text){
 }
 
 function modeOk(s){
-  return s.mode===cliMode ||
-    (s.mode==='config' && cliMode==='config') ||
-    (s.mode==='rsa-prompt' && cliMode==='rsa-prompt') ||
-    (s.mode&&s.mode.startsWith('config-if')&&cliMode===s.mode) ||
-    (s.mode&&s.mode.startsWith('config-line')&&cliMode===s.mode);
+  if(s.mode===cliMode) return true;
+  if(s.mode&&s.mode.startsWith('config-if')) return cliMode===s.mode;
+  if(s.mode&&s.mode.startsWith('config-line')) return cliMode===s.mode;
+  return false;
 }
 
 function findMatchingStep(val, sc){
@@ -1343,8 +1371,14 @@ function cliReset(){
   cliMode=sc.group==='partial'?(sc.steps[0].mode||'config'):'exec';
   document.getElementById('cli-output').innerHTML='';
   document.getElementById('cli-cmd-input').disabled=false;
-  cliUpdateHeader(); cliSetPrompt();
-  cliAppend('sys','--- '+sc.name+' (reset) ---');
+  // Reset info panel fully
+  stuckUsed=false;
+  const stuckBtn=document.getElementById('ip-stuck-btn'); if(stuckBtn){stuckBtn.classList.remove('used');}
+  const stuckContent=document.getElementById('ip-stuck-content'); if(stuckContent){stuckContent.classList.remove('show');stuckContent.textContent='';}
+  const stuckArrow=document.getElementById('ip-stuck-arrow'); if(stuckArrow) stuckArrow.textContent='▸';
+  const fb=document.getElementById('ip-feedback'); if(fb) fb.innerHTML='<div class="ip-feedback-msg" id="ip-msg" style="opacity:0"></div>';
+  cliUpdateHeader(); cliSetPrompt(); ipUpdateProgress();
+  cliAppend('sys','--- '+sc.name+' ---');
   cliAppend('blank','');
 }
 
@@ -1372,8 +1406,7 @@ function cliUpdateHeader(){
   const done=cliDone.size, total=sc.steps.length;
   const prog=document.getElementById('cli-sh-progress');
   if(prog) prog.innerHTML=`<span>${done}</span>/${total}`;
-  const modeEl=document.getElementById('ip-mode');
-  if(modeEl) modeEl.textContent=cliMode;
+
 }
 
 function cliUpdateSidebar(){
