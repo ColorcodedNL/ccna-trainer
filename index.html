@@ -15,14 +15,13 @@
   --mono: 'JetBrains Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
   --sidebar-w: 240px;
 }
-html { background: var(--bg); color: var(--text); font-family: var(--sans); }
-body { min-height: 100vh; display: flex; flex-direction: column; }
-
-/* ── TOPBAR ── */
+html { background: #060a0f; color: var(--text); font-family: var(--sans); }
+body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; background: #060a0f; }
+.page-shell { width: 100%; max-width: 1600px; display: flex; flex-direction: column; flex: 1; min-height: 100vh; box-shadow: 0 0 80px rgba(0,0,0,0.8); }
 .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 16px; display: flex; align-items: stretch; flex-shrink: 0; position: sticky; top: 0; z-index: 20; }
 .topbar-brand { display: flex; align-items: center; gap: 8px; padding: 10px 0; margin-right: 16px; }
 .logo { width: 26px; height: 26px; background: var(--accent); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 9px; font-weight: 500; color: #0a0e14; flex-shrink: 0; }
-.brand-title { font-size: 13px; font-weight: 600; white-space: nowrap; }
+.brand-title { font-size: 15px; font-weight: 600; white-space: nowrap; }
 .tabs { display: flex; align-items: stretch; }
 .tab-btn { background: transparent; border: none; border-bottom: 2px solid transparent; padding: 0 14px; cursor: pointer; font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--text-muted); transition: all 0.15s; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .tab-btn:hover { color: var(--text); }
@@ -30,15 +29,9 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 .tab-icon { width: 16px; height: 16px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; font-weight: 500; flex-shrink: 0; }
 .topbar-right { margin-left: auto; display: flex; align-items: center; }
 .topbar-sub { font-size: 10px; color: var(--text-dim); font-family: var(--mono); }
-
-/* ── TAB PANELS ── */
 .tab-panel { display: none; flex: 1; }
 .tab-panel.active { display: flex; flex-direction: column; }
-
-/* ── SHARED SIDEBAR + MAIN LAYOUT ── */
 .app-layout { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 42px); }
-
-/* Desktop sidebar */
 .sidebar { width: var(--sidebar-w); flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 10px 0; overflow-y: auto; }
 .sb-section { padding: 0 8px; margin-bottom: 14px; }
 .sb-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); padding: 0 8px; margin-bottom: 3px; }
@@ -47,62 +40,63 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 .scen-btn.active { background: var(--surface3); }
 .scen-icon { width: 22px; height: 22px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; font-family: var(--mono); font-weight: 500; line-height: 1.2; text-align: center; }
 .scen-text { flex: 1; min-width: 0; }
-.scen-name { font-size: 11px; font-weight: 500; color: var(--text); display: block; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.scen-name { font-size: 12px; font-weight: 500; color: var(--text); display: block; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .scen-type { font-size: 10px; color: var(--text-muted); display: block; }
 .scen-badge { font-size: 9px; font-family: var(--mono); color: var(--text-dim); background: var(--surface3); padding: 1px 4px; border-radius: 3px; border: 1px solid var(--border); flex-shrink: 0; }
 .scen-btn.active .scen-badge { color: var(--accent); border-color: var(--accent); }
 .prog-mini { height: 2px; background: var(--surface3); border-radius: 1px; margin-top: 3px; overflow: hidden; }
 .prog-mini-fill { height: 100%; background: var(--green); border-radius: 1px; transition: width 0.4s; }
-
-/* Mobile dropdown (hidden on desktop) */
 .mobile-select-wrap { display: none; padding: 8px 12px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
 .mobile-select { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; color: var(--text); font-family: var(--sans); font-size: 12px; padding: 6px 10px; outline: none; cursor: pointer; }
 .mobile-select:focus { border-color: var(--accent); }
-
-/* ── CLI TRAINER ── */
 .cli-main { display: flex; flex-direction: column; flex: 1; overflow: hidden; min-width: 0; }
-.scenario-header { padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; align-items: flex-start; gap: 10px; flex-shrink: 0; }
+.scenario-info-card { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 14px; flex-shrink: 0; }
+.sic-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
 .sh-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; margin-top: 2px; font-family: var(--mono); }
-.sh-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; flex: 1; }
+.sh-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; flex: 1; }
 .sh-progress { font-size: 10px; font-family: var(--mono); color: var(--text-muted); flex-shrink: 0; margin-top: 2px; white-space: nowrap; }
 .sh-progress span { color: var(--green); font-weight: 500; }
+.vars-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.var-pill { display: flex; align-items: center; gap: 4px; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 7px; font-size: 10px; font-family: var(--mono); }
+.var-key { color: var(--text-dim); }
+.var-val { color: var(--accent); font-weight: 500; }
 .cli-main-wrapper { position: relative; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 .terminal-wrap { flex: 1; overflow-y: auto; padding: 12px 14px; background: var(--bg); }
-.terminal-output { font-family: var(--mono); font-size: 12px; line-height: 1.85; }
+.terminal-output { font-family: var(--mono); font-size: 14px; line-height: 1.85; }
 .line-prompt { color: var(--prompt); }
 .line-cmd { color: var(--text); }
 .line-ok { color: var(--green); } .line-ok::before { content: '  '; }
 .line-err { color: var(--red); } .line-err::before { content: '  '; }
 .line-warn { color: var(--yellow); } .line-warn::before { content: '  '; }
 .line-info { color: var(--blue); } .line-info::before { content: '  '; }
+.line-help { color: var(--text-muted); font-size: 11px; } .line-help::before { content: '  '; }
 .line-sys { color: var(--text-dim); font-style: italic; }
 .line-blank { height: 4px; display: block; }
 .input-area { border-top: 1px solid var(--border); background: var(--surface); padding: 8px 14px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.input-prompt { font-family: var(--mono); font-size: 12px; color: var(--prompt); white-space: nowrap; flex-shrink: 0; max-width: 45%; overflow: hidden; text-overflow: ellipsis; }
-.input-field { flex: 1; background: transparent; border: none; outline: none; font-family: var(--mono); font-size: 12px; color: var(--text); caret-color: var(--accent); min-width: 0; }
-.input-field::placeholder { color: var(--text-dim); }
+.input-prompt { font-family: var(--mono); font-size: 14px; color: var(--prompt); white-space: nowrap; flex-shrink: 0; max-width: 45%; overflow: hidden; text-overflow: ellipsis; }
+.input-field { flex: 1; background: transparent; border: none; outline: none; font-family: var(--mono); font-size: 14px; color: var(--text); caret-color: var(--accent); min-width: 0; }
+.input-field::placeholder { color: var(--text-dim); font-size: 11px; }
 .input-field:disabled { opacity: 0.3; }
 .btn-sm { font-family: var(--sans); font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.1s; white-space: nowrap; }
 .btn-hint:hover { border-color: var(--yellow); color: var(--yellow); }
 .btn-sreset:hover { border-color: var(--red); color: var(--red); }
 .completion { display: none; position: absolute; inset: 0; background: rgba(10,14,20,0.9); align-items: center; justify-content: center; z-index: 10; padding: 16px; }
 .completion.show { display: flex; }
-.completion-card { background: var(--surface); border: 1px solid var(--green); border-radius: 10px; padding: 24px 28px; text-align: center; max-width: 320px; width: 100%; }
+.completion-card { background: var(--surface); border: 1px solid var(--green); border-radius: 10px; padding: 24px 28px; text-align: center; max-width: 340px; width: 100%; }
 .cc-icon { font-size: 11px; font-family: var(--mono); color: var(--green); font-weight: 500; margin-bottom: 8px; }
 .completion-card h2 { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
 .completion-card p { font-size: 11px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
-.cc-stats { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-bottom: 14px; padding: 7px; background: var(--surface2); border-radius: 5px; }
+.cc-stats { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-bottom: 14px; padding: 7px; background: var(--surface2); border-radius: 5px; line-height: 1.9; text-align: left; }
 .cc-stats span { color: var(--green); }
+.cc-stats .missed { color: var(--red); }
 .cc-btn { font-family: var(--sans); font-size: 11px; font-weight: 500; padding: 6px 14px; border-radius: 5px; border: 1px solid var(--green); background: var(--green-bg); color: var(--green); cursor: pointer; margin: 3px; transition: all 0.1s; }
 .cc-btn:hover { background: var(--green); color: var(--bg); }
 .cc-btn-sec { border-color: var(--border); background: transparent; color: var(--text-muted); }
 .cc-btn-sec:hover { background: var(--surface2); color: var(--text); border-color: var(--border); }
-
-/* ── ADRESTABEL ── */
 .addr-main { flex: 1; overflow-y: auto; padding: 16px; min-width: 0; }
-.scenario-info h2 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-.scenario-info p { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
-.hint-box { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 9px 12px; margin-bottom: 12px; font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+.scenario-info h2 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.scenario-info p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+.hint-box { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 10px 14px; margin-bottom: 14px; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 .hint-box strong { color: var(--yellow); font-weight: 500; }
 .legend { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text-muted); }
@@ -124,7 +118,7 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 .score-display { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
 .score-display span { color: var(--green); font-weight: 500; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
 thead th { background: var(--surface2); color: var(--text-muted); font-weight: 500; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; padding: 7px 8px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
 tbody tr { border-bottom: 1px solid var(--border); }
 tbody tr.divider-row { border-bottom: none; }
@@ -135,7 +129,7 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
 .td-type-ipv4 { font-size: 9px; color: var(--accent); font-family: var(--mono); white-space: nowrap; }
 .td-type-ipv6 { font-size: 9px; color: var(--green); font-family: var(--mono); white-space: nowrap; }
 .td-type-ll { font-size: 9px; color: var(--yellow); font-family: var(--mono); white-space: nowrap; }
-.cell-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 3px 6px; font-family: var(--mono); font-size: 11px; color: var(--text); outline: none; transition: border-color 0.1s; min-width: 100px; }
+.cell-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 4px 8px; font-family: var(--mono); font-size: 13px; color: var(--text); outline: none; transition: border-color 0.1s; min-width: 100px; }
 .cell-input:focus { border-color: var(--accent); }
 .cell-input.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
 .cell-input.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
@@ -144,12 +138,9 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
 .cell-given { font-family: var(--mono); font-size: 11px; color: var(--text-dim); padding: 3px 2px; font-style: italic; }
 .cell-na { font-family: var(--mono); font-size: 10px; color: var(--text-dim); padding: 3px 2px; }
 .divider-line { height: 1px; background: var(--surface3); margin: 1px 0; }
-
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .sidebar { display: none; }
   .mobile-select-wrap { display: block; }
@@ -159,10 +150,10 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
   .cli-main-wrapper { height: auto; overflow: visible; position: static; }
   .terminal-wrap { height: 280px; overflow-y: auto; }
   .topbar-sub { display: none; }
-  .brand-title { font-size: 12px; }
   .sh-desc { display: none; }
   .addr-main { overflow: visible; }
   .cell-input { min-width: 80px; }
+  .vars-grid { display: none; }
 }
 @media (max-width: 480px) {
   .tab-btn { padding: 0 10px; font-size: 11px; }
@@ -171,10 +162,11 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
   .input-field { font-size: 11px; }
   .terminal-output { font-size: 11px; }
 }
+
 </style>
 </head>
 <body>
-
+<div class="page-shell">
 <div class="topbar">
   <div class="topbar-brand">
     <div class="logo">IOS</div>
@@ -182,26 +174,21 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
   </div>
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('cli')" id="tab-cli">
-      <div class="tab-icon" style="background:#1f4b7a;color:#79c0ff">CLI</div>
-      CLI
+      <div class="tab-icon" style="background:#1f4b7a;color:#79c0ff">CLI</div>CLI
     </button>
     <button class="tab-btn" onclick="switchTab('addr')" id="tab-addr">
-      <div class="tab-icon" style="background:#1a3a1a;color:#3fb950">ADR</div>
-      Adrestabel
+      <div class="tab-icon" style="background:#1a3a1a;color:#3fb950">ADR</div>Adrestabel
     </button>
   </div>
-  <div class="topbar-right">
-    <span class="topbar-sub">CCNA 1 v7.0 — PTSA</span>
-  </div>
+  <div class="topbar-right"><span class="topbar-sub">CCNA 1 v7.0 — PTSA</span></div>
 </div>
 
-<!-- CLI TAB -->
 <div class="tab-panel active" id="panel-cli">
   <div class="mobile-select-wrap">
     <select class="mobile-select" id="cli-mobile-select" onchange="cliLoad(parseInt(this.value))"></select>
   </div>
   <div class="app-layout">
-    <div class="sidebar" id="cli-sidebar">
+    <div class="sidebar">
       <div class="sb-section">
         <div class="sb-label">Volledige setup</div>
         <div id="cli-sb-full"></div>
@@ -212,10 +199,13 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
       </div>
     </div>
     <div class="cli-main">
-      <div class="scenario-header">
-        <div class="sh-badge" id="cli-sh-badge"></div>
-        <div class="sh-desc" id="cli-sh-desc"></div>
-        <div class="sh-progress" id="cli-sh-progress"></div>
+      <div class="scenario-info-card">
+        <div class="sic-top">
+          <div class="sh-badge" id="cli-sh-badge"></div>
+          <div class="sh-desc" id="cli-sh-desc"></div>
+          <div class="sh-progress" id="cli-sh-progress"></div>
+        </div>
+        <div class="vars-grid" id="cli-vars-grid"></div>
       </div>
       <div class="cli-main-wrapper">
         <div class="terminal-wrap" id="cli-terminal-wrap">
@@ -223,7 +213,7 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
         </div>
         <div class="input-area">
           <div class="input-prompt" id="cli-input-prompt"></div>
-          <input class="input-field" id="cli-cmd-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="commando + Enter..." />
+          <input class="input-field" id="cli-cmd-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="commando + Enter  |  Tab = aanvullen  |  ? = help" />
           <button class="btn-sm btn-hint" onclick="cliShowHint()">hint</button>
           <button class="btn-sm btn-sreset" onclick="cliReset()">reset</button>
         </div>
@@ -242,13 +232,12 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
   </div>
 </div>
 
-<!-- ADRESTABEL TAB -->
 <div class="tab-panel" id="panel-addr">
   <div class="mobile-select-wrap">
     <select class="mobile-select" id="addr-mobile-select" onchange="addrLoad(parseInt(this.value))"></select>
   </div>
   <div class="app-layout">
-    <div class="sidebar" id="addr-sidebar">
+    <div class="sidebar">
       <div class="sb-section">
         <div class="sb-label">IPv4 only</div>
         <div id="addr-sb-ipv4"></div>
@@ -263,6 +252,7 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
 </div>
 
 <script>
+
 function switchTab(name){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -271,318 +261,564 @@ function switchTab(name){
   if(name==='cli'){const f=document.getElementById('cli-cmd-input');if(f&&!f.disabled)f.focus();}
 }
 
-// ═══════════════════════════════════════════
-// CLI TRAINER
-// ═══════════════════════════════════════════
-const cliScenarios=[
-  {id:0,group:"full",tag:"ROUTER",tagColor:"#1f4b7a",tagText:"#79c0ff",name:"Volledige router setup",type:"R1 — exacte PTSA volgorde",
-  desc:"Exacte PTSA volgorde: no ip domain-lookup, hostname, banner, interfaces G0/0/0 + G0/0/1, hardening, console, SSH, VTY 0-4, RSA 1024, opslaan.",steps:[
-    {p:"Router>",cmd:"enable",m:/^enable$/i,ok:"Privileged EXEC mode."},
-    {p:"Router#",cmd:"configure terminal",m:/^conf(igure)?(\s+t(erminal)?)?$/i,ok:"Global configuration mode."},
-    {p:"Router(config)#",cmd:"no ip domain-lookup",m:/^no\s+ip\s+domain-lookup$/i,ok:"DNS lookup uitgeschakeld."},
-    {p:"Router(config)#",cmd:"hostname R1",m:/^hostname\s+\S+$/i,ok:"Hostname ingesteld."},
-    {p:"R1(config)#",cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,ok:"Banner MOTD ingesteld."},
-    {p:"R1(config)#",cmd:"interface g0/0/1",m:/^int(erface)?\s+g(ig(abitethernet)?)?0\/0\/1$/i,ok:"Interface G0/0/1."},
-    {p:"R1(config-if)#",cmd:"description LAN 1",m:/^description\s+.+$/i,ok:"Description ingesteld."},
-    {p:"R1(config-if)#",cmd:"ip address 192.168.10.1 255.255.255.128",m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IPv4 adres ingesteld op G0/0/1."},
-    {p:"R1(config-if)#",cmd:"no shutdown",m:/^no\s+shut(down)?$/i,ok:"Interface actief."},
-    {p:"R1(config-if)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"R1(config)#",cmd:"interface g0/0/0",m:/^int(erface)?\s+g(ig(abitethernet)?)?0\/0\/0$/i,ok:"Interface G0/0/0."},
-    {p:"R1(config-if)#",cmd:"description LAN 2",m:/^description\s+.+$/i,ok:"Description ingesteld."},
-    {p:"R1(config-if)#",cmd:"ip address 192.168.10.129 255.255.255.192",m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IPv4 adres ingesteld op G0/0/0."},
-    {p:"R1(config-if)#",cmd:"no shutdown",m:/^no\s+shut(down)?$/i,ok:"Interface actief."},
-    {p:"R1(config-if)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"R1(config)#",cmd:"enable secret DontTellAnyone",m:/^enable\s+secret\s+\S+$/i,ok:"Enable secret ingesteld (MD5)."},
-    {p:"R1(config)#",cmd:"service password-encryption",m:/^service\s+password-encryption$/i,ok:"Plaintext wachtwoorden versleuteld (type 7)."},
-    {p:"R1(config)#",cmd:"security passwords min-length 10",m:/^security\s+passwords\s+min-length\s+\d+$/i,ok:"Min-length 10. Alleen op router. Niet via ? in PT."},
-    {p:"R1(config)#",cmd:"line console 0",m:/^line\s+con(sole)?\s+0$/i,ok:"Console line."},
-    {p:"R1(config-line)#",cmd:"password C@nsPassw!",m:/^password\s+\S+$/i,ok:"Console password ingesteld."},
-    {p:"R1(config-line)#",cmd:"login",m:/^login$/i,ok:"Login vereist op console."},
-    {p:"R1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"R1(config)#",cmd:"ip domain-name netsec.com",m:/^ip\s+domain-name\s+\S+$/i,ok:"Domain name ingesteld. Vereist voor RSA."},
-    {p:"R1(config)#",cmd:"username netadmin secret Ci$co12345",m:/^username\s+\S+\s+secret\s+\S+$/i,ok:"Lokale gebruiker aangemaakt."},
-    {p:"R1(config)#",cmd:"line vty 0 4",m:/^line\s+vty\s+0\s+4$/i,ok:"VTY 0-4. Router heeft 5 VTY lines."},
-    {p:"R1(config-line)#",cmd:"transport input ssh",m:/^transport\s+input\s+(ssh|all)$/i,ok:"Alleen SSH op VTY."},
-    {p:"R1(config-line)#",cmd:"login local",m:/^login\s+local$/i,ok:"Authenticatie via lokale database. Verplicht bij SSH."},
-    {p:"R1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"R1(config)#",cmd:"crypto key generate rsa",m:/^crypto\s+key\s+generate\s+rsa$/i,ok:"RSA key genereren..."},
-    {p:"How many bits in the modulus [512]:",cmd:"1024",m:/^1024$/,ok:"1024-bit RSA. SSH v2 actief. 512 bit = SSH 1.5/1.99."},
-    {p:"R1(config)#",cmd:"end",m:/^end$/i,ok:"Privileged EXEC."},
-    {p:"R1#",cmd:"copy running-config startup-config",m:/^copy\s+run(ning-config)?\s+start(up-config)?$/i,ok:"Configuratie opgeslagen in NVRAM."},
+// ── TAB COMPLETION ──
+const TAB_MAP = {
+  'en':'enable','conf t':'configure terminal','conf':'configure terminal',
+  'no ip domain':'no ip domain-lookup',
+  'int g0/0/0':'interface g0/0/0','int g0/0/1':'interface g0/0/1',
+  'int v':'interface vlan 1','int vlan':'interface vlan 1','int vlan 1':'interface vlan 1',
+  'int range':'interface range f0/1-4, f0/7-24, g0/1-2',
+  'ip add':'ip address','ip domain':'ip domain-name','ip def':'ip default-gateway',
+  'no shut':'no shutdown',
+  'serv':'service password-encryption','service pass':'service password-encryption',
+  'sec':'security passwords min-length 10','security pass':'security passwords min-length 10',
+  'ban':'banner motd','line con':'line console 0',
+  'line vty 0 4':'line vty 0 4','line vty 0 15':'line vty 0 15','line vty':'line vty 0 4',
+  'trans':'transport input ssh','transport in':'transport input ssh',
+  'login l':'login local',
+  'crypto':'crypto key generate rsa','crypto key':'crypto key generate rsa',
+  'copy':'copy running-config startup-config','copy run':'copy running-config startup-config',
+  'enable sec':'enable secret DontTellAnyone',
+};
+
+function tryTab(val){
+  const lo = val.toLowerCase().trim();
+  if(!lo) return null;
+  if(TAB_MAP[lo]) return TAB_MAP[lo];
+  for(const [k,v] of Object.entries(TAB_MAP)){
+    if(lo.length >= 2 && k.startsWith(lo)) return v;
+  }
+  return null;
+}
+
+// ── HELP CONTEXTS ──
+const HELP = {
+  exec:[['enable','Ga naar privileged EXEC mode']],
+  priv:[['configure terminal','Global config mode'],['copy running-config startup-config','Sla op'],['show running-config','Toon config']],
+  config:[
+    ['hostname <naam>','Stel hostname in'],['no ip domain-lookup','Schakel DNS lookup uit'],
+    ['banner motd #tekst#','MOTD banner'],['enable secret <ww>','Enable secret (MD5)'],
+    ['service password-encryption','Versleutel plaintext ww'],
+    ['security passwords min-length 10','Min ww lengte (alleen router)'],
+    ['ip domain-name <naam>','Domain name — vereist voor RSA'],
+    ['username <naam> secret <ww>','Lokale gebruiker'],
+    ['crypto key generate rsa','RSA keypair voor SSH'],
+    ['interface <type><nr>','Interface config'],['line console 0','Console line'],
+    ['line vty 0 4','VTY lines router'],['line vty 0 15','VTY lines switch'],
+    ['ip default-gateway <ip>','Default gateway (alleen switch)'],
+    ['end','Terug naar privileged EXEC'],
+  ],
+  'config-if':[
+    ['ip address <ip> <mask>','IPv4 adres instellen'],['description <tekst>','Interface beschrijving'],
+    ['no shutdown','Activeer interface'],['shutdown','Deactiveer interface'],['exit','Terug'],
+  ],
+  'config-line':[
+    ['password <ww>','Line password'],['login','Login via line password'],
+    ['login local','Login via lokale user database'],['transport input ssh','Alleen SSH op VTY'],
+    ['exit','Terug'],
+  ],
+};
+
+function getHelp(mode){
+  if(mode==='exec') return HELP.exec;
+  if(mode==='priv') return HELP.priv;
+  if(mode&&mode.startsWith('config-if')) return HELP['config-if'];
+  if(mode&&mode.startsWith('config-line')) return HELP['config-line'];
+  return HELP.config;
+}
+
+// ── CLI SCENARIOS ──
+// Elke stap: {id, cmd, m, ok, requires[], mode, setsMode?}
+// requires = stap-id's die al gedaan moeten zijn
+// mode = vereiste huidige mode
+// setsMode = nieuwe mode na dit commando
+
+const SCEN = [
+  {id:0,group:"full",tag:"ROUTER",tagColor:"#1f4b7a",tagText:"#79c0ff",
+   name:"Volledige router setup",type:"R1 — PTSA",
+   desc:"Commando's binnen dezelfde mode mogen in willekeurige volgorde. Alleen echte IOS-afhankelijkheden worden afgedwongen.",
+   vars:[{k:"Hostname",v:"R1"},{k:"Domain",v:"netsec.com"},{k:"Username",v:"netadmin"},{k:"Secret",v:"Ci$co12345"},{k:"Enable secret",v:"DontTellAnyone"},{k:"Console pw",v:"C@nsPassw!"}],
+   steps:[
+    {id:"enable",   cmd:"enable",                                     m:/^enable$/i,                                        ok:"Privileged EXEC mode.",                          req:[],                   mode:"exec",         set:"priv"},
+    {id:"conf_t",   cmd:"configure terminal",                         m:/^conf(igure)?(\s+t(erminal)?)?$/i,                 ok:"Global configuration mode.",                     req:["enable"],           mode:"priv",         set:"config"},
+    {id:"no_dl",    cmd:"no ip domain-lookup",                        m:/^no\s+ip\s+domain-lookup$/i,                      ok:"DNS lookup uitgeschakeld. Voorkomt IOS vertraging bij typfouten.", req:["conf_t"],mode:"config"},
+    {id:"hostname", cmd:"hostname R1",                                m:/^hostname\s+\S+$/i,                               ok:"Hostname ingesteld.",                            req:["conf_t"],           mode:"config"},
+    {id:"banner",   cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,     ok:"Banner MOTD ingesteld.",                         req:["conf_t"],           mode:"config"},
+    {id:"ensec",    cmd:"enable secret DontTellAnyone",               m:/^enable\s+secret\s+\S+$/i,                        ok:"Enable secret ingesteld (MD5).",                 req:["conf_t"],           mode:"config"},
+    {id:"svcenc",   cmd:"service password-encryption",                m:/^service\s+password-encryption$/i,               ok:"Plaintext wachtwoorden versleuteld (type 7).",   req:["conf_t"],           mode:"config"},
+    {id:"secmin",   cmd:"security passwords min-length 10",           m:/^security\s+passwords\s+min-length\s+\d+$/i,     ok:"Min-length 10. Alleen router. Niet via ? in PT.",req:["conf_t"],           mode:"config"},
+    {id:"linecon",  cmd:"line console 0",                             m:/^line\s+con(sole)?\s+0$/i,                        ok:"Console line.",                                  req:["conf_t"],           mode:"config",       set:"config-line-con"},
+    {id:"conpw",    cmd:"password C@nsPassw!",                        m:/^password\s+\S+$/i,                               ok:"Console password ingesteld.",                    req:["linecon"],          mode:"config-line-con"},
+    {id:"conlogin", cmd:"login",                                      m:/^login$/i,                                        ok:"Login vereist op console.",                      req:["conpw"],            mode:"config-line-con"},
+    {id:"conexit",  cmd:"exit",                                       m:/^exit$/i,                                         ok:"Terug naar global config.",                      req:["conlogin"],         mode:"config-line-con",set:"config"},
+    {id:"intg001",  cmd:"interface g0/0/1",                           m:/^int(erface)?\s+g(ig(abitethernet)?)?0\/0\/1$/i,  ok:"Interface G0/0/1.",                              req:["conf_t"],           mode:"config",       set:"config-if-g001"},
+    {id:"g001desc", cmd:"description LAN 1",                         m:/^description\s+.+$/i,                             ok:"Description ingesteld.",                         req:["intg001"],          mode:"config-if-g001"},
+    {id:"g001ip",   cmd:"ip address 192.168.10.1 255.255.255.128",    m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IPv4 adres ingesteld op G0/0/1.",   req:["intg001"],          mode:"config-if-g001"},
+    {id:"g001shut", cmd:"no shutdown",                                m:/^no\s+shut(down)?$/i,                             ok:"G0/0/1 actief.",                                 req:["g001ip"],           mode:"config-if-g001"},
+    {id:"g001exit", cmd:"exit",                                       m:/^exit$/i,                                         ok:"Terug naar global config.",                      req:["g001shut"],         mode:"config-if-g001",set:"config"},
+    {id:"intg000",  cmd:"interface g0/0/0",                           m:/^int(erface)?\s+g(ig(abitethernet)?)?0\/0\/0$/i,  ok:"Interface G0/0/0.",                              req:["conf_t"],           mode:"config",       set:"config-if-g000"},
+    {id:"g000desc", cmd:"description LAN 2",                         m:/^description\s+.+$/i,                             ok:"Description ingesteld.",                         req:["intg000"],          mode:"config-if-g000"},
+    {id:"g000ip",   cmd:"ip address 192.168.10.129 255.255.255.192",  m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IPv4 adres ingesteld op G0/0/0.",   req:["intg000"],          mode:"config-if-g000"},
+    {id:"g000shut", cmd:"no shutdown",                                m:/^no\s+shut(down)?$/i,                             ok:"G0/0/0 actief.",                                 req:["g000ip"],           mode:"config-if-g000"},
+    {id:"g000exit", cmd:"exit",                                       m:/^exit$/i,                                         ok:"Terug naar global config.",                      req:["g000shut"],         mode:"config-if-g000",set:"config"},
+    {id:"domain",   cmd:"ip domain-name netsec.com",                  m:/^ip\s+domain-name\s+\S+$/i,                      ok:"Domain name ingesteld. Vereist voor RSA.",       req:["conf_t"],           mode:"config"},
+    {id:"username", cmd:"username netadmin secret Ci$co12345",        m:/^username\s+\S+\s+secret\s+\S+$/i,               ok:"Lokale gebruiker aangemaakt.",                   req:["conf_t"],           mode:"config"},
+    {id:"linevty",  cmd:"line vty 0 4",                               m:/^line\s+vty\s+0\s+4$/i,                          ok:"VTY 0-4. Router heeft 5 VTY lines.",             req:["username"],         mode:"config",       set:"config-line-vty"},
+    {id:"vtytrans", cmd:"transport input ssh",                        m:/^transport\s+input\s+(ssh|all)$/i,               ok:"Alleen SSH op VTY.",                             req:["linevty"],          mode:"config-line-vty"},
+    {id:"vtylogin", cmd:"login local",                                m:/^login\s+local$/i,                               ok:"Authenticatie via lokale database. Verplicht bij SSH.", req:["linevty","username"],mode:"config-line-vty"},
+    {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                        ok:"Terug naar global config.",                      req:["vtylogin"],         mode:"config-line-vty",set:"config"},
+    {id:"crypto",   cmd:"crypto key generate rsa",                    m:/^crypto\s+key\s+generate\s+rsa$/i,               ok:"RSA key genereren...",                           req:["hostname","domain"],mode:"config"},
+    {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                         ok:"1024-bit RSA. SSH v2 actief. 512 bit = SSH 1.5/1.99.", req:["crypto"],      mode:"rsa-prompt"},
+    {id:"end",      cmd:"end",                                        m:/^end$/i,                                         ok:"Privileged EXEC.",                               req:["conf_t"],           mode:"config",       set:"priv"},
+    {id:"save",     cmd:"copy running-config startup-config",         m:/^copy\s+run(ning-config)?\s+start(up-config)?$/i,ok:"Configuratie opgeslagen in NVRAM.",              req:["end"],              mode:"priv"},
   ]},
-  {id:1,group:"full",tag:"SWITCH",tagColor:"#1a3a1a",tagText:"#3fb950",name:"Volledige switch setup",type:"S1 — exacte PTSA volgorde",
-  desc:"Exacte PTSA volgorde: no ip domain-lookup, hostname, banner, VLAN 1 SVI, default-gateway, hardening, console, SSH, VTY 0-15, RSA 1024, unused ports shutdown, opslaan.",steps:[
-    {p:"Switch>",cmd:"enable",m:/^enable$/i,ok:"Privileged EXEC mode."},
-    {p:"Switch#",cmd:"configure terminal",m:/^conf(igure)?(\s+t(erminal)?)?$/i,ok:"Global configuration mode."},
-    {p:"Switch(config)#",cmd:"no ip domain-lookup",m:/^no\s+ip\s+domain-lookup$/i,ok:"DNS lookup uitgeschakeld."},
-    {p:"Switch(config)#",cmd:"hostname S1",m:/^hostname\s+\S+$/i,ok:"Hostname ingesteld."},
-    {p:"S1(config)#",cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,ok:"Banner MOTD ingesteld."},
-    {p:"S1(config)#",cmd:"interface vlan 1",m:/^int(erface)?\s+vlan\s*1$/i,ok:"VLAN 1 SVI — management interface van de switch."},
-    {p:"S1(config-if)#",cmd:"description LAN 1 Management",m:/^description\s+.+$/i,ok:"Description ingesteld."},
-    {p:"S1(config-if)#",cmd:"ip address 192.168.10.2 255.255.255.128",m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IP adres ingesteld op VLAN 1."},
-    {p:"S1(config-if)#",cmd:"no shutdown",m:/^no\s+shut(down)?$/i,ok:"VLAN 1 actief. Standaard shutdown op switches."},
-    {p:"S1(config-if)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"S1(config)#",cmd:"ip default-gateway 192.168.10.1",m:/^ip\s+default-gateway\s+\d+\.\d+\.\d+\.\d+$/i,ok:"Default gateway ingesteld. Switches routen niet."},
-    {p:"S1(config)#",cmd:"enable secret DontTellAnyone",m:/^enable\s+secret\s+\S+$/i,ok:"Enable secret ingesteld."},
-    {p:"S1(config)#",cmd:"service password-encryption",m:/^service\s+password-encryption$/i,ok:"Wachtwoorden versleuteld."},
-    {p:"S1(config)#",cmd:"line console 0",m:/^line\s+con(sole)?\s+0$/i,ok:"Console line."},
-    {p:"S1(config-line)#",cmd:"password C@nsPassw!",m:/^password\s+\S+$/i,ok:"Console password ingesteld."},
-    {p:"S1(config-line)#",cmd:"login",m:/^login$/i,ok:"Login vereist op console."},
-    {p:"S1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"S1(config)#",cmd:"ip domain-name netsec.com",m:/^ip\s+domain-name\s+\S+$/i,ok:"Domain name ingesteld."},
-    {p:"S1(config)#",cmd:"username netadmin secret Ci$co12345",m:/^username\s+\S+\s+secret\s+\S+$/i,ok:"Lokale gebruiker aangemaakt."},
-    {p:"S1(config)#",cmd:"line vty 0 15",m:/^line\s+vty\s+0\s+15$/i,ok:"VTY 0-15. Switch: 16 lines. Router: 5 (0-4)."},
-    {p:"S1(config-line)#",cmd:"transport input ssh",m:/^transport\s+input\s+(ssh|all)$/i,ok:"Alleen SSH op VTY."},
-    {p:"S1(config-line)#",cmd:"login local",m:/^login\s+local$/i,ok:"Login local. Verplicht bij SSH."},
-    {p:"S1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"S1(config)#",cmd:"crypto key generate rsa",m:/^crypto\s+key\s+generate\s+rsa$/i,ok:"RSA key genereren..."},
-    {p:"How many bits in the modulus [512]:",cmd:"1024",m:/^1024$/,ok:"1024-bit RSA. SSH v2 actief."},
-    {p:"S1(config)#",cmd:"interface range f0/1-4, f0/7-24, g0/1-2",m:/^int(erface)?\s+range\s+.+$/i,ok:"Interface range geselecteerd."},
-    {p:"S1(config-if-range)#",cmd:"description Unused - Intentionally Shutdown",m:/^description\s+.+$/i,ok:"Description ingesteld op unused ports."},
-    {p:"S1(config-if-range)#",cmd:"shutdown",m:/^shutdown$/i,ok:"Unused ports uitgeschakeld."},
-    {p:"S1(config-if-range)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"S1(config)#",cmd:"end",m:/^end$/i,ok:"Privileged EXEC."},
-    {p:"S1#",cmd:"copy running-config startup-config",m:/^copy\s+run(ning-config)?\s+start(up-config)?$/i,ok:"Configuratie opgeslagen."},
+
+  {id:1,group:"full",tag:"SWITCH",tagColor:"#1a3a1a",tagText:"#3fb950",
+   name:"Volledige switch setup",type:"S1 — PTSA",
+   desc:"Exacte PTSA switch configuratie. Commando's binnen dezelfde mode mogen in willekeurige volgorde.",
+   vars:[{k:"Hostname",v:"S1"},{k:"Domain",v:"netsec.com"},{k:"Username",v:"netadmin"},{k:"Secret",v:"Ci$co12345"},{k:"Enable secret",v:"DontTellAnyone"},{k:"Console pw",v:"C@nsPassw!"},{k:"VLAN 1 IP",v:"192.168.10.2 /25"},{k:"Gateway",v:"192.168.10.1"}],
+   steps:[
+    {id:"enable",   cmd:"enable",                                     m:/^enable$/i,                                       ok:"Privileged EXEC mode.",                         req:[],                  mode:"exec",         set:"priv"},
+    {id:"conf_t",   cmd:"configure terminal",                         m:/^conf(igure)?(\s+t(erminal)?)?$/i,                ok:"Global configuration mode.",                    req:["enable"],          mode:"priv",         set:"config"},
+    {id:"no_dl",    cmd:"no ip domain-lookup",                        m:/^no\s+ip\s+domain-lookup$/i,                     ok:"DNS lookup uitgeschakeld.",                     req:["conf_t"],          mode:"config"},
+    {id:"hostname", cmd:"hostname S1",                                m:/^hostname\s+\S+$/i,                              ok:"Hostname ingesteld.",                           req:["conf_t"],          mode:"config"},
+    {id:"banner",   cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,    ok:"Banner MOTD ingesteld.",                        req:["conf_t"],          mode:"config"},
+    {id:"ensec",    cmd:"enable secret DontTellAnyone",               m:/^enable\s+secret\s+\S+$/i,                       ok:"Enable secret ingesteld.",                      req:["conf_t"],          mode:"config"},
+    {id:"svcenc",   cmd:"service password-encryption",                m:/^service\s+password-encryption$/i,              ok:"Wachtwoorden versleuteld.",                     req:["conf_t"],          mode:"config"},
+    {id:"intvlan",  cmd:"interface vlan 1",                           m:/^int(erface)?\s+vlan\s*1$/i,                    ok:"VLAN 1 SVI — management interface.",            req:["conf_t"],          mode:"config",       set:"config-if-vlan"},
+    {id:"vlandesc", cmd:"description LAN 1 Management",               m:/^description\s+.+$/i,                           ok:"Description ingesteld.",                        req:["intvlan"],         mode:"config-if-vlan"},
+    {id:"vlanip",   cmd:"ip address 192.168.10.2 255.255.255.128",    m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IP adres ingesteld op VLAN 1.",    req:["intvlan"],         mode:"config-if-vlan"},
+    {id:"vlanshut", cmd:"no shutdown",                                m:/^no\s+shut(down)?$/i,                           ok:"VLAN 1 actief. Standaard shutdown op switches.",req:["vlanip"],          mode:"config-if-vlan"},
+    {id:"vlanexit", cmd:"exit",                                       m:/^exit$/i,                                       ok:"Terug naar global config.",                     req:["vlanshut"],        mode:"config-if-vlan",set:"config"},
+    {id:"defgw",    cmd:"ip default-gateway 192.168.10.1",            m:/^ip\s+default-gateway\s+\d+\.\d+\.\d+\.\d+$/i, ok:"Default gateway ingesteld. Switches routen niet.",req:["conf_t"],        mode:"config"},
+    {id:"linecon",  cmd:"line console 0",                             m:/^line\s+con(sole)?\s+0$/i,                      ok:"Console line.",                                 req:["conf_t"],          mode:"config",       set:"config-line-con"},
+    {id:"conpw",    cmd:"password C@nsPassw!",                        m:/^password\s+\S+$/i,                             ok:"Console password ingesteld.",                   req:["linecon"],         mode:"config-line-con"},
+    {id:"conlogin", cmd:"login",                                      m:/^login$/i,                                      ok:"Login vereist op console.",                     req:["conpw"],           mode:"config-line-con"},
+    {id:"conexit",  cmd:"exit",                                       m:/^exit$/i,                                       ok:"Terug naar global config.",                     req:["conlogin"],        mode:"config-line-con",set:"config"},
+    {id:"domain",   cmd:"ip domain-name netsec.com",                  m:/^ip\s+domain-name\s+\S+$/i,                    ok:"Domain name ingesteld.",                        req:["conf_t"],          mode:"config"},
+    {id:"username", cmd:"username netadmin secret Ci$co12345",        m:/^username\s+\S+\s+secret\s+\S+$/i,             ok:"Lokale gebruiker aangemaakt.",                  req:["conf_t"],          mode:"config"},
+    {id:"linevty",  cmd:"line vty 0 15",                              m:/^line\s+vty\s+0\s+15$/i,                       ok:"VTY 0-15. Switch: 16 lines (router: 0-4).",     req:["username"],        mode:"config",       set:"config-line-vty"},
+    {id:"vtytrans", cmd:"transport input ssh",                        m:/^transport\s+input\s+(ssh|all)$/i,             ok:"Alleen SSH op VTY.",                            req:["linevty"],         mode:"config-line-vty"},
+    {id:"vtylogin", cmd:"login local",                                m:/^login\s+local$/i,                             ok:"Login local. Verplicht bij SSH.",               req:["linevty","username"],mode:"config-line-vty"},
+    {id:"vtyexit",  cmd:"exit",                                       m:/^exit$/i,                                      ok:"Terug naar global config.",                     req:["vtylogin"],        mode:"config-line-vty",set:"config"},
+    {id:"crypto",   cmd:"crypto key generate rsa",                    m:/^crypto\s+key\s+generate\s+rsa$/i,             ok:"RSA key genereren...",                          req:["hostname","domain"],mode:"config"},
+    {id:"rsabits",  cmd:"1024",                                       m:/^1024$/,                                       ok:"1024-bit RSA. SSH v2 actief.",                  req:["crypto"],          mode:"rsa-prompt"},
+    {id:"intrange", cmd:"interface range f0/1-4, f0/7-24, g0/1-2",   m:/^int(erface)?\s+range\s+.+$/i,                ok:"Interface range geselecteerd.",                 req:["conf_t"],          mode:"config",       set:"config-if-range"},
+    {id:"rangedesc",cmd:"description Unused - Intentionally Shutdown",m:/^description\s+.+$/i,                        ok:"Description ingesteld op unused ports.",        req:["intrange"],        mode:"config-if-range"},
+    {id:"rangeshut",cmd:"shutdown",                                   m:/^shutdown$/i,                                  ok:"Unused ports uitgeschakeld.",                   req:["intrange"],        mode:"config-if-range"},
+    {id:"rangeexit",cmd:"exit",                                       m:/^exit$/i,                                      ok:"Terug naar global config.",                     req:["rangeshut"],       mode:"config-if-range",set:"config"},
+    {id:"end",      cmd:"end",                                        m:/^end$/i,                                       ok:"Privileged EXEC.",                              req:["conf_t"],          mode:"config",       set:"priv"},
+    {id:"save",     cmd:"copy running-config startup-config",         m:/^copy\s+run(ning-config)?\s+start(up-config)?$/i,ok:"Configuratie opgeslagen.",                 req:["end"],             mode:"priv"},
   ]},
-  {id:2,group:"partial",tag:"SSH",tagColor:"#1f3a5c",tagText:"#58a6ff",name:"SSH instellen",type:"Deelscenario — router",desc:"ip domain-name, username, VTY 0-4 transport input ssh + login local, RSA 1024.",steps:[
-    {p:"R1(config)#",cmd:"ip domain-name netsec.com",m:/^ip\s+domain-name\s+\S+$/i,ok:"Domain name ingesteld."},
-    {p:"R1(config)#",cmd:"username netadmin secret Ci$co12345",m:/^username\s+\S+\s+secret\s+\S+$/i,ok:"Lokale gebruiker aangemaakt."},
-    {p:"R1(config)#",cmd:"line vty 0 4",m:/^line\s+vty\s+0\s+4$/i,ok:"VTY 0-4 (router)."},
-    {p:"R1(config-line)#",cmd:"transport input ssh",m:/^transport\s+input\s+(ssh|all)$/i,ok:"Alleen SSH."},
-    {p:"R1(config-line)#",cmd:"login local",m:/^login\s+local$/i,ok:"Login local — verplicht bij SSH."},
-    {p:"R1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"R1(config)#",cmd:"crypto key generate rsa",m:/^crypto\s+key\s+generate\s+rsa$/i,ok:"RSA genereren..."},
-    {p:"How many bits in the modulus [512]:",cmd:"1024",m:/^1024$/,ok:"1024-bit RSA. SSH v2 actief."},
+
+  {id:2,group:"partial",tag:"SSH",tagColor:"#1f3a5c",tagText:"#58a6ff",
+   name:"SSH instellen",type:"Deelscenario — router",
+   desc:"Hostname R1 al ingesteld, start in global config. Volgorde is vrij.",
+   vars:[{k:"Hostname",v:"R1"},{k:"Domain",v:"netsec.com"},{k:"Username",v:"netadmin"},{k:"Secret",v:"Ci$co12345"}],
+   steps:[
+    {id:"domain",  cmd:"ip domain-name netsec.com",           m:/^ip\s+domain-name\s+\S+$/i,           ok:"Domain name ingesteld.",           req:[],                 mode:"config"},
+    {id:"username",cmd:"username netadmin secret Ci$co12345", m:/^username\s+\S+\s+secret\s+\S+$/i,   ok:"Lokale gebruiker aangemaakt.",      req:[],                 mode:"config"},
+    {id:"linevty", cmd:"line vty 0 4",                        m:/^line\s+vty\s+0\s+4$/i,              ok:"VTY 0-4 (router).",                 req:["username"],       mode:"config",      set:"config-line-vty"},
+    {id:"vtytrans",cmd:"transport input ssh",                 m:/^transport\s+input\s+(ssh|all)$/i,   ok:"Alleen SSH.",                       req:["linevty"],        mode:"config-line-vty"},
+    {id:"vtylogin",cmd:"login local",                         m:/^login\s+local$/i,                   ok:"Login local — verplicht bij SSH.",  req:["linevty","username"],mode:"config-line-vty"},
+    {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Terug naar global config.",         req:["vtylogin"],       mode:"config-line-vty",set:"config"},
+    {id:"crypto",  cmd:"crypto key generate rsa",             m:/^crypto\s+key\s+generate\s+rsa$/i,  ok:"RSA genereren...",                  req:["domain"],         mode:"config"},
+    {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"1024-bit RSA. SSH v2 actief.",      req:["crypto"],         mode:"rsa-prompt"},
   ]},
-  {id:3,group:"partial",tag:"HARD",tagColor:"#3a1a0a",tagText:"#ffa657",name:"Device hardening",type:"Deelscenario",desc:"Enable secret, service password-encryption, security passwords min-length 10, console password/login, banner MOTD.",steps:[
-    {p:"R1(config)#",cmd:"enable secret DontTellAnyone",m:/^enable\s+secret\s+\S+$/i,ok:"Enable secret ingesteld."},
-    {p:"R1(config)#",cmd:"service password-encryption",m:/^service\s+password-encryption$/i,ok:"Type 7 encryptie actief."},
-    {p:"R1(config)#",cmd:"security passwords min-length 10",m:/^security\s+passwords\s+min-length\s+\d+$/i,ok:"Min-length 10. Niet via ? in PT."},
-    {p:"R1(config)#",cmd:"line console 0",m:/^line\s+con(sole)?\s+0$/i,ok:"Console line."},
-    {p:"R1(config-line)#",cmd:"password C@nsPassw!",m:/^password\s+\S+$/i,ok:"Console password."},
-    {p:"R1(config-line)#",cmd:"login",m:/^login$/i,ok:"Login vereist."},
-    {p:"R1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"R1(config)#",cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,ok:"Banner MOTD ingesteld."},
+
+  {id:3,group:"partial",tag:"HARD",tagColor:"#3a1a0a",tagText:"#ffa657",
+   name:"Device hardening",type:"Deelscenario",
+   desc:"Start in global config. Volgorde van hardening commando's is vrij.",
+   vars:[{k:"Enable secret",v:"DontTellAnyone"},{k:"Console pw",v:"C@nsPassw!"}],
+   steps:[
+    {id:"ensec",   cmd:"enable secret DontTellAnyone",              m:/^enable\s+secret\s+\S+$/i,              ok:"Enable secret ingesteld.",        req:[],           mode:"config"},
+    {id:"svcenc",  cmd:"service password-encryption",               m:/^service\s+password-encryption$/i,     ok:"Type 7 encryptie actief.",         req:[],           mode:"config"},
+    {id:"secmin",  cmd:"security passwords min-length 10",          m:/^security\s+passwords\s+min-length\s+\d+$/i,ok:"Min-length 10. Niet via ? in PT.",req:[],      mode:"config"},
+    {id:"banner",  cmd:"banner motd #Unauthorized access to this device is prohibited!#",m:/^banner\s+motd\s+.+$/i,ok:"Banner MOTD ingesteld.",    req:[],           mode:"config"},
+    {id:"linecon", cmd:"line console 0",                            m:/^line\s+con(sole)?\s+0$/i,              ok:"Console line.",                    req:[],           mode:"config",   set:"config-line-con"},
+    {id:"conpw",   cmd:"password C@nsPassw!",                       m:/^password\s+\S+$/i,                    ok:"Console password.",                req:["linecon"],  mode:"config-line-con"},
+    {id:"conlogin",cmd:"login",                                     m:/^login$/i,                             ok:"Login vereist.",                   req:["conpw"],    mode:"config-line-con"},
+    {id:"conexit", cmd:"exit",                                      m:/^exit$/i,                              ok:"Terug naar global config.",        req:["conlogin"], mode:"config-line-con",set:"config"},
   ]},
-  {id:4,group:"partial",tag:"VTY",tagColor:"#2d1a40",tagText:"#d2a8ff",name:"Switch VTY + SSH",type:"Deelscenario — switch",desc:"Switch VTY 0-15 met SSH en login local. Inclusief ip domain-name, username en RSA 1024.",steps:[
-    {p:"S1(config)#",cmd:"ip domain-name netsec.com",m:/^ip\s+domain-name\s+\S+$/i,ok:"Domain name ingesteld."},
-    {p:"S1(config)#",cmd:"username netadmin secret Ci$co12345",m:/^username\s+\S+\s+secret\s+\S+$/i,ok:"Lokale gebruiker aangemaakt."},
-    {p:"S1(config)#",cmd:"line vty 0 15",m:/^line\s+vty\s+0\s+15$/i,ok:"VTY 0-15. Switch: 16 lines. Router: 5 (0-4)."},
-    {p:"S1(config-line)#",cmd:"transport input ssh",m:/^transport\s+input\s+(ssh|all)$/i,ok:"Alleen SSH."},
-    {p:"S1(config-line)#",cmd:"login local",m:/^login\s+local$/i,ok:"Login local."},
-    {p:"S1(config-line)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"S1(config)#",cmd:"crypto key generate rsa",m:/^crypto\s+key\s+generate\s+rsa$/i,ok:"RSA genereren..."},
-    {p:"How many bits in the modulus [512]:",cmd:"1024",m:/^1024$/,ok:"SSH v2 actief."},
+
+  {id:4,group:"partial",tag:"VTY",tagColor:"#2d1a40",tagText:"#d2a8ff",
+   name:"Switch VTY + SSH",type:"Deelscenario — switch",
+   desc:"Hostname S1 al ingesteld, start in global config. VTY 0-15.",
+   vars:[{k:"Hostname",v:"S1"},{k:"Domain",v:"netsec.com"},{k:"Username",v:"netadmin"},{k:"Secret",v:"Ci$co12345"}],
+   steps:[
+    {id:"domain",  cmd:"ip domain-name netsec.com",           m:/^ip\s+domain-name\s+\S+$/i,           ok:"Domain name ingesteld.",            req:[],                  mode:"config"},
+    {id:"username",cmd:"username netadmin secret Ci$co12345", m:/^username\s+\S+\s+secret\s+\S+$/i,   ok:"Lokale gebruiker aangemaakt.",       req:[],                  mode:"config"},
+    {id:"linevty", cmd:"line vty 0 15",                       m:/^line\s+vty\s+0\s+15$/i,             ok:"VTY 0-15. Switch: 16 lines (router: 0-4).", req:["username"], mode:"config",      set:"config-line-vty"},
+    {id:"vtytrans",cmd:"transport input ssh",                 m:/^transport\s+input\s+(ssh|all)$/i,   ok:"Alleen SSH.",                        req:["linevty"],          mode:"config-line-vty"},
+    {id:"vtylogin",cmd:"login local",                         m:/^login\s+local$/i,                   ok:"Login local.",                       req:["linevty","username"],mode:"config-line-vty"},
+    {id:"vtyexit", cmd:"exit",                                m:/^exit$/i,                            ok:"Terug naar global config.",          req:["vtylogin"],         mode:"config-line-vty",set:"config"},
+    {id:"crypto",  cmd:"crypto key generate rsa",             m:/^crypto\s+key\s+generate\s+rsa$/i,  ok:"RSA genereren...",                   req:["domain"],           mode:"config"},
+    {id:"rsabits", cmd:"1024",                                m:/^1024$/,                             ok:"SSH v2 actief.",                     req:["crypto"],           mode:"rsa-prompt"},
   ]},
-  {id:5,group:"partial",tag:"SVI",tagColor:"#0d2b12",tagText:"#56d364",name:"Switch SVI + gateway",type:"Deelscenario — switch",desc:"VLAN 1 SVI: description, IP adres, no shutdown. Daarna ip default-gateway.",steps:[
-    {p:"S1(config)#",cmd:"interface vlan 1",m:/^int(erface)?\s+vlan\s*1$/i,ok:"VLAN 1 SVI."},
-    {p:"S1(config-if)#",cmd:"description LAN 1 Management",m:/^description\s+.+$/i,ok:"Description ingesteld."},
-    {p:"S1(config-if)#",cmd:"ip address 192.168.10.2 255.255.255.128",m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IP adres ingesteld."},
-    {p:"S1(config-if)#",cmd:"no shutdown",m:/^no\s+shut(down)?$/i,ok:"Interface actief."},
-    {p:"S1(config-if)#",cmd:"exit",m:/^exit$/i,ok:"Terug naar global config."},
-    {p:"S1(config)#",cmd:"ip default-gateway 192.168.10.1",m:/^ip\s+default-gateway\s+\d+\.\d+\.\d+\.\d+$/i,ok:"Default gateway ingesteld. Alleen op switches."},
+
+  {id:5,group:"partial",tag:"SVI",tagColor:"#0d2b12",tagText:"#56d364",
+   name:"Switch SVI + gateway",type:"Deelscenario — switch",
+   desc:"VLAN 1 SVI configureren. Start in global config.",
+   vars:[{k:"VLAN 1 IP",v:"192.168.10.2 /25"},{k:"Gateway",v:"192.168.10.1"}],
+   steps:[
+    {id:"intvlan", cmd:"interface vlan 1",                        m:/^int(erface)?\s+vlan\s*1$/i,                    ok:"VLAN 1 SVI.",                           req:[],           mode:"config",       set:"config-if-vlan"},
+    {id:"vlandesc",cmd:"description LAN 1 Management",            m:/^description\s+.+$/i,                           ok:"Description ingesteld.",                req:["intvlan"],  mode:"config-if-vlan"},
+    {id:"vlanip",  cmd:"ip address 192.168.10.2 255.255.255.128", m:/^ip\s+address\s+\d+\.\d+\.\d+\.\d+\s+\d+\.\d+\.\d+\.\d+$/i,ok:"IP adres ingesteld.",     req:["intvlan"],  mode:"config-if-vlan"},
+    {id:"vlanshut",cmd:"no shutdown",                             m:/^no\s+shut(down)?$/i,                           ok:"Interface actief.",                     req:["vlanip"],   mode:"config-if-vlan"},
+    {id:"vlanexit",cmd:"exit",                                    m:/^exit$/i,                                       ok:"Terug naar global config.",             req:["vlanshut"], mode:"config-if-vlan",set:"config"},
+    {id:"defgw",   cmd:"ip default-gateway 192.168.10.1",         m:/^ip\s+default-gateway\s+\d+\.\d+\.\d+\.\d+$/i, ok:"Default gateway ingesteld. Alleen op switches.", req:[], mode:"config"},
   ]},
-  {id:6,group:"partial",tag:"PORT",tagColor:"#2a1a0a",tagText:"#e3b341",name:"Unused ports shutdown",type:"Deelscenario — switch",desc:"Unused ports uitschakelen via interface range: description + shutdown.",steps:[
-    {p:"S1(config)#",cmd:"interface range f0/1-4, f0/7-24, g0/1-2",m:/^int(erface)?\s+range\s+.+$/i,ok:"Interface range geselecteerd."},
-    {p:"S1(config-if-range)#",cmd:"description Unused - Intentionally Shutdown",m:/^description\s+.+$/i,ok:"Description ingesteld."},
-    {p:"S1(config-if-range)#",cmd:"shutdown",m:/^shutdown$/i,ok:"Poorten uitgeschakeld."},
-    {p:"S1(config-if-range)#",cmd:"exit",m:/^exit$/i,ok:"Klaar."},
+
+  {id:6,group:"partial",tag:"PORT",tagColor:"#2a1a0a",tagText:"#e3b341",
+   name:"Unused ports shutdown",type:"Deelscenario — switch",
+   desc:"Unused ports uitschakelen via interface range. Start in global config.",
+   vars:[],
+   steps:[
+    {id:"intrange", cmd:"interface range f0/1-4, f0/7-24, g0/1-2",  m:/^int(erface)?\s+range\s+.+$/i,ok:"Interface range geselecteerd.",        req:[],           mode:"config",       set:"config-if-range"},
+    {id:"rangedesc",cmd:"description Unused - Intentionally Shutdown",m:/^description\s+.+$/i,         ok:"Description ingesteld.",               req:["intrange"], mode:"config-if-range"},
+    {id:"rangeshut",cmd:"shutdown",                                   m:/^shutdown$/i,                  ok:"Poorten uitgeschakeld.",               req:["intrange"], mode:"config-if-range"},
+    {id:"rangeexit",cmd:"exit",                                       m:/^exit$/i,                      ok:"Terug naar global config.",            req:["rangeshut"],mode:"config-if-range",set:"config"},
   ]},
 ];
 
-let cliCurrent=0,cliStep=0,cliHintUsed=[],cliProgress={};
+// ── CLI STATE ──
+let cliCur=0, cliMode='exec', cliDone=new Set(), cliProgress={};
+
+function promptForMode(mode, sc){
+  const hn = sc.vars&&sc.vars.find(v=>v.k==='Hostname');
+  const h = hn ? hn.v : 'Router';
+  if(mode==='exec') return h+'>';
+  if(mode==='priv') return h+'#';
+  if(mode==='config') return h+'(config)#';
+  if(mode==='rsa-prompt') return 'How many bits in the modulus [512]:';
+  if(mode&&mode.startsWith('config-if')) return h+'(config-if)#';
+  if(mode&&mode.startsWith('config-line')) return h+'(config-line)#';
+  return h+'#';
+}
 
 function cliBuildSidebar(){
-  const full=document.getElementById('cli-sb-full'),partial=document.getElementById('cli-sb-partial');
+  const full=document.getElementById('cli-sb-full'), partial=document.getElementById('cli-sb-partial');
   const sel=document.getElementById('cli-mobile-select');
-  const grpFull=document.createElement('optgroup'); grpFull.label='Volledige setup';
-  const grpPartial=document.createElement('optgroup'); grpPartial.label="Deelscenario's";
-  cliScenarios.forEach(sc=>{
+  const gF=document.createElement('optgroup'); gF.label='Volledige setup';
+  const gP=document.createElement('optgroup'); gP.label="Deelscenario's";
+  SCEN.forEach(sc=>{
     const btn=document.createElement('button');
     btn.className='scen-btn'+(sc.id===0?' active':'');
     btn.id='cli-btn-'+sc.id; btn.onclick=()=>cliLoad(sc.id);
-    const done=cliProgress[sc.id]||0,total=sc.steps.length,pct=Math.round(done/total*100);
+    const done=cliProgress[sc.id]||0, total=sc.steps.length, pct=Math.round(done/total*100);
     btn.innerHTML=`<div class="scen-icon" style="background:${sc.tagColor};color:${sc.tagText}">${sc.tag.slice(0,3)}</div>
       <div class="scen-text"><span class="scen-name">${sc.name}</span><span class="scen-type">${sc.type}</span>
-      <div class="prog-mini"><div class="prog-mini-fill" id="cli-prog-${sc.id}" style="width:${pct}%"></div></div></div>
-      <span class="scen-badge" id="cli-badge-${sc.id}">${done}/${total}</span>`;
+      <div class="prog-mini"><div class="prog-mini-fill" id="cprog-${sc.id}" style="width:${pct}%"></div></div></div>
+      <span class="scen-badge" id="cbadge-${sc.id}">${done}/${total}</span>`;
     (sc.group==='full'?full:partial).appendChild(btn);
     const opt=document.createElement('option'); opt.value=sc.id; opt.textContent=sc.name;
-    (sc.group==='full'?grpFull:grpPartial).appendChild(opt);
+    (sc.group==='full'?gF:gP).appendChild(opt);
   });
-  sel.appendChild(grpFull); sel.appendChild(grpPartial);
+  sel.appendChild(gF); sel.appendChild(gP);
 }
 
 function cliLoad(idx){
-  cliCurrent=idx; cliStep=0; cliHintUsed=[];
+  cliCur=idx; cliDone=new Set();
+  const sc=SCEN[idx];
+  // Determine starting mode
+  if(sc.group==='partial'){
+    cliMode = sc.steps[0].mode || 'config';
+  } else {
+    cliMode='exec';
+  }
   document.querySelectorAll('#panel-cli .scen-btn').forEach(b=>b.classList.remove('active'));
   const btn=document.getElementById('cli-btn-'+idx); if(btn)btn.classList.add('active');
   document.getElementById('cli-mobile-select').value=idx;
-  const sc=cliScenarios[idx];
   const badge=document.getElementById('cli-sh-badge');
   badge.textContent=sc.tag; badge.style.background=sc.tagColor; badge.style.color=sc.tagText;
   document.getElementById('cli-sh-desc').textContent=sc.desc;
   document.getElementById('cli-output').innerHTML='';
   document.getElementById('cli-completion').classList.remove('show');
   document.getElementById('cli-cmd-input').disabled=false;
+  // Build vars grid
+  const vg=document.getElementById('cli-vars-grid'); vg.innerHTML='';
+  (sc.vars||[]).forEach(v=>{
+    const p=document.createElement('div'); p.className='var-pill';
+    p.innerHTML=`<span class="var-key">${v.k}:</span><span class="var-val">${v.v}</span>`;
+    vg.appendChild(p);
+  });
   cliUpdateHeader(); cliSetPrompt();
-  cliAppend('sys','--- '+sc.name+' ---'); cliAppend('blank','');
+  cliAppend('sys','--- '+sc.name+' ---');
+  cliAppend('sys','Tab = aanvullen  |  ? = help commando\'s  |  Volgorde binnen mode is vrij');
+  cliAppend('blank','');
 }
 
 function cliSetPrompt(){
-  const sc=cliScenarios[cliCurrent];
-  if(cliStep<sc.steps.length){
-    document.getElementById('cli-input-prompt').textContent=sc.steps[cliStep].p+' ';
-    document.getElementById('cli-cmd-input').disabled=false;
-  } else {
-    document.getElementById('cli-input-prompt').textContent='';
-    document.getElementById('cli-cmd-input').disabled=true;
-  }
+  const sc=SCEN[cliCur];
+  const p=promptForMode(cliMode,sc);
+  document.getElementById('cli-input-prompt').textContent=p+' ';
+  document.getElementById('cli-cmd-input').disabled=false;
 }
 
-function cliEsc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function cliAppend(type,text){
   const out=document.getElementById('cli-output');
   const div=document.createElement('div');
   if(type==='blank'){div.className='line-blank';}
-  else if(type==='prompt-cmd'){div.innerHTML=`<span class="line-prompt">${cliEsc(text.p)} </span><span class="line-cmd">${cliEsc(text.cmd)}</span>`;}
+  else if(type==='prompt-cmd'){div.innerHTML=`<span class="line-prompt">${esc(text.p)} </span><span class="line-cmd">${esc(text.cmd)}</span>`;}
   else{div.className='line-'+type; div.textContent=text;}
   out.appendChild(div);
   document.getElementById('cli-terminal-wrap').scrollTop=99999;
 }
 
-function cliHandleInput(val){
-  const sc=cliScenarios[cliCurrent];
-  if(cliStep>=sc.steps.length)return;
-  const cur=sc.steps[cliStep];
-  cliAppend('prompt-cmd',{p:cur.p,cmd:val});
-  if(cur.m.test(val.trim())){
-    cliAppend('ok',cur.ok);
-    if(/login\s+local/i.test(val))cliAppend('info','Tip: login local vereist een bestaande username in de lokale database.');
-    if(/^1024$/.test(val.trim()))cliAppend('info','Tip: 512 bit = SSH 1.5/1.99. Altijd 1024 voor SSH v2.');
-    if(/security\s+passwords\s+min-length/i.test(val))cliAppend('info','Tip: "passwords" met s, "min-length" met koppelteken. Niet via ? in PT.');
-    if(/ip\s+default-gateway/i.test(val))cliAppend('info','Tip: alleen op switches. Routers hebben routing.');
-    if(/no\s+ip\s+domain-lookup/i.test(val))cliAppend('info','Tip: zonder dit probeert IOS typfouten als hostnamen op te zoeken.');
-    if(!cliHintUsed[cliStep]){if(!cliProgress[cliCurrent])cliProgress[cliCurrent]=0;if(cliStep+1>cliProgress[cliCurrent])cliProgress[cliCurrent]=cliStep+1;}
-    cliStep++; cliUpdateSidebar(); cliUpdateHeader();
-    if(cliStep>=sc.steps.length){cliAppend('blank','');cliShowCompletion();return;}
-    cliSetPrompt();
-  } else {
-    cliAppend('err','Fout commando. Controleer syntax en volgorde.');
-    if(/^user\s+/.test(val))cliAppend('warn','Hint: commando is "username", niet "user".');
-    if(/input\s+transport/.test(val))cliAppend('warn','Hint: volgorde is "transport input ssh".');
-    if(/ip\s+domain[^-]/.test(val))cliAppend('warn','Hint: "ip domain-name" met koppelteken.');
-    if(/security\s+password\s+min/i.test(val)&&!/passwords/.test(val))cliAppend('warn','Hint: "security passwords" met s.');
-    if(/vty\s+0\s+15/.test(val)&&cur.cmd.includes('0 4'))cliAppend('warn','Hint: router gebruikt "line vty 0 4" (5 lines).');
-    if(/vty\s+0\s+4/.test(val)&&cur.cmd.includes('0 15'))cliAppend('warn','Hint: switch gebruikt "line vty 0 15" (16 lines).');
-    if(/login\s+local/i.test(val)&&cur.cmd==='login')cliAppend('warn','Hint: geen lokale user database hier. Gebruik "login".');
-  }
+function findMatchingStep(val, sc){
+  // Find a step that matches the input AND has all requirements met AND is in right mode
+  return sc.steps.find(s=>{
+    if(cliDone.has(s.id)) return false; // already done
+    if(!s.m.test(val.trim())) return false; // doesn't match
+    // Check mode compatibility
+    const modeOk = s.mode===cliMode || 
+      (s.mode==='config' && cliMode==='config') ||
+      (s.mode==='rsa-prompt' && cliMode==='rsa-prompt') ||
+      (s.mode&&s.mode.startsWith('config-if')&&cliMode===s.mode) ||
+      (s.mode&&s.mode.startsWith('config-line')&&cliMode===s.mode);
+    if(!modeOk) return false;
+    // Check requirements
+    return s.req.every(r=>cliDone.has(r));
+  });
 }
 
-function cliShowHint(){const sc=cliScenarios[cliCurrent];if(cliStep>=sc.steps.length)return;cliHintUsed[cliStep]=true;cliAppend('warn','Hint: '+sc.steps[cliStep].cmd);}
-function cliReset(){document.getElementById('cli-completion').classList.remove('show');cliStep=0;cliHintUsed=[];document.getElementById('cli-output').innerHTML='';document.getElementById('cli-cmd-input').disabled=false;cliUpdateHeader();cliSetPrompt();cliAppend('sys','--- '+cliScenarios[cliCurrent].name+' (reset) ---');cliAppend('blank','');}
-function cliNext(){document.getElementById('cli-completion').classList.remove('show');cliLoad((cliCurrent+1)%cliScenarios.length);}
-function cliShowCompletion(){const h=cliHintUsed.filter(Boolean).length,t=cliScenarios[cliCurrent].steps.length;document.getElementById('cli-cc-msg').textContent=cliScenarios[cliCurrent].name+' afgerond.';document.getElementById('cli-cc-stats').innerHTML=`stappen: <span>${t}/${t}</span> &nbsp;|&nbsp; hints: <span>${h}</span>`;document.getElementById('cli-completion').classList.add('show');}
-function cliUpdateHeader(){const sc=cliScenarios[cliCurrent];document.getElementById('cli-sh-progress').innerHTML=`stap <span>${cliStep}</span>/${sc.steps.length}`;}
-function cliUpdateSidebar(){cliScenarios.forEach(sc=>{const done=cliProgress[sc.id]||0,total=sc.steps.length,pct=Math.round(done/total*100);const f=document.getElementById('cli-prog-'+sc.id),b=document.getElementById('cli-badge-'+sc.id);if(f)f.style.width=pct+'%';if(b)b.textContent=done+'/'+total;});}
-document.getElementById('cli-cmd-input').addEventListener('keydown',function(e){if(e.key==='Enter'){const v=this.value.trim();this.value='';if(v)cliHandleInput(v);}});
+function findBlockedStep(val, sc){
+  // Find a step that matches but is blocked by missing requirements
+  return sc.steps.find(s=>{
+    if(cliDone.has(s.id)) return false;
+    if(!s.m.test(val.trim())) return false;
+    return !s.req.every(r=>cliDone.has(r));
+  });
+}
+
+function getMissingReqs(step, sc){
+  const missing = step.req.filter(r=>!cliDone.has(r));
+  return missing.map(r=>{
+    const s=sc.steps.find(x=>x.id===r);
+    return s ? s.cmd : r;
+  });
+}
+
+function cliHandleInput(val){
+  const sc=SCEN[cliCur];
+  const p=promptForMode(cliMode,sc);
+  cliAppend('prompt-cmd',{p,cmd:val});
+
+  // ? help
+  if(val.trim()==='?' || val.trim().endsWith(' ?')){
+    const lines=getHelp(cliMode);
+    cliAppend('help','');
+    lines.forEach(([cmd,desc])=>{
+      const d=document.createElement('div');
+      d.className='line-help';
+      d.innerHTML=`  <span style="color:var(--accent);min-width:200px;display:inline-block">${esc(cmd)}</span>  ${esc(desc)}`;
+      document.getElementById('cli-output').appendChild(d);
+    });
+    cliAppend('blank','');
+    document.getElementById('cli-terminal-wrap').scrollTop=99999;
+    return;
+  }
+
+  // Find matching step
+  const step=findMatchingStep(val,sc);
+  if(step){
+    cliDone.add(step.id);
+    if(step.set) cliMode=step.set;
+    cliAppend('ok',step.ok);
+    // Extra tips
+    if(/login\s+local/i.test(val)) cliAppend('info','Tip: login local vereist een bestaande username in de lokale database.');
+    if(/^1024$/.test(val.trim())) cliAppend('info','Tip: 512 bit = SSH 1.5/1.99. Altijd 1024 voor SSH v2.');
+    if(/security\s+passwords\s+min-length/i.test(val)) cliAppend('info','Tip: "passwords" met s, "min-length" met koppelteken. Niet via ? in PT.');
+    if(/ip\s+default-gateway/i.test(val)) cliAppend('info','Tip: alleen op switches. Routers hebben routing — geen default-gateway nodig.');
+    if(/no\s+ip\s+domain-lookup/i.test(val)) cliAppend('info','Tip: zonder dit probeert IOS typfouten als hostnamen op te zoeken — grote vertraging.');
+    // Update progress
+    const done=cliDone.size;
+    if(!cliProgress[cliCur]||done>cliProgress[cliCur]) cliProgress[cliCur]=done;
+    cliUpdateSidebar(); cliUpdateHeader();
+    // Check completion
+    const allDone=sc.steps.every(s=>cliDone.has(s.id));
+    if(allDone){ cliAppend('blank',''); cliShowCompletion(); return; }
+    cliSetPrompt();
+    return;
+  }
+
+  // Check if step matches but blocked by requirements
+  const blocked=findBlockedStep(val,sc);
+  if(blocked){
+    const missing=getMissingReqs(blocked,sc);
+    cliAppend('err','Commando herkend maar vereiste stap(pen) ontbreken:');
+    missing.forEach(m=>cliAppend('warn','  Eerst: '+m));
+    return;
+  }
+
+  // Unknown command — check for common mistakes
+  cliAppend('err','Onbekend commando. Controleer syntax.');
+  if(/^user\s+/.test(val)) cliAppend('warn','Hint: commando is "username", niet "user".');
+  if(/input\s+transport/.test(val)) cliAppend('warn','Hint: volgorde is "transport input ssh".');
+  if(/ip\s+domain[^-]/.test(val)) cliAppend('warn','Hint: "ip domain-name" met koppelteken.');
+  if(/security\s+password\s+min/i.test(val)&&!/passwords/.test(val)) cliAppend('warn','Hint: "security passwords" met s.');
+  if(/vty\s+0\s+15/.test(val)&&cliMode==='config'&&SCEN[cliCur].id<=1) cliAppend('warn','Hint: router gebruikt "line vty 0 4" (5 lines), switch "line vty 0 15" (16 lines).');
+  if(/login\s+local/i.test(val)&&cliMode.startsWith('config-line-con')) cliAppend('warn','Hint: console gebruikt "login" + line password, niet "login local".');
+}
+
+function cliShowHint(){
+  const sc=SCEN[cliCur];
+  // Find next undone step in current mode
+  const next=sc.steps.find(s=>!cliDone.has(s.id)&&s.req.every(r=>cliDone.has(r)));
+  if(next) cliAppend('warn','Hint: '+next.cmd);
+  else cliAppend('warn','Alle beschikbare stappen al gedaan of vereiste stappen ontbreken nog.');
+}
+
+function cliReset(){
+  document.getElementById('cli-completion').classList.remove('show');
+  cliDone=new Set();
+  const sc=SCEN[cliCur];
+  cliMode=sc.group==='partial'?(sc.steps[0].mode||'config'):'exec';
+  document.getElementById('cli-output').innerHTML='';
+  document.getElementById('cli-cmd-input').disabled=false;
+  cliUpdateHeader(); cliSetPrompt();
+  cliAppend('sys','--- '+sc.name+' (reset) ---');
+  cliAppend('blank','');
+}
+
+function cliNext(){
+  document.getElementById('cli-completion').classList.remove('show');
+  cliLoad((cliCur+1)%SCEN.length);
+}
+
+function cliShowCompletion(){
+  const sc=SCEN[cliCur];
+  const total=sc.steps.length;
+  // Find any missed steps (shouldn't happen but just in case)
+  const missed=sc.steps.filter(s=>!cliDone.has(s.id));
+  let statsHtml=`voltooid: <span>${total}</span> stappen`;
+  if(missed.length>0){
+    statsHtml+=`<br>gemist: <span class="missed">${missed.map(s=>s.cmd).join(', ')}</span>`;
+  }
+  document.getElementById('cli-cc-msg').textContent=sc.name+' afgerond.';
+  document.getElementById('cli-cc-stats').innerHTML=statsHtml;
+  document.getElementById('cli-completion').classList.add('show');
+}
+
+function cliUpdateHeader(){
+  const sc=SCEN[cliCur];
+  const done=cliDone.size, total=sc.steps.length;
+  document.getElementById('cli-sh-progress').innerHTML=`<span>${done}</span>/${total}`;
+}
+
+function cliUpdateSidebar(){
+  SCEN.forEach(sc=>{
+    const done=cliProgress[sc.id]||0, total=sc.steps.length, pct=Math.round(done/total*100);
+    const f=document.getElementById('cprog-'+sc.id), b=document.getElementById('cbadge-'+sc.id);
+    if(f)f.style.width=pct+'%'; if(b)b.textContent=done+'/'+total;
+  });
+}
+
+// Tab key handler
+document.getElementById('cli-cmd-input').addEventListener('keydown',function(e){
+  if(e.key==='Tab'){
+    e.preventDefault();
+    const completed=tryTab(this.value);
+    if(completed) this.value=completed;
+    return;
+  }
+  if(e.key==='Enter'){
+    const v=this.value.trim(); this.value='';
+    if(v) cliHandleInput(v);
+  }
+});
 
 // ═══════════════════════════════════════════
 // ADRESTABEL
 // ═══════════════════════════════════════════
-const addrScenarios=[
-  {id:0,group:"ipv4",tag:"IPv4\nBasic",tagColor:"#1f4b7a",tagText:"#79c0ff",name:"Router + Switch + PC",type:"IPv4 — eenvoudig",desc:"Eenvoudige topologie: router RTA, switch SW1 (VLAN 1 SVI), één PC. Alles in hetzelfde /24 subnet.",hint:"Default gateway van hosts en switch = IP van de router interface. Router zelf: N/A.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],
-    rows:[
-      {device:"RTA",iface:"G0/0",cells:[{type:"ip",answer:"172.16.1.1",editable:true},{type:"mask",answer:"255.255.255.0",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"SW1",iface:"VLAN 1",cells:[{type:"ip",answer:"172.16.1.2",editable:true},{type:"mask",answer:"255.255.255.0",editable:false,given:true},{type:"gw",answer:"172.16.1.1",editable:true}]},
-      {device:"PCA",iface:"NIC",cells:[{type:"ip",answer:"172.16.1.10",editable:true},{type:"mask",answer:"255.255.255.0",editable:false,given:true},{type:"gw",answer:"172.16.1.1",editable:true}]},
-    ]},
-  {id:1,group:"ipv4",tag:"PTSA\nLAN1+2",tagColor:"#1a3a1a",tagText:"#3fb950",name:"PTSA — twee subnets",type:"IPv4 VLSM /25+/26",desc:"PTSA scenario: 192.168.10.0/24. LAN 1: 100 hosts /25. LAN 2: 50 hosts /26. R1 = eerste host, S1 = tweede host LAN1, PC-A/PC-B = laatste host in hun subnet.",hint:"LAN 1 /25 (blok 128): .0–.127, eerste host .1, laatste .126. LAN 2 /26 (blok 64): .128–.191, eerste host .129, laatste .190.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],
-    rows:[
-      {device:"R1",iface:"G0/0/1 (LAN 1)",cells:[{type:"ip",answer:"192.168.10.1",editable:true},{type:"mask",answer:"255.255.255.128",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0/0 (LAN 2)",cells:[{type:"ip",answer:"192.168.10.129",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"S1",iface:"VLAN 1",cells:[{type:"ip",answer:"192.168.10.2",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
-      {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.126",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
-      {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.190",editable:true},{type:"mask",answer:"255.255.255.192",editable:false,given:true},{type:"gw",answer:"192.168.10.129",editable:true}]},
-    ]},
-  {id:2,group:"ipv4",tag:"IPv4\nVLSM",tagColor:"#3a1a0a",tagText:"#ffa657",name:"VLSM — drie subnets",type:"IPv4 VLSM /26+/27+/28",desc:"Netwerk 10.0.0.0/24. LAN A: 60 hosts /26, LAN B: 28 hosts /27, LAN C: 12 hosts /28. R1 = eerste host, PC = tweede host per subnet.",hint:"LAN A /26 (64): .0–.63. LAN B /27 (32): .64–.95. LAN C /28 (16): .96–.111. Grootste subnet eerst.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],
-    rows:[
-      {device:"R1",iface:"G0/0 (LAN A)",cells:[{type:"ip",answer:"10.0.0.1",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/1 (LAN B)",cells:[{type:"ip",answer:"10.0.0.65",editable:true},{type:"mask",answer:"255.255.255.224",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/2 (LAN C)",cells:[{type:"ip",answer:"10.0.0.97",editable:true},{type:"mask",answer:"255.255.255.240",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.2",editable:true},{type:"mask",answer:"255.255.255.192",editable:false,given:true},{type:"gw",answer:"10.0.0.1",editable:true}]},
-      {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.66",editable:true},{type:"mask",answer:"255.255.255.224",editable:false,given:true},{type:"gw",answer:"10.0.0.65",editable:true}]},
-      {device:"PC-C",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.98",editable:true},{type:"mask",answer:"255.255.255.240",editable:false,given:true},{type:"gw",answer:"10.0.0.97",editable:true}]},
-    ]},
-  {id:3,group:"dual",tag:"DUAL\nStack",tagColor:"#2d1a40",tagText:"#d2a8ff",name:"Dual stack — twee interfaces",type:"IPv4 + IPv6",dual:true,desc:"Router R1 met twee LAN interfaces. IPv4 invullen. IPv6 GUA en link-local staan gegeven. Enige IPv6 vraag: default gateway hosts (= link-local van router).",hint:"IPv6 default gateway van hosts = fe80::1 (link-local van de router), NOOIT het GUA.",columns:["Device","Interface","Type","IP Address / Prefix","Default Gateway"],
-    rows:[
-      {device:"R1",iface:"G0/0",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.1/25",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.129/26",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/1",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/1",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"S1",iface:"VLAN 1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.2/25",editable:true},{type:"gw",answer:"192.168.0.1",editable:true}]},
-      {device:"PC-A",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.126/25",editable:true},{type:"gw",answer:"192.168.0.1",editable:true}]},
-      {device:"PC-A",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
-      {device:"PC-B",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.190/26",editable:true},{type:"gw",answer:"192.168.0.129",editable:true}]},
-      {device:"PC-B",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
-    ]},
-  {id:4,group:"dual",tag:"PTSA\nFull",tagColor:"#0d2b12",tagText:"#56d364",name:"PTSA volledig dual stack",type:"IPv4+IPv6 — PTSA formaat",dual:true,desc:"Volledig PTSA formaat. LAN 1: 100 hosts /25, LAN 2: 50 hosts /26. IPv6 GUA en link-local gegeven. IPv4 berekenen + IPv6 default gateway hosts invullen.",hint:"LAN 1 /25: .1 (R1), .2 (S1), .126 (PC-A). LAN 2 /26: .129 (R1), .190 (PC-B). IPv6 gateway = fe80::1.",columns:["Device","Interface","Type","IP Address / Prefix","Default Gateway"],
-    rows:[
-      {device:"R1",iface:"G0/0/1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.1/25",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0/1",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0/1",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0/0",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.129/26",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0/0",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:2::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"R1",iface:"G0/0/0",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-      {device:"S1",iface:"VLAN 1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.2/25",editable:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
-      {device:"PC-A",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.126/25",editable:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
-      {device:"PC-A",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
-      {device:"PC-B",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.190/26",editable:true},{type:"gw",answer:"192.168.10.129",editable:true}]},
-      {device:"PC-B",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:2::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
-    ]},
+const ADDR=[
+  {id:0,group:"ipv4",tag:"IPv4\nBasic",tagColor:"#1f4b7a",tagText:"#79c0ff",name:"Router + Switch + PC",type:"IPv4 — eenvoudig",desc:"Eenvoudige topologie: router RTA, switch SW1 (VLAN 1 SVI), één PC. Alles in hetzelfde /24 subnet.",hint:"Default gateway van hosts en switch = IP van de router interface. Router zelf: N/A.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
+    {device:"RTA",iface:"G0/0",cells:[{type:"ip",answer:"172.16.1.1",editable:true},{type:"mask",answer:"255.255.255.0",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"SW1",iface:"VLAN 1",cells:[{type:"ip",answer:"172.16.1.2",editable:true},{type:"mask",answer:"255.255.255.0",editable:false,given:true},{type:"gw",answer:"172.16.1.1",editable:true}]},
+    {device:"PCA",iface:"NIC",cells:[{type:"ip",answer:"172.16.1.10",editable:true},{type:"mask",answer:"255.255.255.0",editable:false,given:true},{type:"gw",answer:"172.16.1.1",editable:true}]},
+  ]},
+  {id:1,group:"ipv4",tag:"PTSA\nLAN1+2",tagColor:"#1a3a1a",tagText:"#3fb950",name:"PTSA — twee subnets",type:"IPv4 VLSM /25+/26",desc:"192.168.10.0/24. LAN 1: 100 hosts /25. LAN 2: 50 hosts /26. R1 = eerste host, S1 = tweede host LAN1, PC-A/B = laatste host.",hint:"LAN 1 /25: .0–.127, eerste host .1, laatste .126. LAN 2 /26: .128–.191, eerste host .129, laatste .190.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
+    {device:"R1",iface:"G0/0/1 (LAN 1)",cells:[{type:"ip",answer:"192.168.10.1",editable:true},{type:"mask",answer:"255.255.255.128",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0/0 (LAN 2)",cells:[{type:"ip",answer:"192.168.10.129",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"S1",iface:"VLAN 1",cells:[{type:"ip",answer:"192.168.10.2",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
+    {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.126",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
+    {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.190",editable:true},{type:"mask",answer:"255.255.255.192",editable:false,given:true},{type:"gw",answer:"192.168.10.129",editable:true}]},
+  ]},
+  {id:2,group:"ipv4",tag:"IPv4\nVLSM",tagColor:"#3a1a0a",tagText:"#ffa657",name:"VLSM — drie subnets",type:"IPv4 VLSM /26+/27+/28",desc:"10.0.0.0/24. LAN A: 60 hosts /26, LAN B: 28 hosts /27, LAN C: 12 hosts /28. R1 = eerste host, PC = tweede host.",hint:"LAN A /26 (64): .0–.63. LAN B /27 (32): .64–.95. LAN C /28 (16): .96–.111. Grootste subnet eerst.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
+    {device:"R1",iface:"G0/0 (LAN A)",cells:[{type:"ip",answer:"10.0.0.1",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/1 (LAN B)",cells:[{type:"ip",answer:"10.0.0.65",editable:true},{type:"mask",answer:"255.255.255.224",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/2 (LAN C)",cells:[{type:"ip",answer:"10.0.0.97",editable:true},{type:"mask",answer:"255.255.255.240",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.2",editable:true},{type:"mask",answer:"255.255.255.192",editable:false,given:true},{type:"gw",answer:"10.0.0.1",editable:true}]},
+    {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.66",editable:true},{type:"mask",answer:"255.255.255.224",editable:false,given:true},{type:"gw",answer:"10.0.0.65",editable:true}]},
+    {device:"PC-C",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.98",editable:true},{type:"mask",answer:"255.255.255.240",editable:false,given:true},{type:"gw",answer:"10.0.0.97",editable:true}]},
+  ]},
+  {id:3,group:"dual",tag:"DUAL\nStack",tagColor:"#2d1a40",tagText:"#d2a8ff",name:"Dual stack — twee interfaces",type:"IPv4 + IPv6",dual:true,desc:"Router R1 met twee LAN interfaces. IPv4 invullen. IPv6 GUA en link-local staan gegeven. Enige IPv6 vraag: default gateway hosts.",hint:"IPv6 default gateway van hosts = fe80::1 (link-local van de router), NOOIT het GUA.",columns:["Device","Interface","Type","IP Address / Prefix","Default Gateway"],rows:[
+    {device:"R1",iface:"G0/0",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.1/25",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.129/26",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/1",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/1",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"S1",iface:"VLAN 1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.2/25",editable:true},{type:"gw",answer:"192.168.0.1",editable:true}]},
+    {device:"PC-A",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.126/25",editable:true},{type:"gw",answer:"192.168.0.1",editable:true}]},
+    {device:"PC-A",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
+    {device:"PC-B",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.0.190/26",editable:true},{type:"gw",answer:"192.168.0.129",editable:true}]},
+    {device:"PC-B",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
+  ]},
+  {id:4,group:"dual",tag:"PTSA\nFull",tagColor:"#0d2b12",tagText:"#56d364",name:"PTSA volledig dual stack",type:"IPv4+IPv6 — PTSA",dual:true,desc:"Volledig PTSA formaat. LAN 1: 100 hosts /25, LAN 2: 50 hosts /26. IPv6 GUA en link-local gegeven. IPv4 berekenen + IPv6 default gateway hosts.",hint:"LAN 1 /25: .1 (R1), .2 (S1), .126 (PC-A). LAN 2 /26: .129 (R1), .190 (PC-B). IPv6 gateway = fe80::1.",columns:["Device","Interface","Type","IP Address / Prefix","Default Gateway"],rows:[
+    {device:"R1",iface:"G0/0/1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.1/25",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0/1",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0/1",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0/0",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.129/26",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0/0",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:2::1/64",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"R1",iface:"G0/0/0",rowtype:"Link-local",cells:[{type:"ip",answer:"fe80::1",editable:false,given:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
+    {device:"S1",iface:"VLAN 1",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.2/25",editable:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
+    {device:"PC-A",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.126/25",editable:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
+    {device:"PC-A",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:1::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
+    {device:"PC-B",iface:"NIC",rowtype:"IPv4",cells:[{type:"ip",answer:"192.168.10.190/26",editable:true},{type:"gw",answer:"192.168.10.129",editable:true}]},
+    {device:"PC-B",iface:"NIC",rowtype:"IPv6",cells:[{type:"ip",answer:"2001:db8:acad:2::2/64",editable:false,given:true},{type:"gw6",answer:"fe80::1",editable:true}]},
+  ]},
 ];
 
-let addrCurrent=0,addrProgress={};
+let addrCur=0, addrProg={};
 
 function addrBuildSidebar(){
-  const ipv4=document.getElementById('addr-sb-ipv4'),dual=document.getElementById('addr-sb-dual');
+  const ipv4=document.getElementById('addr-sb-ipv4'), dual=document.getElementById('addr-sb-dual');
   const sel=document.getElementById('addr-mobile-select');
-  const grpIPv4=document.createElement('optgroup'); grpIPv4.label='IPv4 only';
-  const grpDual=document.createElement('optgroup'); grpDual.label='IPv4 + IPv6';
-  addrScenarios.forEach(sc=>{
+  const gI=document.createElement('optgroup'); gI.label='IPv4 only';
+  const gD=document.createElement('optgroup'); gD.label='IPv4 + IPv6';
+  ADDR.forEach(sc=>{
     const btn=document.createElement('button');
     btn.className='scen-btn'+(sc.id===0?' active':'');
     btn.id='addr-btn-'+sc.id; btn.onclick=()=>addrLoad(sc.id);
-    const done=addrProgress[sc.id]||0,total=addrCountEditable(sc),pct=total>0?Math.round(done/total*100):0;
+    const done=addrProg[sc.id]||0, total=addrCount(sc), pct=total>0?Math.round(done/total*100):0;
     btn.innerHTML=`<div class="scen-icon" style="background:${sc.tagColor};color:${sc.tagText};font-size:8px;line-height:1.2">${sc.tag}</div>
       <div class="scen-text"><span class="scen-name">${sc.name}</span><span class="scen-type">${sc.type}</span>
-      <div class="prog-mini"><div class="prog-mini-fill" id="addr-prog-${sc.id}" style="width:${pct}%"></div></div></div>
-      <span class="scen-badge" id="addr-badge-${sc.id}">${done}/${total}</span>`;
+      <div class="prog-mini"><div class="prog-mini-fill" id="aprog-${sc.id}" style="width:${pct}%"></div></div></div>
+      <span class="scen-badge" id="abadge-${sc.id}">${done}/${total}</span>`;
     (sc.group==='ipv4'?ipv4:dual).appendChild(btn);
     const opt=document.createElement('option'); opt.value=sc.id; opt.textContent=sc.name;
-    (sc.group==='ipv4'?grpIPv4:grpDual).appendChild(opt);
+    (sc.group==='ipv4'?gI:gD).appendChild(opt);
   });
-  sel.appendChild(grpIPv4); sel.appendChild(grpDual);
+  sel.appendChild(gI); sel.appendChild(gD);
 }
 
-function addrCountEditable(sc){let n=0;sc.rows.forEach(r=>r.cells.forEach(c=>{if(c.editable)n++;}));return n;}
-function addrInputId(ri,ci){return `addr-c-${addrCurrent}-${ri}-${ci}`;}
+function addrCount(sc){let n=0;sc.rows.forEach(r=>r.cells.forEach(c=>{if(c.editable)n++;}));return n;}
+function addrId(ri,ci){return `a-${addrCur}-${ri}-${ci}`;}
+function rtClass(rt){if(!rt)return '';if(rt==='IPv4')return 'td-type-ipv4';if(rt==='IPv6')return 'td-type-ipv6';if(rt==='Link-local')return 'td-type-ll';return '';}
 
 function addrLoad(idx){
-  addrCurrent=idx;
+  addrCur=idx;
   document.querySelectorAll('#panel-addr .scen-btn').forEach(b=>b.classList.remove('active'));
   const btn=document.getElementById('addr-btn-'+idx); if(btn)btn.classList.add('active');
   document.getElementById('addr-mobile-select').value=idx;
   addrRender();
 }
 
-function addrRowtypeClass(rt){if(!rt)return '';if(rt==='IPv4')return 'td-type-ipv4';if(rt==='IPv6')return 'td-type-ipv6';if(rt==='Link-local')return 'td-type-ll';return '';}
-
 function addrRender(){
-  const sc=addrScenarios[addrCurrent],isDual=!!sc.dual,total=addrCountEditable(sc);
+  const sc=ADDR[addrCur], isDual=!!sc.dual, total=addrCount(sc);
   let html=`<div class="scenario-info"><h2>${sc.name}</h2><p>${sc.desc}</p></div>
   <div class="hint-box"><strong>Let op:</strong> ${sc.hint}</div>`;
   if(isDual){html+=`<div class="legend">
@@ -600,78 +836,81 @@ function addrRender(){
     <div class="score-display" id="addr-score">0/<span>${total}</span></div>
   </div>
   <div class="table-wrap"><table><thead><tr>`;
-  sc.columns.forEach(col=>{html+=`<th>${col}</th>`;});
+  sc.columns.forEach(c=>{html+=`<th>${c}</th>`;});
   html+=`</tr></thead><tbody>`;
   let lastDev=null;
   sc.rows.forEach((row,ri)=>{
     const showDev=row.device!==lastDev;
-    const prevRow=ri>0?sc.rows[ri-1]:null;
-    const showIface=!prevRow||prevRow.device!==row.device||prevRow.iface!==row.iface;
-    if(showDev&&ri>0){html+=`<tr class="divider-row"><td colspan="${sc.columns.length}"><div class="divider-line"></div></td></tr>`;}
+    const prev=ri>0?sc.rows[ri-1]:null;
+    const showIface=!prev||prev.device!==row.device||prev.iface!==row.iface;
+    if(showDev&&ri>0)html+=`<tr class="divider-row"><td colspan="${sc.columns.length}"><div class="divider-line"></div></td></tr>`;
     html+=`<tr><td class="td-device">${showDev?row.device:''}</td><td class="td-iface">${showIface?row.iface:''}</td>`;
-    if(isDual){html+=`<td class="${addrRowtypeClass(row.rowtype)}">${row.rowtype||''}</td>`;}
+    if(isDual)html+=`<td class="${rtClass(row.rowtype)}">${row.rowtype||''}</td>`;
     row.cells.forEach((cell,ci)=>{
-      if(cell.na){html+=`<td class="cell-na">N/A</td>`;}
-      else if(cell.given){html+=`<td class="cell-given">${cell.answer}</td>`;}
-      else if(!cell.editable){html+=`<td class="cell-static">${cell.answer}</td>`;}
-      else{const ph=cell.type==='gw6'?'fe80::?':'...';html+=`<td><input class="cell-input" id="${addrInputId(ri,ci)}" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="${ph}" /></td>`;}
+      if(cell.na)html+=`<td class="cell-na">N/A</td>`;
+      else if(cell.given)html+=`<td class="cell-given">${cell.answer}</td>`;
+      else if(!cell.editable)html+=`<td class="cell-static">${cell.answer}</td>`;
+      else{const ph=cell.type==='gw6'?'fe80::?':'...';html+=`<td><input class="cell-input" id="${addrId(ri,ci)}" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="${ph}"/></td>`;}
     });
-    html+=`</tr>`;
-    lastDev=row.device;
+    html+=`</tr>`; lastDev=row.device;
   });
   html+=`</tbody></table></div>`;
   document.getElementById('addr-main-content').innerHTML=html;
 }
 
-function addrNorm(v){return v.trim().toLowerCase().replace(/\s+/g,'');}
+function norm(v){return v.trim().toLowerCase().replace(/\s+/g,'');}
+
 function addrCheck(){
-  const sc=addrScenarios[addrCurrent];let correct=0,total=0;
+  const sc=ADDR[addrCur]; let correct=0,total=0;
   sc.rows.forEach((row,ri)=>row.cells.forEach((cell,ci)=>{
     if(!cell.editable)return; total++;
-    const inp=document.getElementById(addrInputId(ri,ci));if(!inp)return;
+    const inp=document.getElementById(addrId(ri,ci)); if(!inp)return;
     inp.classList.remove('correct','wrong','revealed');
-    if(addrNorm(inp.value)===addrNorm(cell.answer)){inp.classList.add('correct');correct++;}
+    if(norm(inp.value)===norm(cell.answer)){inp.classList.add('correct');correct++;}
     else if(inp.value.trim()!==''){inp.classList.add('wrong');}
   }));
-  addrProgress[addrCurrent]=correct; addrUpdateSidebar();
+  addrProg[addrCur]=correct; addrUpdateSidebar();
   const pct=total>0?Math.round(correct/total*100):0;
   const b=document.getElementById('addr-result');
   b.className='result-banner show '+(pct>=80?'pass':'fail');
   b.innerHTML=`<div class="rb-score">${pct}%</div><div class="rb-msg">${correct} van ${total} correct${pct<80?' — gebruik "toon antwoorden" om te zien wat er mis is.':''}</div>`;
   document.getElementById('addr-score').innerHTML=`<span>${correct}</span>/${total}`;
 }
+
 function addrReveal(){
-  const sc=addrScenarios[addrCurrent];
+  const sc=ADDR[addrCur];
   sc.rows.forEach((row,ri)=>row.cells.forEach((cell,ci)=>{
     if(!cell.editable)return;
-    const inp=document.getElementById(addrInputId(ri,ci));if(!inp)return;
-    inp.classList.remove('correct','wrong');inp.classList.add('revealed');inp.value=cell.answer;
+    const inp=document.getElementById(addrId(ri,ci)); if(!inp)return;
+    inp.classList.remove('correct','wrong'); inp.classList.add('revealed'); inp.value=cell.answer;
   }));
-  addrProgress[addrCurrent]=0; addrUpdateSidebar();
+  addrProg[addrCur]=0; addrUpdateSidebar();
 }
+
 function addrReset(){
-  const sc=addrScenarios[addrCurrent];
+  const sc=ADDR[addrCur];
   sc.rows.forEach((row,ri)=>row.cells.forEach((cell,ci)=>{
     if(!cell.editable)return;
-    const inp=document.getElementById(addrInputId(ri,ci));if(!inp)return;
-    inp.classList.remove('correct','wrong','revealed');inp.value='';
+    const inp=document.getElementById(addrId(ri,ci)); if(!inp)return;
+    inp.classList.remove('correct','wrong','revealed'); inp.value='';
   }));
-  const b=document.getElementById('addr-result');if(b)b.className='result-banner';
-  document.getElementById('addr-score').innerHTML=`0/<span>${addrCountEditable(addrScenarios[addrCurrent])}</span>`;
+  const b=document.getElementById('addr-result'); if(b)b.className='result-banner';
+  document.getElementById('addr-score').innerHTML=`0/<span>${addrCount(ADDR[addrCur])}</span>`;
 }
+
 function addrUpdateSidebar(){
-  addrScenarios.forEach(sc=>{
-    const done=addrProgress[sc.id]||0,total=addrCountEditable(sc),pct=total>0?Math.round(done/total*100):0;
-    const f=document.getElementById('addr-prog-'+sc.id),b=document.getElementById('addr-badge-'+sc.id);
+  ADDR.forEach(sc=>{
+    const done=addrProg[sc.id]||0, total=addrCount(sc), pct=total>0?Math.round(done/total*100):0;
+    const f=document.getElementById('aprog-'+sc.id), b=document.getElementById('abadge-'+sc.id);
     if(f)f.style.width=pct+'%'; if(b)b.textContent=done+'/'+total;
   });
 }
 
 // ── INIT ──
-cliBuildSidebar();
-cliLoad(0);
-addrBuildSidebar();
-addrLoad(0);
+cliBuildSidebar(); cliLoad(0);
+addrBuildSidebar(); addrLoad(0);
+
 </script>
+</div>
 </body>
 </html>
