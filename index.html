@@ -1441,7 +1441,7 @@ document.getElementById('cli-cmd-input').addEventListener('keydown',function(e){
 // ADRESTABEL
 // ═══════════════════════════════════════════
 const ADDR=[
-  {id:0,group:"ipv4",tag:"PTSA\nLAN1+2",tagColor:"#1a3a1a",tagText:"#3fb950",name:"PTSA — twee subnets",type:"IPv4 VLSM /25+/26",desc:"192.168.10.0/24. LAN 1: 100 hosts /25. LAN 2: 50 hosts /26. R1 = eerste host, S1 = tweede host LAN1, PC-A/B = laatste host.",hint:"LAN 1 /25: .0–.127, first host .1, last host .126. LAN 2 /26: .128–.191, first host .129, last host .190.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
+  {id:0,group:"ipv4",tag:"PTSA\nLAN1+2",tagColor:"#1a3a1a",tagText:"#3fb950",name:"PTSA — twee subnets",type:"IPv4 VLSM — 2 subnets",desc:"PTSA scenario: network 192.168.10.0/24. LAN 1 needs 100 hosts, LAN 2 needs 50 hosts. Calculate the correct subnet for each LAN, then determine the host addresses.",hint:"LAN 1 /25: .0–.127, first host .1, last host .126. LAN 2 /26: .128–.191, first host .129, last host .190.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
     {device:"R1",iface:"G0/0/1 (LAN 1)",cells:[{type:"ip",answer:"192.168.10.1",editable:true},{type:"mask",answer:"255.255.255.128",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
     {device:"R1",iface:"G0/0/0 (LAN 2)",cells:[{type:"ip",answer:"192.168.10.129",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
     {device:"S1",iface:"VLAN 1",cells:[{type:"ip",answer:"192.168.10.2",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
