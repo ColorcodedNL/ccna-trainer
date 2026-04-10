@@ -1445,20 +1445,82 @@ document.getElementById('cli-cmd-input').addEventListener('keydown',function(e){
 // ADRESTABEL
 // ═══════════════════════════════════════════
 const ADDR=[
-  {id:0,group:"ipv4",tag:"PTSA\nLAN1+2",tagColor:"#1a3a1a",tagText:"#3fb950",name:"PTSA — twee subnets",type:"IPv4 VLSM — 2 subnets",desc:"PTSA scenario: network 192.168.10.0/24. LAN 1 needs 100 hosts, LAN 2 needs 50 hosts. Calculate the correct subnet for each LAN, then determine the host addresses.",hint:"LAN 1 /25: .0–.127, first host .1, last host .126. LAN 2 /26: .128–.191, first host .129, last host .190.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
+  {id:0,group:"ipv4",tag:"PTSA\nLAN1+2",tagColor:"#1a3a1a",tagText:"#3fb950",name:"PTSA — twee subnets",type:"IPv4 VLSM — 2 subnets",
+  network:"192.168.10.0/24",
+  subnets:["LAN 1: 100 hosts","LAN 2: 50 hosts"],
+  topology:`<svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="font-family:'IBM Plex Sans',sans-serif">
+    <rect x="2" y="16" width="240" height="72" rx="6" fill="#e8f5ee" stroke="#1db37e" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="121" y="11" text-anchor="middle" font-size="8" font-weight="700" fill="#1db37e">LAN 1 — 100 hosts</text>
+    <rect x="280" y="16" width="238" height="72" rx="6" fill="#fff4e8" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="399" y="11" text-anchor="middle" font-size="8" font-weight="700" fill="#f59e0b">LAN 2 — 50 hosts</text>
+    <rect x="10" y="28" width="68" height="44" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
+    <text x="44" y="46" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-A</text>
+    <text x="44" y="58" text-anchor="middle" font-size="8" fill="#666">last host</text>
+    <rect x="92" y="22" width="72" height="56" rx="4" fill="#d5ecd5" stroke="#2a8a2a" stroke-width="1.5"/>
+    <text x="128" y="44" text-anchor="middle" font-size="9" font-weight="600" fill="#1a5a1a">S1</text>
+    <text x="128" y="56" text-anchor="middle" font-size="8" fill="#444">VLAN 1</text>
+    <text x="128" y="68" text-anchor="middle" font-size="7" fill="#666">2nd host</text>
+    <line x1="78" y1="50" x2="92" y2="50" stroke="#1db37e" stroke-width="1.5"/>
+    <line x1="164" y1="50" x2="188" y2="42" stroke="#1db37e" stroke-width="1.5"/>
+    <text x="174" y="37" text-anchor="middle" font-size="7" fill="#1db37e">G0/0/1</text>
+    <rect x="188" y="18" width="64" height="74" rx="4" fill="#f5e8d5" stroke="#c88a1a" stroke-width="2"/>
+    <text x="220" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="#7a4400">R1</text>
+    <text x="220" y="54" text-anchor="middle" font-size="7" fill="#888">G0/0/1</text>
+    <text x="220" y="65" text-anchor="middle" font-size="7" fill="#888">G0/0/0</text>
+    <text x="220" y="78" text-anchor="middle" font-size="7" fill="#666">1st host</text>
+    <line x1="252" y1="42" x2="288" y2="50" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="268" y="37" text-anchor="middle" font-size="7" fill="#f59e0b">G0/0/0</text>
+    <rect x="368" y="28" width="68" height="44" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
+    <text x="402" y="46" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-B</text>
+    <text x="402" y="58" text-anchor="middle" font-size="8" fill="#666">last host</text>
+    <line x1="288" y1="50" x2="368" y2="50" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="328" y="46" text-anchor="middle" font-size="7" fill="#f59e0b">(no switch)</text>
+    <text x="260" y="112" text-anchor="middle" font-size="8" fill="#666">R1 = first host on both subnets · S1 = second host LAN 1</text>
+  </svg>`,desc:"PTSA scenario: network 192.168.10.0/24. LAN 1 needs 100 hosts, LAN 2 needs 50 hosts. Calculate the correct subnet for each LAN, then determine the host addresses.",hint:"LAN 1 /25: .0–.127, first host .1, last host .126. LAN 2 /26: .128–.191, first host .129, last host .190.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
     {device:"R1",iface:"G0/0/1 (LAN 1)",cells:[{type:"ip",answer:"192.168.10.1",editable:true},{type:"mask",answer:"255.255.255.128",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
     {device:"R1",iface:"G0/0/0 (LAN 2)",cells:[{type:"ip",answer:"192.168.10.129",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-    {device:"S1",iface:"VLAN 1",cells:[{type:"ip",answer:"192.168.10.2",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
-    {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.126",editable:true},{type:"mask",answer:"255.255.255.128",editable:false,given:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
-    {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.190",editable:true},{type:"mask",answer:"255.255.255.192",editable:false,given:true},{type:"gw",answer:"192.168.10.129",editable:true}]},
+    {device:"S1",iface:"VLAN 1",cells:[{type:"ip",answer:"192.168.10.2",editable:true},{type:"mask",answer:"255.255.255.128",editable:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
+    {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.126",editable:true},{type:"mask",answer:"255.255.255.128",editable:true},{type:"gw",answer:"192.168.10.1",editable:true}]},
+    {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"192.168.10.190",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"192.168.10.129",editable:true}]},
   ]},
-  {id:1,group:"ipv4",tag:"IPv4\nVLSM",tagColor:"#3a1a0a",tagText:"#ffa657",name:"VLSM — drie subnets",type:"IPv4 VLSM /26+/27+/28",desc:"10.0.0.0/24. LAN A needs 60 hosts, LAN B needs 28 hosts, LAN C needs 12 hosts. R1 = first host, PC = second host. Always subnet largest-to-smallest.",hint:"LAN A: .0–.63 (64 addresses). LAN B: .64–.95 (32 addresses). LAN C: .96–.111 (16 addresses). Work out the prefix lengths yourself.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
+  {id:1,group:"ipv4",tag:"IPv4\nVLSM",tagColor:"#3a1a0a",tagText:"#ffa657",name:"VLSM — drie subnets",type:"IPv4 VLSM /26+/27+/28",
+  network:"10.0.0.0/24",
+  subnets:["LAN A: 60 hosts","LAN B: 28 hosts","LAN C: 12 hosts"],
+  topology:`<svg viewBox="0 0 520 115" xmlns="http://www.w3.org/2000/svg" style="font-family:'IBM Plex Sans',sans-serif">
+    <rect x="2" y="16" width="160" height="68" rx="6" fill="#e8f5ee" stroke="#1db37e" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="82" y="11" text-anchor="middle" font-size="8" font-weight="700" fill="#1db37e">LAN A — 60 hosts</text>
+    <rect x="180" y="16" width="158" height="68" rx="6" fill="#fff4e8" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="259" y="11" text-anchor="middle" font-size="8" font-weight="700" fill="#f59e0b">LAN B — 28 hosts</text>
+    <rect x="356" y="16" width="160" height="68" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="436" y="11" text-anchor="middle" font-size="8" font-weight="700" fill="#3b82f6">LAN C — 12 hosts</text>
+    <rect x="200" y="22" width="64" height="56" rx="4" fill="#f5e8d5" stroke="#c88a1a" stroke-width="2"/>
+    <text x="232" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#7a4400">R1</text>
+    <text x="232" y="56" text-anchor="middle" font-size="7" fill="#888">G0/0  G0/1  G0/2</text>
+    <text x="232" y="68" text-anchor="middle" font-size="7" fill="#666">1st host each</text>
+    <line x1="200" y1="46" x2="120" y2="58" stroke="#1db37e" stroke-width="1.5"/>
+    <text x="152" y="44" text-anchor="middle" font-size="7" fill="#1db37e">G0/0</text>
+    <rect x="30" y="42" width="68" height="36" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
+    <text x="64" y="56" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-A</text>
+    <text x="64" y="68" text-anchor="middle" font-size="7" fill="#666">2nd host</text>
+    <line x1="98" y1="60" x2="30" y2="60" stroke="#1db37e" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="264" y1="46" x2="300" y2="58" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="280" y="44" text-anchor="middle" font-size="7" fill="#f59e0b">G0/1</text>
+    <rect x="300" y="42" width="68" height="36" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
+    <text x="334" y="56" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-B</text>
+    <text x="334" y="68" text-anchor="middle" font-size="7" fill="#666">2nd host</text>
+    <line x1="264" y1="52" x2="422" y2="58" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="360" y="44" text-anchor="middle" font-size="7" fill="#3b82f6">G0/2</text>
+    <rect x="422" y="42" width="68" height="36" rx="4" fill="#dde8f5" stroke="#7a9ac8" stroke-width="1.5"/>
+    <text x="456" y="56" text-anchor="middle" font-size="9" font-weight="600" fill="#1a4a8a">PC-C</text>
+    <text x="456" y="68" text-anchor="middle" font-size="7" fill="#666">2nd host</text>
+    <text x="260" y="107" text-anchor="middle" font-size="8" fill="#666">Always subnet largest-to-smallest (VLSM rule)</text>
+  </svg>`,desc:"10.0.0.0/24. LAN A needs 60 hosts, LAN B needs 28 hosts, LAN C needs 12 hosts. R1 = first host, PC = second host. Always subnet largest-to-smallest.",hint:"LAN A: .0–.63 (64 addresses). LAN B: .64–.95 (32 addresses). LAN C: .96–.111 (16 addresses). Work out the prefix lengths yourself.",columns:["Device","Interface","IP Address","Subnet Mask","Default Gateway"],rows:[
     {device:"R1",iface:"G0/0 (LAN A)",cells:[{type:"ip",answer:"10.0.0.1",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
     {device:"R1",iface:"G0/1 (LAN B)",cells:[{type:"ip",answer:"10.0.0.65",editable:true},{type:"mask",answer:"255.255.255.224",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
     {device:"R1",iface:"G0/2 (LAN C)",cells:[{type:"ip",answer:"10.0.0.97",editable:true},{type:"mask",answer:"255.255.255.240",editable:true},{type:"gw",answer:"N/A",editable:false,na:true}]},
-    {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.2",editable:true},{type:"mask",answer:"255.255.255.192",editable:false,given:true},{type:"gw",answer:"10.0.0.1",editable:true}]},
-    {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.66",editable:true},{type:"mask",answer:"255.255.255.224",editable:false,given:true},{type:"gw",answer:"10.0.0.65",editable:true}]},
-    {device:"PC-C",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.98",editable:true},{type:"mask",answer:"255.255.255.240",editable:false,given:true},{type:"gw",answer:"10.0.0.97",editable:true}]},
+    {device:"PC-A",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.2",editable:true},{type:"mask",answer:"255.255.255.192",editable:true},{type:"gw",answer:"10.0.0.1",editable:true}]},
+    {device:"PC-B",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.66",editable:true},{type:"mask",answer:"255.255.255.224",editable:true},{type:"gw",answer:"10.0.0.65",editable:true}]},
+    {device:"PC-C",iface:"NIC",cells:[{type:"ip",answer:"10.0.0.98",editable:true},{type:"mask",answer:"255.255.255.240",editable:true},{type:"gw",answer:"10.0.0.97",editable:true}]},
   ]},
   {id:2,group:"dual",tag:"DUAL\nStack",tagColor:"#2d1a40",tagText:"#d2a8ff",name:"Dual stack — twee interfaces",type:"IPv4 + IPv6",dual:true,
   network:"192.168.0.0/24",
