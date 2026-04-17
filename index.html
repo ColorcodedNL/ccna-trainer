@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +33,11 @@
 .tab-btn.active { color: var(--green); border-bottom-color: var(--green); font-weight: 600; background: var(--green-bg); }
 .tab-icon { width: 18px; height: 18px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 9px; font-weight: 500; flex-shrink: 0; }
 .topbar-right { margin-left: auto; display: flex; align-items: center; }
-.topbar-sub { font-size: 11px; color: var(--text-muted); font-family: var(--mono); background: var(--surface2); padding: 3px 8px; border-radius: 4px; }
+.topbar-sub { font-size: 11px; color: var(--text-muted); font-family: var(--mono); background: var(--surface2); padding: 3px 8px; border-radius: 4px; margin-left: 10px; }
+.lang-switch { display: inline-flex; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 3px; gap: 2px; }
+.lang-btn { background: transparent; border: none; padding: 4px 10px; border-radius: 14px; cursor: pointer; font-size: 15px; line-height: 1; opacity: 0.55; transition: all 0.15s; font-family: inherit; }
+.lang-btn:hover { opacity: 0.85; background: rgba(0,0,0,0.04); }
+.lang-btn.active { background: var(--surface); opacity: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
 .tab-panel { display: none; flex: 1; }
 .tab-panel.active { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 .app-layout { display: flex; flex: 1; overflow: hidden; min-height: 0; }
@@ -193,6 +197,8 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
   .cli-main-wrapper { height: auto; overflow: visible; position: static; }
   .terminal-wrap { height: 280px; overflow-y: auto; }
   .topbar-sub { display: none; }
+  .lang-switch { padding: 2px; }
+  .lang-btn { padding: 3px 8px; font-size: 13px; }
   .sh-desc { display: none; }
   .addr-main { overflow: visible; }
   .cell-input { min-width: 80px; }
@@ -289,7 +295,13 @@ tbody td { padding: 4px 6px; vertical-align: middle; }
     <button class="tab-btn" onclick="switchTab('addr')" id="tab-addr">Adrestabel</button>
     <button class="tab-btn" onclick="switchTab('exam')" id="tab-exam">Examen</button>
   </div>
-  <div class="topbar-right"><span class="topbar-sub">CCNA 1 v7.0 — PTSA</span></div>
+  <div class="topbar-right">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn active" id="lang-nl" type="button" title="Nederlands" onclick="setLang('nl')">🇳🇱</button>
+      <button class="lang-btn" id="lang-en" type="button" title="English" onclick="setLang('en')">🇬🇧</button>
+    </div>
+    <span class="topbar-sub">CCNA 1 v7.0 — PTSA</span>
+  </div>
 </div>
 
 <div class="tab-panel active" id="panel-cli">
@@ -1192,7 +1204,7 @@ function cliLoad(idx){
   // Add "Credentials" label before pills
   const vgLabel = document.createElement('div');
   vgLabel.className = 'vars-grid-label';
-  vgLabel.textContent = 'Credentials';
+  vgLabel.textContent = t('credentials');
   vg.appendChild(vgLabel);
   if(sc.addrTable){
     const wrap=document.createElement('div'); wrap.className='addr-table-wrap';
@@ -1782,22 +1794,30 @@ let addrCur=0, addrProg={};
 function addrBuildSidebar(){
   const ipv4=document.getElementById('addr-sb-ipv4'), dual=document.getElementById('addr-sb-dual');
   const sel=document.getElementById('addr-mobile-select');
-  const gI=document.createElement('optgroup'); gI.label='IPv4 only';
-  const gD=document.createElement('optgroup'); gD.label='IPv4 + IPv6';
+  ipv4.innerHTML=''; dual.innerHTML=''; sel.innerHTML='';
+  const gI=document.createElement('optgroup'); gI.label=t('group_ipv4');
+  const gD=document.createElement('optgroup'); gD.label=t('group_dual');
   ADDR.forEach(sc=>{
     const btn=document.createElement('button');
-    btn.className='scen-btn'+(sc.id===0?' active':'');
+    btn.className='scen-btn'+(sc.id===addrCur?' active':'');
     btn.id='addr-btn-'+sc.id; btn.onclick=()=>addrLoad(sc.id);
-    const done=addrProg[sc.id]||0, total=addrCount(sc), pct=total>0?Math.round(done/total*100):0;
-    btn.innerHTML=`<div class="scen-icon" style="background:${sc.tagColor};color:${sc.tagText};font-size:8px;line-height:1.2">${sc.tag}</div>
-      <div class="scen-text"><span class="scen-name">${sc.name}</span><span class="scen-type">${sc.type}</span>
+    const done=addrProgress[sc.id]||0, total=addrCount(sc), pct=total?Math.round(done/total*100):0;
+    const name = t('addr_name_'+sc.id) || sc.name;
+    const type = t('addr_type_'+sc.id) || sc.type;
+    btn.innerHTML=`<div class="scen-icon" style="background:${sc.tagColor};color:${sc.tagText}">${sc.tag}</div>
+      <div class="scen-text"><span class="scen-name">${escapeHTML(name)}</span><span class="scen-type">${escapeHTML(type)}</span>
       <div class="prog-mini"><div class="prog-mini-fill" id="aprog-${sc.id}" style="width:${pct}%"></div></div></div>
       <span class="scen-badge" id="abadge-${sc.id}">${done}/${total}</span>`;
-    (sc.group==='ipv4'?ipv4:dual).appendChild(btn);
-    const opt=document.createElement('option'); opt.value=sc.id; opt.textContent=sc.name;
-    (sc.group==='ipv4'?gI:gD).appendChild(opt);
+    (sc.dual?dual:ipv4).appendChild(btn);
+    const opt=document.createElement('option'); opt.value=sc.id; opt.textContent=name;
+    (sc.dual?gD:gI).appendChild(opt);
   });
   sel.appendChild(gI); sel.appendChild(gD);
+  // Update group headers
+  document.querySelectorAll('#panel-addr .sb-label').forEach((el, i) => {
+    if(i===0) el.textContent = t('group_ipv4');
+    else if(i===1) el.textContent = t('group_dual');
+  });
 }
 
 function addrCount(sc){let n=0;sc.rows.forEach(r=>r.cells.forEach(c=>{if(c.editable)n++;}));return n;}
@@ -1814,7 +1834,8 @@ function addrLoad(idx){
 
 function addrRender(){
   const sc=ADDR[addrCur], isDual=!!sc.dual, total=addrCount(sc);
-  let html=`<div class="scenario-info"><h2>${sc.name}</h2><p>${sc.desc}</p></div>`;
+  const scName = t('addr_name_'+sc.id) || sc.name;
+  let html=`<div class="scenario-info"><h2>${escapeHTML(scName)}</h2><p>${escapeHTML(sc.desc)}</p></div>`;
   if(sc.network){
     html+=`<div class="network-banner">
       <span class="nb-label">Network address:</span>
@@ -1975,6 +1996,14 @@ let examAddrScore = 0;
 let examRouterDone = new Set();
 let examSwitchDone = new Set();
 
+
+// ── Security helper: escape HTML entities to prevent XSS in user input ──
+function escapeHTML(s){
+  if(s==null) return '';
+  return String(s).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
 // ── Cisco topology icons (official EPS, base64 embedded) ──
 const CISCO_ICONS = {
   router: "data:image/png;base64,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",
@@ -1982,6 +2011,174 @@ const CISCO_ICONS = {
   pc:     "data:image/png;base64,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",
   server: "data:image/png;base64,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",
 };
+
+// ── i18n — UI translations (quiz content stays English) ──
+const I18N = {
+  nl: {
+    // Tabs
+    tab_cli: "CLI",
+    tab_addr: "Adrestabel",
+    tab_exam: "Examen",
+    // Exam phases
+    phase_addr: "Adrestabel",
+    phase_router: "Router",
+    phase_switch: "Switch",
+    // Exam sidebar
+    new_variant: "↻ Nieuwe variant",
+    // Exam phase 1 instructions
+    step1_title: "Stap 1 — IP adressering",
+    step1_a: "Subnet <code>{base}/24</code> zodat elk subnet minimaal <strong>{hosts} hostadressen</strong> biedt, met zo min mogelijk verspilling.",
+    step1_b: "Wijs het <strong>{nth} subnet</strong> toe aan LAN 1.",
+    step1_c: "Wijs het <strong>{role} hostadres</strong> van dit subnet toe aan G0/0.",
+    step1_d: "Subnet het netwerk opnieuw zodat elk nieuw subnet minimaal <strong>{hosts} hostadressen</strong> biedt, met zo min mogelijk verspilling.",
+    step1_e: "Wijs het <strong>{nth} subnet</strong> van deze nieuwe reeks toe aan LAN 2.",
+    step1_f: "Wijs het <strong>{role} hostadres</strong> van LAN 2 toe aan G0/1.",
+    step1_g: "Wijs het <strong>{role} hostadres</strong> van LAN 2 toe aan VLAN 1 van de switch.",
+    step1_hint: "Vul alle velden in → klik <em>Controleer</em>. Bij 100% unlockt de router CLI.",
+    // Exam phase 2
+    step2_title: "Stap 2 — Router CLI",
+    step2_hostname: "Hostname:", step2_enable: "Enable secret:", step2_domain: "Domain:",
+    step2_username: "Username:", step2_secret: "Secret:",
+    step2_ipv6_note: "IPv6 en link-local: zie adrestabel",
+    // Exam phase 3
+    step3_title: "Stap 3 — Switch CLI",
+    step3_hostname: "Hostname:", step3_svi: "VLAN 1 IP:", step3_gw: "Default gateway:",
+    step3_vtypw: "VTY password:",
+    step3_telnet: "Switch gebruikt Telnet, niet SSH",
+    // Address table
+    addr_title_suffix: "netwerk",
+    addr_subtitle: "${t('addr_subtitle')}",
+    addr_base: "Basisnetwerk:", addr_lan1: "LAN 1 vereist:", addr_lan2: "LAN 2 vereist:", addr_hosts: "hosts",
+    btn_check: "Controleer",
+    btn_show: "Toon antwoorden",
+    btn_reset: "Reset",
+    btn_fields: "velden",
+    // Score messages
+    score_addr_done: "Adrestabel volledig correct! CLI router unlockt. →",
+    score_router_done: "Router configuratie voltooid! Switch CLI unlockt nu →",
+    score_exam_done: "Examen voltooid! Router + Switch geconfigureerd ✓",
+    score_reset_prompt: "Beide apparaten geconfigureerd. Druk ↻ voor een nieuwe variant.",
+    // CLI controls
+    cli_check: "check", cli_hint: "hint", cli_reset: "reset",
+    cli_router_title: "Router CLI", cli_switch_title: "Switch CLI",
+    cli_router_desc: "Volledige router configuratie incl. SSH en dual-stack interfaces.",
+    cli_switch_desc: "Switch SVI, default gateway, Telnet VTY en unused ports shutdown.",
+    // CLI feedback
+    cli_all_complete: "Alle stappen voltooid! ✓",
+    cli_missing: "Ontbreken", cli_steps_lc: "stap(pen):", cli_next: "Volgende:", cli_mode: "modus",
+    // Initial prompt
+    initial_prompt: "Druk op \"Nieuwe variant\" om te beginnen.",
+    // Ordinals
+    ordinal: n => n===1?'1e':n===2?'2e':n===3?'3e':n===4?'4e':n===5?'5e':`${n}e`,
+    role_first_last: r => r==='last'?'laatste':'eerste',
+    role_second: r => r==='second'?'tweede':'tweede laatste',
+  },
+  en: {
+    tab_cli: "CLI",
+    tab_addr: "Address Table",
+    tab_exam: "Exam",
+    phase_addr: "Address Table",
+    phase_router: "Router",
+    phase_switch: "Switch",
+    new_variant: "↻ New variant",
+    step1_title: "Step 1 — IP addressing",
+    step1_a: "Subnet <code>{base}/24</code> so each subnet provides at least <strong>{hosts} host addresses</strong> with minimal waste.",
+    step1_b: "Assign the <strong>{nth} subnet</strong> to LAN 1.",
+    step1_c: "Assign the <strong>{role} host address</strong> of that subnet to G0/0.",
+    step1_d: "Subnet the network again so each new subnet provides at least <strong>{hosts} host addresses</strong> with minimal waste.",
+    step1_e: "Assign the <strong>{nth} subnet</strong> of the new series to LAN 2.",
+    step1_f: "Assign the <strong>{role} host address</strong> of LAN 2 to G0/1.",
+    step1_g: "Assign the <strong>{role} host address</strong> of LAN 2 to VLAN 1 on the switch.",
+    step1_hint: "Fill all fields → click <em>Check</em>. At 100% the router CLI unlocks.",
+    step2_title: "Step 2 — Router CLI",
+    step2_hostname: "Hostname:", step2_enable: "Enable secret:", step2_domain: "Domain:",
+    step2_username: "Username:", step2_secret: "Secret:",
+    step2_ipv6_note: "IPv6 and link-local: see address table",
+    step3_title: "Step 3 — Switch CLI",
+    step3_hostname: "Hostname:", step3_svi: "VLAN 1 IP:", step3_gw: "Default gateway:",
+    step3_vtypw: "VTY password:",
+    step3_telnet: "Switch uses Telnet, not SSH",
+    addr_title_suffix: "network",
+    addr_subtitle: "Calculate the IPv4 addresses based on the instructions on the left. IPv6 GUA and link-local are given (italic).",
+    addr_base: "Base network:", addr_lan1: "LAN 1 requires:", addr_lan2: "LAN 2 requires:", addr_hosts: "hosts",
+    btn_check: "Check",
+    btn_show: "Show answers",
+    btn_reset: "Reset",
+    btn_fields: "fields",
+    score_addr_done: "Address table complete! Router CLI unlocked. →",
+    score_router_done: "Router configuration done! Switch CLI unlocked →",
+    score_exam_done: "Exam complete! Router + Switch configured ✓",
+    score_reset_prompt: "Both devices configured. Click ↻ for a new variant.",
+    cli_check: "check", cli_hint: "hint", cli_reset: "reset",
+    cli_router_title: "Router CLI", cli_switch_title: "Switch CLI",
+    cli_router_desc: "Full router configuration incl. SSH and dual-stack interfaces.",
+    cli_switch_desc: "Switch SVI, default gateway, Telnet VTY and unused ports shutdown.",
+    cli_all_complete: "All steps complete! ✓",
+    cli_missing: "Missing", cli_steps_lc: "step(s):", cli_next: "Next:", cli_mode: "mode",
+    initial_prompt: "Click \"New variant\" to begin.",
+    ordinal: n => n===1?'1st':n===2?'2nd':n===3?'3rd':n===4?'4th':n===5?'5th':`${n}th`,
+    role_first_last: r => r==='last'?'last':'first',
+    role_second: r => r==='second'?'second':'second-to-last',
+  },
+};
+let currentLang = 'nl';
+function t(key){ return I18N[currentLang][key]; }
+function setLang(lang){
+  if(lang!==currentLang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('lang-nl').classList.toggle('active', lang==='nl');
+    document.getElementById('lang-en').classList.toggle('active', lang==='en');
+    // Persist choice
+    try { localStorage.setItem('ccna1_lang', lang); } catch(e){}
+    // Re-render exam UI if active
+    if(document.getElementById('tab-exam').classList.contains('active')){
+      applyLangToExam();
+    }
+    // Always update tab labels + static phase labels + sidebars
+    applyLangToTabs();
+    applyLangToStatic();
+    applyLangToSidebars();
+  }
+}
+function applyLangToStatic(){
+  // Phase labels
+  const phases = ['addr','router','switch'];
+  const phaseLabels = document.querySelectorAll('#ex-phase-bar .ex-phase-label');
+  if(phaseLabels.length === 3){
+    phaseLabels.forEach((el,i)=>{ el.textContent = t('phase_'+phases[i]); });
+  }
+  // New variant button
+  const btn = document.querySelector('.exam-new-btn');
+  if(btn) btn.textContent = t('new_variant');
+}
+function applyLangToTabs(){
+  document.getElementById('tab-cli').textContent = t('tab_cli');
+  document.getElementById('tab-addr').textContent = t('tab_addr');
+  document.getElementById('tab-exam').textContent = t('tab_exam');
+}
+function applyLangToExam(){
+  // Update phase indicator labels
+  const phases = ['addr','router','switch'];
+  document.querySelectorAll('#ex-phase-bar .ex-phase-label').forEach((el,i)=>{
+    el.textContent = t('phase_' + phases[i]);
+  });
+  // Update new variant button
+  const btn = document.querySelector('.exam-new-btn');
+  if(btn) btn.textContent = t('new_variant');
+  // Re-render current phase (without losing state — just re-translate)
+  if(examVariant){
+    examUpdateInstructions();
+    if(examPhase===1) examRenderPhase1();
+  }
+}
+function applyLangToSidebars(){
+  // Rebuild both sidebars to reflect language
+  cliBuildSidebar();
+  addrBuildSidebar();
+  // Re-render active scenario details
+  if(document.getElementById('tab-addr').classList.contains('active')) addrRender();
+}
 
 function svgRouter(cx,cy,l,s){const w=44,h=30,x=cx-22,y=cy-15;return`<image href="${CISCO_ICONS.router}" x="${x}" y="${y}" width="${w}" height="${h}"/><text x="${cx}" y="${cy+h/2+12}" text-anchor="middle" font-size="9" font-weight="600" fill="#7a4400">${l}</text>${s?`<text x="${cx}" y="${cy+h/2+22}" text-anchor="middle" font-size="7" fill="#888">${s}</text>`:''}`;};
 function svgSwitch(cx,cy,l,s){const w=58,h=28,x=cx-29,y=cy-14;return`<image href="${CISCO_ICONS.switch}" x="${x}" y="${y}" width="${w}" height="${h}"/><text x="${cx}" y="${cy+h/2+12}" text-anchor="middle" font-size="9" font-weight="600" fill="#1a5a1a">${l}</text>${s?`<text x="${cx}" y="${cy+h/2+22}" text-anchor="middle" font-size="7" fill="#888">${s}</text>`:''}`;};
@@ -2085,6 +2282,7 @@ function examRouterSteps(v) {
     s("conf_t","configure terminal",/^conf(igure)?(\s+t(erminal)?)?$/i,"Global configuration mode.",["enable"],"priv","config"),
     s("hostname",`hostname ${v.rName}`,new RegExp(`^hostname\\s+${v.rName.replace('-','\\-')}$`,'i'),`Hostname set to ${v.rName}.`,["conf_t"],"config"),
     s("ensec",`enable secret ${v.enableSecret}`,/^enable\s+secret\s+\S+$/i,"Enable secret configured.",["conf_t"],"config"),
+    s("nolookup","no ip domain-lookup",/^no\s+ip\s+domain-lookup$/i,"DNS lookup disabled.",["conf_t"],"config"),
     s("secmin","security passwords min-length 10",/^security\s+passwords\s+min-length\s+\d+$/i,"Min-length 10. Syntax: 'passwords' plural, hyphen required.",["conf_t"],"config"),
     s("svcenc","service password-encryption",/^service\s+password-encryption$/i,"All passwords encrypted.",["conf_t"],"config"),
     s("banner","banner motd #Keepout#",/^banner\s+motd\s+.+$/i,"MOTD banner set.",["conf_t"],"config"),
@@ -2098,7 +2296,7 @@ function examRouterSteps(v) {
     s("vtytrans","transport input ssh",/^transport\s+input\s+(ssh|all)$/i,"VTY restricted to SSH.",["linevty"],"config-line-vty"),
     s("vtylogin","login local",/^login\s+local$/i,"Login local active.",["linevty","username"],"config-line-vty"),
     s("vtyexit","exit",/^exit$/i,"Back to global config.",["linevty"],"config-line-vty","config"),
-    s("crypto","crypto key generate rsa",/^crypto\s+key\s+generate\s+rsa$/i,"Generating RSA...",["domain"],"config","rsa-prompt"),
+    s("crypto","crypto key generate rsa",/^crypto\s+key\s+generate\s+rsa$/i,"Generating RSA...",["domain","hostname"],"config","rsa-prompt"),
     s("rsabits","1024",/^1024$/,"1024-bit RSA. SSH v2 active.",["crypto"],"rsa-prompt","config"),
     s("intg00","interface g0/0",/^int(erface)?\s+g(ig(abitethernet)?)?0\/0$/i,"G0/0 — LAN1.",["conf_t"],"config","config-if-g000"),
     s("descg00","description Link to LAN1",/^description\s+.+$/i,"Description set (grader checks exact text).",["intg00"],"config-if-g000"),
@@ -2125,17 +2323,29 @@ function examSwitchSteps(v) {
   return [
     s("enable","enable",/^en(able)?$/i,"Privileged EXEC.",[],"exec","priv"),
     s("conf_t","configure terminal",/^conf(igure)?(\s+t(erminal)?)?$/i,"Global config.",["enable"],"priv","config"),
-    s("hostname",`hostname ${v.sName}`,new RegExp(`^hostname\\s+${v.sName.replace(/[-]/g,'\\-')}$`,'i'),`Hostname set to ${v.sName}.`,["conf_t"],"config"),
-    s("intvlan","interface vlan 1",/^int(erface)?\s+vlan\s*1$/i,"VLAN 1 SVI — management interface.",["conf_t"],"config","config-if-vlan"),
-    s("swip",`ip address ${v.swIp} ${v.swMask}`,/^ip\s+address\s+\S+\s+\S+$/i,`SVI address: ${v.swIp}/${v.lan2Prefix} (${v.swIpRole} in LAN2 subnet).`,["intvlan"],"config-if-vlan"),
+    s("hostname",`hostname ${v.sName}`,new RegExp(`^hostname\\s+${v.sName.replace(/[-]/g,'\\-')}$`,'i'),`Hostname set.`,["conf_t"],"config"),
+    s("ensec",`enable secret ${v.enableSecret}`,/^enable\s+secret\s+\S+$/i,"Enable secret set.",["conf_t"],"config"),
+    s("nolookup","no ip domain-lookup",/^no\s+ip\s+domain-lookup$/i,"DNS lookup disabled.",["conf_t"],"config"),
+    s("secmin","security passwords min-length 10",/^security\s+passwords\s+min-length\s+\d+$/i,"Min password length.",["conf_t"],"config"),
+    s("svcenc","service password-encryption",/^service\s+password-encryption$/i,"Passwords encrypted.",["conf_t"],"config"),
+    s("banner","banner motd #Keepout#",/^banner\s+motd\s+.+$/i,"MOTD banner set.",["conf_t"],"config"),
+    s("linecon","line console 0",/^line\s+con(sole)?\s+0$/i,"Console line.",["conf_t"],"config","config-line-con"),
+    s("conpw",`password ${v.consolePw}`,/^password\s+\S+$/i,"Console password set.",["linecon"],"config-line-con"),
+    s("conlogin","login",/^login$/i,"Login on console.",["linecon"],"config-line-con"),
+    s("conexit","exit",/^exit$/i,"Back to global config.",["linecon"],"config-line-con","config"),
+    s("intvlan","interface vlan 1",/^int(erface)?\s+vlan\s*1$/i,"VLAN 1 SVI.",["conf_t"],"config","config-if-vlan"),
+    s("swip",`ip address ${v.swIp} ${v.swMask}`,/^ip\s+address\s+\S+\s+\S+$/i,`SVI address set.`,["intvlan"],"config-if-vlan"),
     s("noshutvlan","no shutdown",/^no\s+shut(down)?$/i,"VLAN 1 SVI up.",["intvlan"],"config-if-vlan"),
     s("exitvlan","exit",/^exit$/i,"Back to global config.",["intvlan"],"config-if-vlan","config"),
-    s("swgw",`ip default-gateway ${v.swGw}`,/^ip\s+default-gateway\s+\S+$/i,`Default gateway: ${v.swGw} (router G0/1). Enables management from other networks.`,["conf_t"],"config"),
-    s("linevty","line vty 0 15",/^line\s+vty\s+0\s+15$/i,"VTY 0-15 (switches have 16 lines).",["conf_t"],"config","config-line-vty"),
+    s("swgw",`ip default-gateway ${v.swGw}`,/^ip\s+default-gateway\s+\S+$/i,`Default gateway set.`,["conf_t"],"config"),
+    s("linevty","line vty 0 15",/^line\s+vty\s+0\s+15$/i,"VTY 0-15.",["conf_t"],"config","config-line-vty"),
     s("vtypw",`password ${v.consolePw}`,/^password\s+\S+$/i,"VTY password set.",["linevty"],"config-line-vty"),
-    s("vtylogin","login",/^login$/i,"Login required on VTY. Uses line password (not local database).",["linevty"],"config-line-vty"),
-    s("vtytrans","transport input telnet",/^transport\s+input\s+telnet$/i,"Telnet enabled on VTY. Switch uses Telnet, router uses SSH.",["linevty"],"config-line-vty"),
+    s("vtylogin","login",/^login$/i,"Login on VTY.",["linevty"],"config-line-vty"),
+    s("vtytrans","transport input telnet",/^transport\s+input\s+telnet$/i,"Telnet enabled.",["linevty"],"config-line-vty"),
     s("vtyexit","exit",/^exit$/i,"Back to global config.",["linevty"],"config-line-vty","config"),
+    s("intrange","interface range fa0/2 - 24",/^int(erface)?\s+range\s+(fa|fastethernet)?\s*0\/2\s*-\s*24$/i,"Range of unused ports.",["conf_t"],"config","config-if-range"),
+    s("rangeshut","shutdown",/^shut(down)?$/i,"Ports shut down.",["intrange"],"config-if-range"),
+    s("rangeexit","exit",/^exit$/i,"Back to global config.",["intrange"],"config-if-range","config"),
     s("end","end",/^end$/i,"Privileged EXEC.",["conf_t"],"config","priv"),
     s("save","copy running-config startup-config",/^copy\s+run(ning-config)?\s+start(up-config)?$/i,"Saved to NVRAM.",["end"],"priv"),
   ];
@@ -2174,44 +2384,43 @@ function examUpdatePhaseBar(){
 function examUpdateInstructions(){
   const v=examVariant;
   const el=document.getElementById('ex-instructions');
-  if(!v){el.innerHTML='<p>Druk op "Nieuwe variant" om te beginnen.</p>';return;}
+  if(!v){el.innerHTML=`<p>${t('initial_prompt')}</p>`;return;}
   const phase=examPhase;
+  const L = I18N[currentLang];
+  const ordinal = L.ordinal, role = L.role_first_last, swRole = L.role_second;
   if(phase===1){
-    const ordinal = n => n===1?'1e':n===2?'2e':n===3?'3e':n===4?'4e':n===5?'5e':`${n}e`;
-    const roleNL  = r => r==='last'?'laatste':'eerste';
-    const swRoleNL = r => r==='second'?'tweede':'tweede laatste';
     el.innerHTML=`
-      <h3>Stap 1 — IP adressering</h3>
-      <div class="req-item"><strong>a.</strong> Subnet <code>${v.base}/24</code> zodat elk subnet minimaal <strong>${v.lan1Hosts} hostadressen</strong> biedt, met zo min mogelijk verspilling.</div>
-      <div class="req-item"><strong>b.</strong> Wijs het <strong>${ordinal(v.lan1Nr)} subnet</strong> toe aan LAN 1.</div>
-      <div class="req-item"><strong>c.</strong> Wijs het <strong>${roleNL(v.rG00Role)} hostadres</strong> van dit subnet toe aan G0/0.</div>
+      <h3>${L.step1_title}</h3>
+      <div class="req-item"><strong>a.</strong> ${L.step1_a.replace('{base}',v.base).replace('{hosts}',v.lan1Hosts)}</div>
+      <div class="req-item"><strong>b.</strong> ${L.step1_b.replace('{nth}',ordinal(v.lan1Nr))}</div>
+      <div class="req-item"><strong>c.</strong> ${L.step1_c.replace('{role}',role(v.rG00Role))}</div>
       <hr style="margin:8px 0;border:none;border-top:1px solid var(--border)">
-      <div class="req-item"><strong>d.</strong> Subnet het netwerk opnieuw zodat elk nieuw subnet minimaal <strong>${v.lan2Hosts} hostadressen</strong> biedt, met zo min mogelijk verspilling.</div>
-      <div class="req-item"><strong>e.</strong> Wijs het <strong>${ordinal(v.lan2Nr)} subnet</strong> van deze nieuwe reeks toe aan LAN 2.</div>
-      <div class="req-item"><strong>f.</strong> Wijs het <strong>${roleNL(v.rG01Role)} hostadres</strong> van LAN 2 toe aan G0/1.</div>
-      <div class="req-item"><strong>g.</strong> Wijs het <strong>${swRoleNL(v.swIpRole)} hostadres</strong> van LAN 2 toe aan VLAN 1 van de switch.</div>
+      <div class="req-item"><strong>d.</strong> ${L.step1_d.replace('{hosts}',v.lan2Hosts)}</div>
+      <div class="req-item"><strong>e.</strong> ${L.step1_e.replace('{nth}',ordinal(v.lan2Nr))}</div>
+      <div class="req-item"><strong>f.</strong> ${L.step1_f.replace('{role}',role(v.rG01Role))}</div>
+      <div class="req-item"><strong>g.</strong> ${L.step1_g.replace('{role}',swRole(v.swIpRole))}</div>
       <hr style="margin:8px 0;border:none;border-top:1px solid var(--border)">
-      <div style="font-size:10px;color:var(--text-muted)">Vul alle velden in → klik <em>Controleer</em>. Bij 100% unlockt de router CLI.</div>`;
+      <div style="font-size:10px;color:var(--text-muted)">${L.step1_hint}</div>`;
   } else if(phase===2){
     el.innerHTML=`
-      <h3>Stap 2 — Router CLI</h3>
-      <div class="req-item">Hostname: <strong>${v.rName}</strong></div>
-      <div class="req-item">Enable secret: <strong>${v.enableSecret}</strong></div>
-      <div class="req-item">Domain: <strong>${v.domain}</strong></div>
-      <div class="req-item">Username: <strong>${v.username}</strong></div>
-      <div class="req-item">Secret: <strong>${v.userSecret}</strong></div>
+      <h3>${L.step2_title}</h3>
+      <div class="req-item">${L.step2_hostname} <strong>${v.rName}</strong></div>
+      <div class="req-item">${L.step2_enable} <strong>${v.enableSecret}</strong></div>
+      <div class="req-item">${L.step2_domain} <strong>${v.domain}</strong></div>
+      <div class="req-item">${L.step2_username} <strong>${v.username}</strong></div>
+      <div class="req-item">${L.step2_secret} <strong>${v.userSecret}</strong></div>
       <hr style="margin:8px 0;border:none;border-top:1px solid var(--border)">
       <div class="req-item">G0/0: <code>${v.rG00}/${v.lan1Prefix}</code></div>
       <div class="req-item">G0/1: <code>${v.rG01}/${v.lan2Prefix}</code></div>
-      <div class="req-item" style="font-size:10px;color:var(--text-muted)">IPv6 en link-local: zie adrestabel</div>`;
+      <div class="req-item" style="font-size:10px;color:var(--text-muted)">${L.step2_ipv6_note}</div>`;
   } else {
     el.innerHTML=`
-      <h3>Stap 3 — Switch CLI</h3>
-      <div class="req-item">Hostname: <strong>${v.sName}</strong></div>
-      <div class="req-item">VLAN 1 IP: <code>${v.swIp}/${v.lan2Prefix}</code></div>
-      <div class="req-item">Default gateway: <code>${v.swGw}</code></div>
-      <div class="req-item">VTY password: <strong>${v.consolePw}</strong></div>
-      <div class="req-item" style="color:#f59e0b;font-weight:500">Switch gebruikt Telnet, niet SSH</div>`;
+      <h3>${L.step3_title}</h3>
+      <div class="req-item">${L.step3_hostname} <strong>${v.sName}</strong></div>
+      <div class="req-item">${L.step3_svi} <code>${v.swIp}/${v.lan2Prefix}</code></div>
+      <div class="req-item">${L.step3_gw} <code>${v.swGw}</code></div>
+      <div class="req-item">${L.step3_vtypw} <strong>${v.consolePw}</strong></div>
+      <div class="req-item" style="color:#f59e0b;font-weight:500">${L.step3_telnet}</div>`;
   }
 }
 
@@ -2308,15 +2517,15 @@ function examRenderPhase1(){
 
   document.getElementById('ex-phase1-area').innerHTML=`
     <div class="ex-addr-wrap">
-      <div class="ex-addr-title">Adresseringstabel — ${v.rName} netwerk</div>
+      <div class="ex-addr-title">${t('phase_addr')} — ${v.rName} ${t('addr_title_suffix')}</div>
       <div class="ex-addr-subtitle">
         Bereken de IPv4 adressen op basis van de opgave. LAN 1 en LAN 2 gebruiken verschillende prefixen.
         IPv6 GUA en link-local zijn al gegeven (italic).
       </div>
       <div class="ex-network-banner">
-        <strong>Basisnetwerk:</strong>&nbsp;<code>${v.base}/24</code>
-        &nbsp;·&nbsp; LAN 1 vereist: <strong>${v.lan1Hosts} hosts</strong>
-        &nbsp;·&nbsp; LAN 2 vereist: <strong>${v.lan2Hosts} hosts</strong>
+        <strong>${t('addr_base')}</strong>&nbsp;<code>${v.base}/24</code>
+        &nbsp;·&nbsp; ${t('addr_lan1')} <strong>${v.lan1Hosts} ${t('addr_hosts')}</strong>
+        &nbsp;·&nbsp; ${t('addr_lan2')} <strong>${v.lan2Hosts} ${t('addr_hosts')}</strong>
       </div>
       <div class="ex-topo-wrap">${topoSvg}</div>
       <table class="ex-addr-table">
@@ -2324,9 +2533,9 @@ function examRenderPhase1(){
         <tbody>${tableRows}</tbody>
       </table>
       <div class="ex-addr-btns">
-        <button class="ex-btn ex-btn-check" onclick="examCheckAddr()">Controleer (${totalInputs} velden)</button>
-        <button class="ex-btn ex-btn-show" onclick="examShowAddr()">Toon antwoorden</button>
-        <button class="ex-btn ex-btn-reset" onclick="examResetAddr()">Reset</button>
+        <button class="ex-btn ex-btn-check" onclick="examCheckAddr()">${t('btn_check')} (${totalInputs} ${t('btn_fields')})</button>
+        <button class="ex-btn ex-btn-show" onclick="examShowAddr()">${t('btn_show')}</button>
+        <button class="ex-btn ex-btn-reset" onclick="examResetAddr()">${t('btn_reset')}</button>
         <span class="ex-addr-score" id="ex-addr-score">0/${totalInputs}</span>
       </div>
     </div>`;
@@ -2353,7 +2562,7 @@ function examCheckAddr(){
     examUpdateInstructions();
     examRenderPhase2();
     const sp=document.getElementById('ex-score-panel');
-    sp.innerHTML=`Adrestabel volledig correct! CLI router unlockt. →`;
+    sp.innerHTML=t('score_addr_done');
     sp.className='exam-score-panel pass';
     sp.style.display='block';
   }
@@ -2393,15 +2602,15 @@ function examRenderCLI(phase){
       <div class="ex-cli-header">
         <div style="display:flex;align-items:flex-start;gap:10px">
           <div>
-            <div class="ex-cli-title">${isRouter?'Router':'Switch'} CLI — ${name}</div>
-            <div class="ex-cli-desc">${isRouter?'Volledige router configuratie incl. SSH en dual-stack interfaces.':'Switch SVI, default gateway en Telnet VTY.'}</div>
+            <div class="ex-cli-title">${isRouter?t('cli_router_title'):t('cli_switch_title')} — ${name}</div>
+            <div class="ex-cli-desc">${isRouter?t('cli_router_desc'):t('cli_switch_desc')}</div>
           </div>
           <div style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
             <span class="ex-cli-progress"><span id="ex-cli-done-${phase}">${doneN}</span> / ${total}</span>
             <div style="display:flex;gap:5px">
-              <button class="tbtn tbtn-check" onclick="examCLICheck(${phase})">check</button>
-              <button class="tbtn tbtn-hint" onclick="examCLIHint(${phase})">hint</button>
-              <button class="tbtn tbtn-reset" onclick="examCLIReset(${phase})">reset</button>
+              <button class="tbtn tbtn-check" onclick="examCLICheck(${phase})">${t('cli_check')}</button>
+              <button class="tbtn tbtn-hint" onclick="examCLIHint(${phase})">${t('cli_hint')}</button>
+              <button class="tbtn tbtn-reset" onclick="examCLIReset(${phase})">${t('cli_reset')}</button>
             </div>
           </div>
         </div>
@@ -2438,6 +2647,7 @@ function examCLIPrompt(mode, steps, done, name, phase){
     'config-if-g000': '(config-if)#',
     'config-if-g001': '(config-if)#',
     'config-if-vlan': '(config-if)#',
+    'config-if-range': '(config-if-range)#',
     'rsa-prompt': '(config)#',
   };
   return hostname + (modeMap[mode] || '#') + ' ';
@@ -2473,7 +2683,8 @@ function examCLIProcess(val, phase){
 
   // Append prompt + command
   const pl=document.createElement('div');
-  pl.innerHTML=`<span class="line-prompt">${promptStr}</span><span class="line-cmd">${val}</span>`;
+  // Safe DOM construction — prevent XSS in user commands
+  pl.innerHTML=`<span class="line-prompt">${escapeHTML(promptStr)}</span><span class="line-cmd">${escapeHTML(val)}</span>`;
   term.appendChild(pl);
 
   // Special: exit moves up one mode level
@@ -2593,10 +2804,10 @@ function examCLICheck(phase){
   const fb=document.getElementById(`ex-cli-feedback-${phase}`);
   if(missing.length===0){
     fb.style.display='block'; fb.style.background='var(--green-bg)'; fb.style.color='var(--green)'; fb.style.borderLeft='3px solid var(--green)';
-    fb.textContent='All steps complete! ✓';
+    fb.textContent=t('cli_all_complete');
   } else {
     fb.style.display='block'; fb.style.background='#fffbeb'; fb.style.color='#92400e'; fb.style.borderLeft='3px solid #f59e0b';
-    fb.textContent=`Missing ${missing.length} step(s): ${missing.slice(0,3).map(s=>s.cmd).join(' · ')}${missing.length>3?' …':''}`;
+    fb.textContent=`${t('cli_missing')} ${missing.length} ${t('cli_steps_lc')} ${missing.slice(0,3).map(s=>s.cmd).join(' · ')}${missing.length>3?' …':''}`;
   }
 }
 
@@ -2606,7 +2817,7 @@ function examCLIHint(phase){
   const fb=document.getElementById(`ex-cli-feedback-${phase}`);
   if(next){
     fb.style.display='block'; fb.style.background='#eff6ff'; fb.style.color='#1d4ed8'; fb.style.borderLeft='3px solid #3b82f6';
-    fb.textContent=`Next: ${next.cmd}  (mode: ${next.mode})`;
+    fb.textContent=`${t('cli_next')} ${next.cmd}  (${t('cli_mode')}: ${next.mode})`;
   }
 }
 
@@ -2631,17 +2842,17 @@ function examCLIComplete(phase){
   const fb=document.getElementById(`ex-cli-feedback-${phase}`);
   fb.style.display='block'; fb.style.background='var(--green-bg)'; fb.style.color='var(--green)'; fb.style.borderLeft='3px solid var(--green)';
   if(phase===2){
-    fb.textContent='Router configuratie voltooid! Switch CLI unlockt nu →';
+    fb.textContent=t('score_router_done');
     examPhase=3;
     examUpdatePhaseBar();
     examUpdateInstructions();
     setTimeout(()=>examRenderPhase3(),600);
   } else {
-    fb.textContent='Examen voltooid! Router + Switch geconfigureerd ✓';
+    fb.textContent=t('score_exam_done');
     examPhase=3;
     examUpdatePhaseBar();
     const sp=document.getElementById('ex-score-panel');
-    sp.innerHTML='Beide apparaten geconfigureerd. Druk ↻ voor een nieuwe variant.';
+    sp.innerHTML=t('score_reset_prompt');
     sp.className='exam-score-panel pass'; sp.style.display='block';
   }
 }
@@ -2659,6 +2870,12 @@ function examInit(){
 // ── INIT ──
 cliBuildSidebar(); cliLoad(0);
 addrBuildSidebar(); addrLoad(0);
+// Restore saved language
+try {
+  const savedLang = localStorage.getItem('ccna1_lang');
+  if(savedLang === 'en' || savedLang === 'nl') setLang(savedLang);
+  else applyLangToTabs();
+} catch(e){ applyLangToTabs(); }
 
 </script>
 
@@ -2683,7 +2900,7 @@ addrBuildSidebar(); addrLoad(0);
           </div>
         </div>
         <div id="ex-instructions" class="exam-instructions"></div>
-        <div id="ex-score-panel" class="exam-score-panel" style="display:none"></div>
+        <div id="ex-score-panel" class="exam-score-panel" style="display:none" aria-live="polite" role="status"></div>
         <button class="exam-new-btn" onclick="examNew()">↻ Nieuwe variant</button>
       </div>
       <!-- Right: active work area -->
